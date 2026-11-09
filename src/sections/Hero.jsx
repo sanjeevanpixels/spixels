@@ -180,7 +180,7 @@ export default function Hero() {
             👋
           </span>
           <span className="font-bricolage text-[17px] text-[#666] transition-colors group-hover:text-black dark:text-[#A3A3A3] dark:group-hover:text-white">
-            Greetings, everyone
+            Greetings, Everyone
           </span>
         </Rise>
 
