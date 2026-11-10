@@ -53,13 +53,13 @@ export const PROJECTS = [
     alt: 'TIC teacher performance management app interface showcasing attendance and teaching activity tracking',
   },
   {
-    name: 'TIC',
-    slug: 'tic',
+    name: 'Medora',
+    slug: 'medora',
     status: 'Case Study',
     year: '2021',
     description: 'A teacher performance management mobile application that streamlines attendance tracking, lesson delivery, and teaching activities to improve accountability and consistency in education.',
     tags: ['Figma', 'Mobile App', 'Education'],
-    image: '/images/projects/tic.png',
+    image: '/images/projects/medora.png',
     alt: 'TIC teacher performance management app interface showcasing attendance and teaching activity tracking',
     behanceUrl: 'https://www.behance.net/gallery/251760215/TIC-Teaching-Tracker',
   },
@@ -227,22 +227,13 @@ export const TESTIMONIALS = [
   },
 
   {
-    id: 'sample-abinaya',
-    name: 'S. Abinaya',
-    role: 'UI/UX Designer',
-    company: 'Pineapple AI',
+    id: 'sample-logikaa',
+    name: 'K. Logika',
+    role: 'Founder',
+    company: 'Logi Luxe',
     quote: 'He brought thoughtful questions to every review and turned feedback into a stronger design.',
     portrait: '/images/Veggies.png'
   },
-
-  {
-    id: 'sample-daniel',
-    name: 'Daniel Silva', role: 'Engineering Lead',
-    company: 'Mosaic Works',
-    quote: 'The handoff was detailed and practical, which helped our team move from design to build smoothly.',
-    portrait: '/images/Orderista.png'
-  },
-
   {
     id: 'sample-vaishnavi',
     name: 'Vaishnavi', role: 'Creative Director',
