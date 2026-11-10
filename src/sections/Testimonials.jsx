@@ -1,46 +1,41 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Icon from '../components/ui/Icon';
+import MeshGradient from '../components/ui/MeshGradient';
 import { TESTIMONIALS } from '../data/content';
 
 const EASE = [0.22, 1, 0.36, 1];
 const SWIPE_THRESHOLD = 44;
-const AUTOPLAY_MS = 7000;
 
-/* Validate and remove duplicate testimonials */
-const PEOPLE = (() => {
-  const seen = new Set();
+// Keep only valid, unique testimonials.
+const seenIds = new Set();
 
-  return TESTIMONIALS.filter((entry) => {
-    const valid =
-      entry &&
-      typeof entry.id === 'string' &&
-      entry.id.trim() &&
-      typeof entry.name === 'string' &&
-      entry.name.trim() &&
-      typeof entry.quote === 'string' &&
-      entry.quote.trim();
+const PEOPLE = (Array.isArray(TESTIMONIALS) ? TESTIMONIALS : []).filter((entry) => {
+  const valid =
+    entry &&
+    typeof entry.id === 'string' &&
+    entry.id.trim() &&
+    typeof entry.name === 'string' &&
+    entry.name.trim() &&
+    typeof entry.quote === 'string' &&
+    entry.quote.trim();
 
-    if (!valid || seen.has(entry.id)) return false;
+  if (!valid || seenIds.has(entry.id)) return false;
 
-    seen.add(entry.id);
-    return true;
-  });
-})();
+  seenIds.add(entry.id);
+  return true;
+});
 
-/* Generate initials */
 const initialsOf = (name) =>
   name
-    .trim()
     .split(/\s+/)
-    .filter(Boolean)
     .map((part) => part[0])
     .join('')
     .slice(0, 2)
     .toUpperCase();
 
-/* Profile image with fallback */
-function Portrait({ person }) {
+/* Portrait with initials fallback. */
+function Portrait({ person, initialsClass = 'text-sm' }) {
   const [failed, setFailed] = useState(false);
 
   return person.portrait && !failed ? (
@@ -49,140 +44,94 @@ function Portrait({ person }) {
       alt=""
       draggable="false"
       loading="lazy"
-      decoding="async"
       onError={() => setFailed(true)}
-      className="h-full w-full select-none object-cover object-[50%_25%]"
+      className="object-cover w-full h-full"
     />
   ) : (
-    <span className="grid w-full h-full text-sm font-semibold text-white place-items-center bg-gradient-to-br from-gray-500 to-fuchsia-500">
+    <span
+      aria-hidden="true"
+      className={`grid h-full w-full place-items-center bg-gradient-to-br from-violet-500 to-fuchsia-500 font-semibold text-white ${initialsClass}`}
+    >
       {initialsOf(person.name)}
     </span>
   );
 }
 
-/* Testimonial quote and author */
-function QuoteContent({ person, sizer = false }) {
+/* Quote and author content. */
+function QuoteContent({ person }) {
   const meta = [person.role, person.company].filter(Boolean).join(', ');
 
   return (
     <>
-      <blockquote className="m-0 max-w-[700px] font-bricolage text-[length:clamp(23px,2.8vw,38px)] font-medium leading-[1.25] tracking-[-0.035em] text-slate-900 [text-wrap:pretty] dark:text-white">
+      <span
+        aria-hidden="true"
+        className="mb-2 block h-9 select-none font-bricolage text-7xl leading-[0.9] text-violet-500 dark:text-violet-300"
+      >
+        &ldquo;
+      </span>
+
+      <blockquote className="m-0 font-bricolage text-[length:clamp(21px,2.5vw,34px)] font-medium leading-[1.3] tracking-[-0.02em] text-slate-900 [text-wrap:pretty] dark:text-white">
         {person.quote.trim()}
       </blockquote>
 
-      <figcaption className="flex items-center gap-4 mt-9 min-h-12">
-        <span
-          className={`h-12 w-12 shrink-0 overflow-hidden rounded-full bg-slate-200 ${
-            sizer
-              ? 'invisible'
-              : 'ring-2 ring-gray-500/80 ring-offset-2 ring-offset-white dark:ring-gray-300/80 dark:ring-offset-[#12152A]'
-          }`}
-        >
-          <Portrait person={person} />
+      <figcaption className="mt-6 text-base">
+        <span className="block font-semibold text-slate-900 dark:text-white">
+          {person.name}
         </span>
 
-        <span className="min-w-0">
-          <span className="block text-base font-semibold leading-6 truncate text-slate-900 dark:text-white">
-            {person.name}
+        {meta && (
+          <span className="block mt-1 text-sm text-slate-500 dark:text-white/55">
+            {meta}
           </span>
-
-          {meta && (
-            <span className="mt-0.5 block truncate text-sm leading-5 text-slate-500 dark:text-white/60">
-              {meta}
-            </span>
-          )}
-        </span>
+        )}
       </figcaption>
     </>
   );
 }
 
-/* Navigation button styles */
 const arrowClass =
-  'grid h-11 w-11 shrink-0 place-items-center rounded-full border border-slate-900/10 bg-white text-slate-900 transition duration-200 active:scale-95 [@media(hover:hover)]:hover:bg-slate-900 [@media(hover:hover)]:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-reduce:transition-none dark:border-white/15 dark:bg-white/5 dark:text-white dark:[@media(hover:hover)]:hover:bg-white dark:[@media(hover:hover)]:hover:text-slate-900 dark:focus-visible:ring-pink-300 dark:focus-visible:ring-offset-[#12152A]';
+  'grid h-11 w-11 shrink-0 place-items-center rounded-full border border-slate-900/10 bg-white text-slate-900 transition duration-200 hover:bg-slate-900 hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:bg-white dark:hover:text-slate-900 dark:focus-visible:ring-violet-300';
 
 export default function Testimonials() {
   const count = PEOPLE.length;
 
-  const [{ index, dir }, setView] = useState({
-    index: 0,
+  const [{ index, dir }, setView] = useState(() => ({
+    index: Math.floor(count / 2),
     dir: 1,
-  });
-
-  const [paused, setPaused] = useState(false);
+  }));
 
   const reduceMotion = useReducedMotion();
-
   const touch = useRef(null);
-  const itemRefs = useRef([]);
-  const firstRender = useRef(true);
 
   const active = PEOPLE[index] ?? null;
 
-  const autoplay = count > 1 && !reduceMotion;
-
-  /* Navigate between testimonials */
-  const go = useCallback(
-    (delta) => {
-      if (count > 1) {
-        setView((v) => ({
-          index: (v.index + delta + count) % count,
-          dir: delta > 0 ? 1 : -1,
-        }));
-      }
-    },
-    [count],
-  );
+  const go = (delta) => {
+    if (count > 1) {
+      setView((current) => ({
+        index: (current.index + delta + count) % count,
+        dir: delta > 0 ? 1 : -1,
+      }));
+    }
+  };
 
   const pick = (i) => {
-    setView((v) =>
-      i === v.index
-        ? v
+    setView((current) =>
+      i === current.index
+        ? current
         : {
             index: i,
-            dir: i > v.index ? 1 : -1,
-          },
+            dir: i > current.index ? 1 : -1,
+          }
     );
   };
 
-  /* Keep selected profile visible */
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-
-    itemRefs.current[index]?.scrollIntoView({
-      behavior: reduceMotion ? 'auto' : 'smooth',
-      block: 'nearest',
-      inline: 'center',
-    });
-  }, [index, reduceMotion]);
-
-  /* Keyboard navigation */
   const onKeyDown = (event) => {
-    if (
-      event.altKey ||
-      event.ctrlKey ||
-      event.metaKey ||
-      event.shiftKey
-    ) {
-      return;
-    }
-
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
       event.preventDefault();
       go(event.key === 'ArrowRight' ? 1 : -1);
-    } else if (event.key === 'Home') {
-      event.preventDefault();
-      pick(0);
-    } else if (event.key === 'End') {
-      event.preventDefault();
-      pick(count - 1);
     }
   };
 
-  /* Touch navigation */
   const onTouchStart = (event) => {
     const t = event.touches[0];
 
@@ -205,6 +154,7 @@ export default function Testimonials() {
     const dx = t.clientX - start.x;
     const dy = t.clientY - start.y;
 
+    // Only horizontal swipes navigate.
     if (
       Math.abs(dx) > SWIPE_THRESHOLD &&
       Math.abs(dx) > Math.abs(dy)
@@ -213,7 +163,6 @@ export default function Testimonials() {
     }
   };
 
-  /* Quote animation */
   const quoteVariants = useMemo(
     () => ({
       enter: (d) =>
@@ -221,8 +170,8 @@ export default function Testimonials() {
           ? { opacity: 0 }
           : {
               opacity: 0,
-              x: d * 32,
-              filter: 'blur(8px)',
+              x: d * 28,
+              filter: 'blur(6px)',
             },
 
       center: reduceMotion
@@ -235,7 +184,7 @@ export default function Testimonials() {
             x: 0,
             filter: 'blur(0px)',
             transition: {
-              duration: 0.55,
+              duration: 0.5,
               ease: EASE,
             },
           },
@@ -248,48 +197,23 @@ export default function Testimonials() {
             }
           : {
               opacity: 0,
-              x: d * -32,
-              filter: 'blur(8px)',
+              x: d * -28,
+              filter: 'blur(6px)',
               transition: {
                 duration: 0.25,
                 ease: EASE,
               },
             },
     }),
-    [reduceMotion],
+    [reduceMotion]
   );
-
-  /* Autoplay progress */
-  const progressStyle = {
-    animation: `tst-progress-x ${AUTOPLAY_MS}ms linear forwards`,
-    animationPlayState: paused ? 'paused' : 'running',
-  };
-
-  const progressStyleY = {
-    ...progressStyle,
-    animationName: 'tst-progress-y',
-  };
 
   return (
     <section
       id="testimonials"
       aria-labelledby="testimonials-title"
-      className="relative flex items-center px-6 py-20 overflow-hidden isolate text-slate-900 dark:text-white sm:px-10 sm:py-24 lg:px-12 lg:py-28"
+      className="bg-white px-3 py-4 dark:bg-[#0D0F17] sm:px-6 sm:py-6"
     >
-      {/* Progress animations */}
-      <style>{`
-        @keyframes tst-progress-x {
-          from { transform: scaleX(0); }
-          to { transform: scaleX(1); }
-        }
-
-        @keyframes tst-progress-y {
-          from { transform: scaleY(0); }
-          to { transform: scaleY(1); }
-        }
-      `}</style>
-
-      {/* Main container */}
       <div
         role="group"
         aria-roledescription="carousel"
@@ -298,27 +222,24 @@ export default function Testimonials() {
         onKeyDown={onKeyDown}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        onTouchCancel={() => (touch.current = null)}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-        className="mx-auto w-full max-w-[1160px] min-w-0 outline-none focus-visible:ring-2 focus-visible:ring-pink-500/70"
+        className="mx-auto flex w-full max-w-[1680px] flex-col gap-8 rounded-[28px] bg-white p-4 text-slate-900 outline-none ring-1 ring-black/5 [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-violet-500/70 dark:bg-[#12141F] dark:text-white dark:shadow-none dark:ring-white/10 dark:focus-visible:ring-violet-300/70 sm:gap-10 sm:rounded-[40px] sm:p-8 lg:p-10"
       >
         {/* Header */}
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-end justify-between gap-4 sm:gap-6">
           <h2
             id="testimonials-title"
-            className="max-w-[580px] font-bricolage text-[length:clamp(30px,3.2vw,44px)] font-bold leading-[1.08] tracking-[-0.04em] [text-wrap:balance]"
+            className="max-w-xl font-bricolage text-[length:clamp(28px,3.6vw,46px)] font-bold leading-[1.05] tracking-[-0.04em] [text-wrap:balance]"
           >
             Words from the people I work with.
           </h2>
 
-          {/* Navigation controls */}
           {count > 1 && (
-            <div className="flex items-center gap-3 shrink-0">
-              <span className="hidden mr-1 text-sm tabular-nums text-slate-500 dark:text-white/60 sm:block">
-                {index + 1} / {count}
+            <div className="flex items-center gap-2 shrink-0 sm:gap-3">
+              <span
+                aria-hidden="true"
+                className="hidden text-sm tabular-nums text-slate-500 dark:text-white/55 sm:block"
+              >
+                {index + 1} of {count}
               </span>
 
               <button
@@ -344,43 +265,72 @@ export default function Testimonials() {
           )}
         </div>
 
-        {/* Main testimonial content */}
         {active ? (
-          <div className="mt-14 grid w-full min-w-0 grid-cols-1 items-center gap-12 sm:mt-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-20">
-            {/* Left: Testimonial quote */}
-            <div className="relative min-w-0">
-              {/* Decorative quotation mark */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -top-10 left-0 select-none bg-gradient-to-br from-gray-500 to-fuchsia-500 bg-clip-text font-bricolage text-[8rem] font-bold leading-none text-transparent opacity-30 sm:-top-12 sm:text-[10rem]"
-              >
-                &ldquo;
-              </span>
+          <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
 
+            {/* Portrait Stage */}
+            <div
+              aria-hidden="true"
+              className="relative isolate aspect-[4/3] overflow-hidden rounded-[22px] bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-400 sm:aspect-[16/10] sm:rounded-[28px] lg:aspect-auto lg:min-h-[30rem]"
+            >
+              <div className="absolute inset-0 overflow-hidden">
+                <MeshGradient />
+              </div>
+
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={active.id}
+                  initial={{
+                    opacity: 0,
+                    scale: reduceMotion ? 1 : 1.05,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    transition: {
+                      duration: reduceMotion ? 0.2 : 0.6,
+                      ease: EASE,
+                    },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.3 },
+                  }}
+                  className="absolute inset-[3px] overflow-hidden rounded-[18px] shadow-[0_20px_60px_rgba(10,11,20,0.35)] sm:inset-4 sm:rounded-[20px]"
+                >
+                  <Portrait
+                    key={`${active.id}-${active.portrait}`}
+                    person={active}
+                    initialsClass="text-5xl"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Quote and Roster */}
+            <div className="flex flex-col justify-between min-w-0 gap-10">
+
+              {/* Quote */}
               <div className="relative">
-                {/* Invisible height reservation */}
+                {/* Invisible quotes reserve the height of the tallest testimonial. */}
                 <div
                   aria-hidden="true"
-                  className="grid invisible pointer-events-none select-none"
+                  className="grid invisible select-none"
                 >
                   {PEOPLE.map((person) => (
                     <figure
                       key={person.id}
                       className="col-start-1 row-start-1 m-0"
                     >
-                      <QuoteContent person={person} sizer />
+                      <QuoteContent person={person} />
                     </figure>
                   ))}
                 </div>
 
-                {/* Active quote */}
                 <div
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${index + 1} of ${count}`}
-                  aria-live={paused || !autoplay ? 'polite' : 'off'}
-                  aria-atomic="true"
                   className="absolute inset-0"
+                  aria-live="polite"
+                  aria-atomic="true"
                 >
                   <AnimatePresence initial={false} custom={dir}>
                     <motion.figure
@@ -397,134 +347,61 @@ export default function Testimonials() {
                   </AnimatePresence>
                 </div>
               </div>
-            </div>
 
-            {/* Right: Profile navigation */}
-            {count > 1 && (
-              <div
-                role="group"
-                aria-label="Choose a testimonial"
-                className="flex w-full min-w-0 snap-x gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0"
-              >
-                {PEOPLE.map((person, i) => {
-                  const isActive = i === index;
+              {/* Testimonial Navigation */}
+              {count > 1 && (
+                <div
+                  role="group"
+                  aria-label="Choose a testimonial"
+                  className="flex flex-wrap items-center gap-3 p-1"
+                >
+                  {PEOPLE.map((person, i) => {
+                    const isActive = i === index;
 
-                  const meta = [
-                    person.role,
-                    person.company,
-                  ]
-                    .filter(Boolean)
-                    .join(', ');
-
-                  return (
-                    <button
-                      key={person.id}
-                      ref={(el) => (itemRefs.current[i] = el)}
-                      type="button"
-                      onClick={() => pick(i)}
-                      aria-label={`Show testimonial from ${person.name}`}
-                      aria-current={isActive ? 'true' : undefined}
-                      className={`group relative flex w-[230px] shrink-0 snap-center items-center gap-4 rounded-xl px-3 py-3.5 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 dark:focus-visible:ring-pink-300 lg:w-full lg:px-4 lg:py-4 ${
-                        isActive
-                          ? 'bg-pink-500/[0.07] dark:bg-white/[0.06]'
-                          : '[@media(hover:hover)]:hover:bg-slate-900/[0.03] dark:[@media(hover:hover)]:hover:bg-white/[0.04]'
-                      }`}
-                    >
-                      {/* Progress track */}
-                      <span
-                        aria-hidden="true"
-                        className="absolute bottom-0 h-px inset-x-3 bg-slate-900/10 dark:bg-white/15 lg:inset-y-3 lg:left-0 lg:right-auto lg:h-auto lg:w-px"
-                      />
-
-                      {/* Active progress indicator */}
-                      {isActive && (
-                        <>
-                          <span
-                            aria-hidden="true"
-                            key={`x-${index}`}
-                            onAnimationEnd={
-                              autoplay ? () => go(1) : undefined
-                            }
-                            style={
-                              autoplay
-                                ? progressStyle
-                                : { transform: 'scaleX(1)' }
-                            }
-                            className="absolute inset-x-3 bottom-0 h-0.5 origin-left rounded-full bg-pink-500 dark:bg-pink-300 lg:hidden"
-                          />
-
-                          <span
-                            aria-hidden="true"
-                            key={`y-${index}`}
-                            onAnimationEnd={
-                              autoplay ? () => go(1) : undefined
-                            }
-                            style={
-                              autoplay
-                                ? progressStyleY
-                                : { transform: 'scaleY(1)' }
-                            }
-                            className="absolute inset-y-3 left-0 hidden w-0.5 origin-top rounded-full bg-pink-500 dark:bg-pink-300 lg:block"
-                          />
-                        </>
-                      )}
-
-                      {/* Profile image */}
-                      <span
-                        className={`h-11 w-11 shrink-0 overflow-hidden rounded-full bg-slate-200 transition duration-300 dark:bg-white/10 ${
+                    return (
+                      <button
+                        key={person.id}
+                        type="button"
+                        onClick={() => pick(i)}
+                        aria-label={`Show testimonial from ${person.name}`}
+                        aria-pressed={isActive}
+                        data-tooltip={person.name}
+                        className={`h-12 w-12 shrink-0 overflow-hidden rounded-full transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 motion-reduce:transition-none dark:focus-visible:ring-violet-300 ${
                           isActive
-                            ? ''
-                            : 'opacity-60 grayscale [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:grayscale-0'
+                            ? 'ring-2 ring-violet-500 ring-offset-2 ring-offset-white dark:ring-violet-300 dark:ring-offset-[#12141F]'
+                            : 'opacity-60 grayscale hover:opacity-100 hover:grayscale-0'
                         }`}
                       >
-                        <Portrait person={person} />
-                      </span>
-
-                      {/* Profile information */}
-                      <span className="flex-1 min-w-0">
-                        <span
-                          className={`block truncate text-sm font-semibold leading-5 ${
-                            isActive
-                              ? 'text-slate-900 dark:text-white'
-                              : 'text-slate-600 dark:text-white/70'
-                          }`}
-                        >
-                          {person.name}
-                        </span>
-
-                        {meta && (
-                          <span className="block mt-1 text-xs leading-5 truncate text-slate-500 dark:text-white/50">
-                            {meta}
-                          </span>
-                        )}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+                        <Portrait
+                          key={`${person.id}-${person.portrait}`}
+                          person={person}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         ) : (
-          /* Empty state */
-          <div className="max-w-xl mt-14">
+          /* Empty State */
+          <div className="max-w-xl rounded-3xl border border-slate-900/10 bg-slate-50 px-6 py-8 dark:border-white/10 dark:bg-white/[0.04] sm:px-10">
             <p className="text-base text-slate-800 dark:text-white/80 sm:text-lg">
-              Client testimonials are coming soon.
+              Client testimonials will appear here.
             </p>
 
-            {import.meta.env?.DEV && (
-              <p className="mt-2 text-sm text-slate-500 dark:text-white/50">
-                Add quotes and portraits in{' '}
-                <code className="text-slate-700 dark:text-white/70">
-                  src/data/content.js
-                </code>{' '}
-                to enable the slider.
-              </p>
-            )}
+            <p className="mt-2 text-sm text-slate-500 dark:text-white/50">
+              Add quotes and portraits in{' '}
+              <code className="text-slate-700 dark:text-white/70">
+                src/data/content.js
+              </code>{' '}
+              to enable the slider.
+            </p>
 
             <a
               href="/contact"
               data-app-route=""
-              className="mt-5 inline-flex h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-white dark:text-[#12152A] dark:focus-visible:ring-pink-300 dark:focus-visible:ring-offset-[#12152A]"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-violet-600 dark:bg-white dark:text-[#0D0F17] dark:hover:bg-violet-200"
             >
               Start a conversation
               <Icon name="arrow-right" />
