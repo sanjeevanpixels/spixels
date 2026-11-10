@@ -9,11 +9,8 @@ export const CFG = {
   allPosts: '#',
   social: [
     ['linkedin', 'LinkedIn', 'https://www.linkedin.com/in/ssanjeevan201'],
-    ['behance', 'Behance', 'https://www.behance.net/ssjeevan201'],
-    ['instagram', 'Instagram', '#'],
     ['whatsapp', 'WhatsApp', 'https://wa.me/94757448876'],
-    ['threads', 'Threads', '#'],
-    ['facebook', 'Facebook', '#'],
+    ['behance', 'Behance', 'https://www.behance.net/ssjeevan201'],
   ],
 };
 
