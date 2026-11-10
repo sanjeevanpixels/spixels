@@ -385,24 +385,68 @@ function PosterWall() {
 const logos = EXP.filter(({ logo }) => logo).map(({ co, logo, role }) => ({ src: logo, title: co, caption: role }));
 
 function ProjectCards() {
+  const projects = EXP.filter(({ logo }) => logo).map(({ co, logo, role }) => ({
+    src: logo,
+    alt: `${co} project`,
+    label: co,
+    description: role,
+    fit: "contain",
+  }));
+
   return (
-    <section id="project-work" className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24">
+    <section
+      id="project-work"
+      className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24"
+    >
       <div className="max-w-6xl mx-auto">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-violet-700">Selected work</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-violet-700">
+          Selected work
+        </p>
+
         <div className="flex flex-col gap-4 mt-3 sm:flex-row sm:items-end sm:justify-between">
-          <h2 style={display} className="max-w-2xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl">Projects shaped around people.</h2>
-          <p className="max-w-md text-base leading-relaxed text-[#0D0F17]/65 sm:text-lg">A selection of product interfaces and visual work from my portfolio.</p>
+          <h2
+            style={display}
+            className="max-w-2xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl"
+          >
+            Projects shaped around people.
+          </h2>
+
+          <p className="max-w-md text-base leading-relaxed text-[#0D0F17]/65 sm:text-lg">
+            A selection of product interfaces and visual work from my portfolio.
+          </p>
         </div>
+
         <div className="grid grid-cols-1 gap-4 mt-8 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-          {PHOTOS.map((project, index) => (
-            <figure key={project.src} className="group overflow-hidden rounded-[24px] border border-black/[0.06] bg-white p-2 shadow-[0_12px_36px_rgba(13,15,23,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_48px_rgba(13,15,23,0.12)] sm:rounded-[28px] sm:p-3">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] bg-[#F1F1F3] sm:rounded-[20px]">
-                <img src={project.src} alt={project.alt} loading="lazy" decoding="async" className={`h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.025] ${project.fit === 'contain' ? 'object-contain p-4' : 'object-cover'}`} />
-                <span aria-hidden="true" className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#0D0F17] shadow-sm backdrop-blur">{String(index + 1).padStart(2, '0')}</span>
+          {projects.map((project, index) => (
+            <figure
+              key={`${project.label}-${index}`}
+              className="group overflow-hidden rounded-[24px] border border-black/[0.06] bg-white p-2 shadow-[0_12px_36px_rgba(13,15,23,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_48px_rgba(13,15,23,0.12)] sm:rounded-[28px] sm:p-3"
+            >
+              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[18px] bg-[#F1F1F3] sm:rounded-[20px]">
+                <img
+                  src={project.src}
+                  alt={project.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-contain p-6 transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+                />
+
+                <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#0D0F17] shadow-sm backdrop-blur">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
               </div>
+
               <figcaption className="px-2 pt-4 pb-2 sm:px-3 sm:pb-3">
-                <h3 style={display} className="text-lg font-bold tracking-tight sm:text-xl">{project.label}</h3>
-                <p className="mt-1 text-sm text-[#0D0F17]/55">Portfolio project</p>
+                <h3
+                  style={display}
+                  className="text-lg font-bold tracking-tight sm:text-xl"
+                >
+                  {project.label}
+                </h3>
+
+                <p className="mt-1 text-sm text-[#0D0F17]/55">
+                  {project.description || "Portfolio project"}
+                </p>
               </figcaption>
             </figure>
           ))}
@@ -411,7 +455,6 @@ function ProjectCards() {
     </section>
   );
 }
-
 function LogoSection() {
   return (
     <section id="logos" className="bg-[#0D0F17] px-6 py-20 text-white sm:py-24 md:px-12">

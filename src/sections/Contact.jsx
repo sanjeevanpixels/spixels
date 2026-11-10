@@ -6,6 +6,7 @@ import Lift from '../components/ui/Lift';
 import IronFilingsBackground from '../components/ui/IronFilingsBackground';
 import { CFG } from '../data/config';
 import useCopyEmail from '../hooks/useCopyEmail';
+import { externalProps } from '../lib/utils';
 
 export default function Contact() {
   const copyEmail = useCopyEmail();
@@ -19,11 +20,13 @@ export default function Contact() {
             <h2 className="font-bricolage text-[length:clamp(30px,5vw,58px)] font-bold leading-[1.08] tracking-[-0.04em]">Have a project in mind?</h2>
             <p className="max-w-xl mx-auto mt-4 text-base text-slate-200 sm:text-xl">Let's create something people love to use.</p>
             <div className="flex flex-wrap items-center justify-center gap-3 mt-9 sm:mt-14 sm:gap-5">
+              
               <RippleButton asChild hoverScale={1.025} className="btn h-14 min-w-48 bg-white px-8 text-[#0D0F17] hover:bg-neutral-100">
-                <a href="/contact" data-app-route=""> Start a project <Icon name="arrow-up-right" />
+                <a href={CFG.booking} {...externalProps(CFG.booking)}>Scdule a Call <Icon name="arrow-up-right" />
                   <RippleButtonRipples color="rgba(124,58,237,0.22)" />
                 </a> 
               </RippleButton>
+              
               <Button onClick={copyEmail} className="border on-dark h-14 min-w-48 border-white/25 hover:border-white hover:bg-white/5">
                 Copy Email
               </Button>

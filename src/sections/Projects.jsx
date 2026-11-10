@@ -138,10 +138,15 @@ export default function Projects() {
         {PROJECTS.length > 4 && (
           <div className="flex justify-center mt-7 sm:mt-8">
 
-            <Button as="a" variant="soft" href="#" data-app-route="" className="border border-[#E6E6E6] dark:border-neutral-800">
+            <Button
+              as="a"
+              variant="soft"
+              href="/projectsdetails"
+              data-app-route=""
+              className="border border-[#E6E6E6] dark:border-neutral-800"
+            >
               View More Projects
             </Button>
-
           </div>
         )}
 

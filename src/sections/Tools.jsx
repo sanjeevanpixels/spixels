@@ -148,7 +148,7 @@ export default function Tools() {
           className="mx-auto mt-6 w-full max-w-[1600px] rounded-2xl border border-violet-100/80 bg-white p-4 dark:border-white/10 dark:bg-[#151826] dark:shadow-none sm:mt-8 sm:rounded-[28px] sm:p-6 lg:p-8"
         >
           <div className="mb-5 sm:mb-6">
-            <p className="mb-1 text-sm font-semibold text-pink-600 dark:text-pink-400">
+            <p className="mb-1 text-sm font-semibold text-[#FF2056] dark:text-pink-400">
               Skills &amp; Approach
             </p>
 
