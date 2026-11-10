@@ -29,6 +29,7 @@ export const PROJECTS = [
     tags: ['Figma', 'Mobile App', 'Travel & Exploration'],
     image: '/images/projects/flyra.png',
     alt: 'Flyra country explorer app interface showcasing country details',
+    behanceUrl: 'https://www.behance.net/gallery/257581893/Flyra',
   },
   {
     name: 'Guardian',
@@ -39,6 +40,7 @@ export const PROJECTS = [
     tags: ['Figma', 'Mobile App', 'Safety Tech'],
     image: '/images/projects/guardian.png',
     alt: 'Guardian women’s safety app interface showcasing emergency assistance and safety features',
+    behanceUrl: 'https://www.behance.net/gallery/184801135/Guardian-Women-Safety-App',
     },
   {
     name: 'TIC',
@@ -59,6 +61,7 @@ export const PROJECTS = [
     tags: ['Figma', 'Mobile App', 'Education'],
     image: '/images/projects/tic.png',
     alt: 'TIC teacher performance management app interface showcasing attendance and teaching activity tracking',
+    behanceUrl: 'https://www.behance.net/gallery/251760215/TIC-Teaching-Tracker',
   },
   {
     name: 'TIC',
@@ -69,6 +72,7 @@ export const PROJECTS = [
     tags: ['Figma', 'Mobile App', 'Education'],
     image: '/images/projects/tic.png',
     alt: 'TIC teacher performance management app interface showcasing attendance and teaching activity tracking',
+    behanceUrl: 'https://www.behance.net/gallery/251760215/TIC-Teaching-Tracker',
   },
 ];
 

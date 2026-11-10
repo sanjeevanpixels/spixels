@@ -125,7 +125,6 @@ export default function Header({ onResume, minimal = false }) {
               onClick={() => setOpen((o) => !o)}
               className={`iconbtn grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#f4f4f6] motion-safe:transition-transform motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 xl:hidden dark:bg-neutral-800 ${FOCUS_RING}`}
               aria-label={open ? 'Close menu' : 'Open menu'}
-              data-tooltip={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls={open ? 'mobileMenu' : undefined}
             >

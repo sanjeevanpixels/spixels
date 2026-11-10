@@ -1,114 +1,175 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Icon from '../components/ui/Icon';
-import MeshGradient from '../components/ui/MeshGradient';
 import { TESTIMONIALS } from '../data/content';
 
 const EASE = [0.22, 1, 0.36, 1];
 const SWIPE_THRESHOLD = 44;
+const AUTOPLAY_MS = 7000;
 
-// Keep only valid, unique testimonials (scoped in a function so nothing leaks at module level).
+/* Validate and remove duplicate testimonials */
 const PEOPLE = (() => {
   const seen = new Set();
+
   return TESTIMONIALS.filter((entry) => {
     const valid =
       entry &&
-      typeof entry.id === 'string' && entry.id.trim() &&
-      typeof entry.name === 'string' && entry.name.trim() &&
-      typeof entry.quote === 'string' && entry.quote.trim();
+      typeof entry.id === 'string' &&
+      entry.id.trim() &&
+      typeof entry.name === 'string' &&
+      entry.name.trim() &&
+      typeof entry.quote === 'string' &&
+      entry.quote.trim();
+
     if (!valid || seen.has(entry.id)) return false;
+
     seen.add(entry.id);
     return true;
   });
 })();
 
+/* Generate initials */
 const initialsOf = (name) =>
-  name.trim().split(/\s+/).filter(Boolean).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
+  name
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
 
-/* Portrait with an initials fallback if the image is missing or fails to load. */
-function Portrait({
-  person,
-  initialsClass = 'text-sm',
-  fallbackClass = 'bg-gradient-to-br from-violet-500 to-fuchsia-500',
-  eager = false,
-}) {
+/* Profile image with fallback */
+function Portrait({ person }) {
   const [failed, setFailed] = useState(false);
+
   return person.portrait && !failed ? (
     <img
       src={person.portrait}
       alt=""
       draggable="false"
-      loading={eager ? 'eager' : 'lazy'}
+      loading="lazy"
       decoding="async"
       onError={() => setFailed(true)}
-      // object-top keeps faces in frame when the box is wider than the photo.
       className="h-full w-full select-none object-cover object-[50%_25%]"
     />
   ) : (
-    <span
-      aria-hidden="true"
-      className={`grid h-full w-full place-items-center font-semibold text-white ${fallbackClass} ${initialsClass}`}
-    >
+    <span className="grid w-full h-full text-sm font-semibold text-white place-items-center bg-gradient-to-br from-gray-500 to-fuchsia-500">
       {initialsOf(person.name)}
     </span>
   );
 }
 
-/* Quote + author. Rendered once animated (visible) and once static (invisible sizer). */
-function QuoteContent({ person }) {
+/* Testimonial quote and author */
+function QuoteContent({ person, sizer = false }) {
   const meta = [person.role, person.company].filter(Boolean).join(', ');
+
   return (
     <>
-      <span
-        aria-hidden="true"
-        className="mb-2 block h-9 select-none font-bricolage text-7xl leading-[0.9] text-violet-500 dark:text-violet-300"
-      >
-        &ldquo;
-      </span>
-      <blockquote className="m-0 font-bricolage text-[length:clamp(20px,2.4vw,32px)] font-medium leading-[1.3] tracking-[-0.02em] text-slate-900 [text-wrap:pretty] dark:text-white">
+      <blockquote className="m-0 max-w-[700px] font-bricolage text-[length:clamp(23px,2.8vw,38px)] font-medium leading-[1.25] tracking-[-0.035em] text-slate-900 [text-wrap:pretty] dark:text-white">
         {person.quote.trim()}
       </blockquote>
-      <figcaption className="mt-6">
-        <span className="block text-base font-semibold text-slate-900 dark:text-white">{person.name}</span>
-        {meta && <span className="mt-0.5 block text-sm text-slate-500 dark:text-white/60">{meta}</span>}
+
+      <figcaption className="flex items-center gap-4 mt-9 min-h-12">
+        <span
+          className={`h-12 w-12 shrink-0 overflow-hidden rounded-full bg-slate-200 ${
+            sizer
+              ? 'invisible'
+              : 'ring-2 ring-gray-500/80 ring-offset-2 ring-offset-white dark:ring-gray-300/80 dark:ring-offset-[#12152A]'
+          }`}
+        >
+          <Portrait person={person} />
+        </span>
+
+        <span className="min-w-0">
+          <span className="block text-base font-semibold leading-6 truncate text-slate-900 dark:text-white">
+            {person.name}
+          </span>
+
+          {meta && (
+            <span className="mt-0.5 block truncate text-sm leading-5 text-slate-500 dark:text-white/60">
+              {meta}
+            </span>
+          )}
+        </span>
       </figcaption>
     </>
   );
 }
 
-// 44px touch target, hover styles only on devices that actually hover (no "stuck" hover on phones).
+/* Navigation button styles */
 const arrowClass =
-  'grid h-11 w-11 shrink-0 place-items-center rounded-full border border-slate-900/10 bg-white text-slate-900 transition duration-200 active:scale-95 [@media(hover:hover)]:hover:bg-slate-900 [@media(hover:hover)]:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 motion-reduce:transition-none dark:border-white/15 dark:bg-white/5 dark:text-white dark:[@media(hover:hover)]:hover:bg-white dark:[@media(hover:hover)]:hover:text-slate-900 dark:focus-visible:ring-violet-300 dark:focus-visible:ring-offset-[#12141F]';
+  'grid h-11 w-11 shrink-0 place-items-center rounded-full border border-slate-900/10 bg-white text-slate-900 transition duration-200 active:scale-95 [@media(hover:hover)]:hover:bg-slate-900 [@media(hover:hover)]:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-reduce:transition-none dark:border-white/15 dark:bg-white/5 dark:text-white dark:[@media(hover:hover)]:hover:bg-white dark:[@media(hover:hover)]:hover:text-slate-900 dark:focus-visible:ring-pink-300 dark:focus-visible:ring-offset-[#12152A]';
 
 export default function Testimonials() {
   const count = PEOPLE.length;
-  const [{ index, dir }, setView] = useState({ index: 0, dir: 1 });
+
+  const [{ index, dir }, setView] = useState({
+    index: 0,
+    dir: 1,
+  });
+
+  const [paused, setPaused] = useState(false);
+
   const reduceMotion = useReducedMotion();
+
   const touch = useRef(null);
+  const itemRefs = useRef([]);
+  const firstRender = useRef(true);
+
   const active = PEOPLE[index] ?? null;
 
+  const autoplay = count > 1 && !reduceMotion;
+
+  /* Navigate between testimonials */
   const go = useCallback(
     (delta) => {
       if (count > 1) {
-        setView((v) => ({ index: (v.index + delta + count) % count, dir: delta > 0 ? 1 : -1 }));
+        setView((v) => ({
+          index: (v.index + delta + count) % count,
+          dir: delta > 0 ? 1 : -1,
+        }));
       }
     },
     [count],
   );
 
-  const pick = (i) => setView((v) => (i === v.index ? v : { index: i, dir: i > v.index ? 1 : -1 }));
+  const pick = (i) => {
+    setView((v) =>
+      i === v.index
+        ? v
+        : {
+            index: i,
+            dir: i > v.index ? 1 : -1,
+          },
+    );
+  };
 
-  // Preload the neighbouring portraits so slides never pop in late.
+  /* Keep selected profile visible */
   useEffect(() => {
-    if (count < 2) return;
-    [index + 1, index - 1].forEach((i) => {
-      const src = PEOPLE[(i + count) % count]?.portrait;
-      if (src) new Image().src = src;
-    });
-  }, [index, count]);
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
 
+    itemRefs.current[index]?.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
+  }, [index, reduceMotion]);
+
+  /* Keyboard navigation */
   const onKeyDown = (event) => {
-    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (
+      event.altKey ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey
+    ) {
+      return;
+    }
+
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
       event.preventDefault();
       go(event.key === 'ArrowRight' ? 1 : -1);
@@ -121,43 +182,114 @@ export default function Testimonials() {
     }
   };
 
+  /* Touch navigation */
   const onTouchStart = (event) => {
     const t = event.touches[0];
-    touch.current = t ? { x: t.clientX, y: t.clientY } : null;
+
+    touch.current = t
+      ? {
+          x: t.clientX,
+          y: t.clientY,
+        }
+      : null;
   };
 
   const onTouchEnd = (event) => {
     const start = touch.current;
     const t = event.changedTouches[0];
+
     touch.current = null;
+
     if (!start || !t) return;
+
     const dx = t.clientX - start.x;
     const dy = t.clientY - start.y;
-    // Only clearly horizontal swipes navigate, so vertical scrolling is untouched.
-    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+
+    if (
+      Math.abs(dx) > SWIPE_THRESHOLD &&
+      Math.abs(dx) > Math.abs(dy)
+    ) {
+      go(dx < 0 ? 1 : -1);
+    }
   };
 
-  // The quote slides in from the direction you're travelling.
+  /* Quote animation */
   const quoteVariants = useMemo(
     () => ({
-      enter: (d) => (reduceMotion ? { opacity: 0 } : { opacity: 0, x: d * 28, filter: 'blur(6px)' }),
+      enter: (d) =>
+        reduceMotion
+          ? { opacity: 0 }
+          : {
+              opacity: 0,
+              x: d * 32,
+              filter: 'blur(8px)',
+            },
+
       center: reduceMotion
-        ? { opacity: 1, transition: { duration: 0.2 } }
-        : { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.5, ease: EASE } },
+        ? {
+            opacity: 1,
+            transition: { duration: 0.2 },
+          }
+        : {
+            opacity: 1,
+            x: 0,
+            filter: 'blur(0px)',
+            transition: {
+              duration: 0.55,
+              ease: EASE,
+            },
+          },
+
       exit: (d) =>
         reduceMotion
-          ? { opacity: 0, transition: { duration: 0.1 } }
-          : { opacity: 0, x: d * -28, filter: 'blur(6px)', transition: { duration: 0.25, ease: EASE } },
+          ? {
+              opacity: 0,
+              transition: { duration: 0.1 },
+            }
+          : {
+              opacity: 0,
+              x: d * -32,
+              filter: 'blur(8px)',
+              transition: {
+                duration: 0.25,
+                ease: EASE,
+              },
+            },
     }),
     [reduceMotion],
   );
+
+  /* Autoplay progress */
+  const progressStyle = {
+    animation: `tst-progress-x ${AUTOPLAY_MS}ms linear forwards`,
+    animationPlayState: paused ? 'paused' : 'running',
+  };
+
+  const progressStyleY = {
+    ...progressStyle,
+    animationName: 'tst-progress-y',
+  };
 
   return (
     <section
       id="testimonials"
       aria-labelledby="testimonials-title"
-      className="bg-white px-3 py-4 dark:bg-[#0D0F17] sm:px-6 sm:py-6"
+      className="relative flex items-center px-6 py-20 overflow-hidden isolate text-slate-900 dark:text-white sm:px-10 sm:py-24 lg:px-12 lg:py-28"
     >
+      {/* Progress animations */}
+      <style>{`
+        @keyframes tst-progress-x {
+          from { transform: scaleX(0); }
+          to { transform: scaleX(1); }
+        }
+
+        @keyframes tst-progress-y {
+          from { transform: scaleY(0); }
+          to { transform: scaleY(1); }
+        }
+      `}</style>
+
+      {/* Main container */}
       <div
         role="group"
         aria-roledescription="carousel"
@@ -167,80 +299,86 @@ export default function Testimonials() {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         onTouchCancel={() => (touch.current = null)}
-        className="mx-auto flex w-full max-w-[1680px] flex-col gap-6 rounded-[24px] bg-slate-50 p-4 text-slate-900 outline-none ring-1 ring-black/5 [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-violet-500/70 dark:bg-[#12141F] dark:text-white dark:ring-white/10 dark:focus-visible:ring-violet-300/70 sm:gap-8 sm:rounded-[32px] sm:p-6 lg:gap-10 lg:rounded-[40px] lg:p-10"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onFocus={() => setPaused(true)}
+        onBlur={() => setPaused(false)}
+        className="mx-auto w-full max-w-[1160px] min-w-0 outline-none focus-visible:ring-2 focus-visible:ring-pink-500/70"
       >
         {/* Header */}
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <h2
             id="testimonials-title"
-            className="max-w-xl font-bricolage text-[length:clamp(28px,3.6vw,46px)] font-bold leading-[1.05] tracking-[-0.04em] [text-wrap:balance]"
+            className="max-w-[580px] font-bricolage text-[length:clamp(30px,3.2vw,44px)] font-bold leading-[1.08] tracking-[-0.04em] [text-wrap:balance]"
           >
             Words from the people I work with.
           </h2>
 
+          {/* Navigation controls */}
           {count > 1 && (
-            <div className="flex items-center justify-between w-full gap-3 sm:w-auto sm:justify-end">
-              <span aria-hidden="true" className="min-w-[3.5rem] text-sm tabular-nums text-slate-500 dark:text-white/60 sm:text-right">
-                {index + 1} of {count}
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="hidden mr-1 text-sm tabular-nums text-slate-500 dark:text-white/60 sm:block">
+                {index + 1} / {count}
               </span>
-              <div className="flex items-center gap-3">
-                <button type="button" onClick={() => go(-1)} aria-label="Previous testimonial" data-tooltip="Previous testimonial" className={arrowClass}>
-                  <Icon name="arrow-left" />
-                </button>
-                <button type="button" onClick={() => go(1)} aria-label="Next testimonial" data-tooltip="Next testimonial" className={arrowClass}>
-                  <Icon name="arrow-right" />
-                </button>
-              </div>
+
+              <button
+                type="button"
+                onClick={() => go(-1)}
+                aria-label="Previous testimonial"
+                data-tooltip="Previous testimonial"
+                className={arrowClass}
+              >
+                <Icon name="arrow-left" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => go(1)}
+                aria-label="Next testimonial"
+                data-tooltip="Next testimonial"
+                className={arrowClass}
+              >
+                <Icon name="arrow-right" />
+              </button>
             </div>
           )}
         </div>
 
+        {/* Main testimonial content */}
         {active ? (
-          <div className="grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
-            {/* Portrait stage: full-bleed photo, no frame. The mesh gradient shows during crossfades and as the fallback. */}
-            <div
-              aria-hidden="true"
-              className="relative isolate aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-400 sm:aspect-[16/10] sm:rounded-3xl lg:aspect-auto lg:min-h-[30rem]"
-            >
-              <div className="absolute inset-0 overflow-hidden">
-                <MeshGradient />
-              </div>
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={active.id}
-                  initial={{ opacity: 0, scale: reduceMotion ? 1 : 1.05 }}
-                  animate={{ opacity: 1, scale: 1, transition: { duration: reduceMotion ? 0.2 : 0.6, ease: EASE } }}
-                  exit={{ opacity: 0, transition: { duration: 0.3 } }}
-                  className="absolute inset-0"
-                >
-                  <Portrait
-                    key={`${active.id}-${active.portrait}`}
-                    person={active}
-                    eager
-                    initialsClass="text-5xl sm:text-6xl"
-                    fallbackClass="bg-white/10 backdrop-blur-sm"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
+          <div className="mt-14 grid w-full min-w-0 grid-cols-1 items-center gap-12 sm:mt-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-20">
+            {/* Left: Testimonial quote */}
+            <div className="relative min-w-0">
+              {/* Decorative quotation mark */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-10 left-0 select-none bg-gradient-to-br from-gray-500 to-fuchsia-500 bg-clip-text font-bricolage text-[8rem] font-bold leading-none text-transparent opacity-30 sm:-top-12 sm:text-[10rem]"
+              >
+                &ldquo;
+              </span>
 
-            {/* Quote + roster */}
-            <div className="flex flex-col justify-between min-w-0 gap-8 lg:gap-10">
               <div className="relative">
-                {/* Invisible copies of every quote reserve the height of the tallest one, so nothing jumps. */}
-                <div aria-hidden="true" className="grid invisible pointer-events-none select-none">
+                {/* Invisible height reservation */}
+                <div
+                  aria-hidden="true"
+                  className="grid invisible pointer-events-none select-none"
+                >
                   {PEOPLE.map((person) => (
-                    <figure key={person.id} className="col-start-1 row-start-1 m-0">
-                      <QuoteContent person={person} />
+                    <figure
+                      key={person.id}
+                      className="col-start-1 row-start-1 m-0"
+                    >
+                      <QuoteContent person={person} sizer />
                     </figure>
                   ))}
                 </div>
 
+                {/* Active quote */}
                 <div
                   role="group"
                   aria-roledescription="slide"
                   aria-label={`${index + 1} of ${count}`}
-                  aria-live="polite"
+                  aria-live={paused || !autoplay ? 'polite' : 'off'}
                   aria-atomic="true"
                   className="absolute inset-0"
                 >
@@ -259,48 +397,137 @@ export default function Testimonials() {
                   </AnimatePresence>
                 </div>
               </div>
+            </div>
 
-              {count > 1 && (
-                <div role="group" aria-label="Choose a testimonial" className="flex flex-wrap items-center gap-3 p-1">
-                  {PEOPLE.map((person, i) => {
-                    const isActive = i === index;
-                    return (
-                      <button
-                        key={person.id}
-                        type="button"
-                        onClick={() => pick(i)}
-                        aria-label={`Show testimonial from ${person.name}`}
-                        aria-current={isActive ? 'true' : undefined}
-                        data-tooltip={person.name}
-                        className={`h-12 w-12 shrink-0 overflow-hidden rounded-full transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 motion-reduce:transition-none dark:focus-visible:ring-violet-300 dark:focus-visible:ring-offset-[#12141F] ${
+            {/* Right: Profile navigation */}
+            {count > 1 && (
+              <div
+                role="group"
+                aria-label="Choose a testimonial"
+                className="flex w-full min-w-0 snap-x gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0"
+              >
+                {PEOPLE.map((person, i) => {
+                  const isActive = i === index;
+
+                  const meta = [
+                    person.role,
+                    person.company,
+                  ]
+                    .filter(Boolean)
+                    .join(', ');
+
+                  return (
+                    <button
+                      key={person.id}
+                      ref={(el) => (itemRefs.current[i] = el)}
+                      type="button"
+                      onClick={() => pick(i)}
+                      aria-label={`Show testimonial from ${person.name}`}
+                      aria-current={isActive ? 'true' : undefined}
+                      className={`group relative flex w-[230px] shrink-0 snap-center items-center gap-4 rounded-xl px-3 py-3.5 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 dark:focus-visible:ring-pink-300 lg:w-full lg:px-4 lg:py-4 ${
+                        isActive
+                          ? 'bg-pink-500/[0.07] dark:bg-white/[0.06]'
+                          : '[@media(hover:hover)]:hover:bg-slate-900/[0.03] dark:[@media(hover:hover)]:hover:bg-white/[0.04]'
+                      }`}
+                    >
+                      {/* Progress track */}
+                      <span
+                        aria-hidden="true"
+                        className="absolute bottom-0 h-px inset-x-3 bg-slate-900/10 dark:bg-white/15 lg:inset-y-3 lg:left-0 lg:right-auto lg:h-auto lg:w-px"
+                      />
+
+                      {/* Active progress indicator */}
+                      {isActive && (
+                        <>
+                          <span
+                            aria-hidden="true"
+                            key={`x-${index}`}
+                            onAnimationEnd={
+                              autoplay ? () => go(1) : undefined
+                            }
+                            style={
+                              autoplay
+                                ? progressStyle
+                                : { transform: 'scaleX(1)' }
+                            }
+                            className="absolute inset-x-3 bottom-0 h-0.5 origin-left rounded-full bg-pink-500 dark:bg-pink-300 lg:hidden"
+                          />
+
+                          <span
+                            aria-hidden="true"
+                            key={`y-${index}`}
+                            onAnimationEnd={
+                              autoplay ? () => go(1) : undefined
+                            }
+                            style={
+                              autoplay
+                                ? progressStyleY
+                                : { transform: 'scaleY(1)' }
+                            }
+                            className="absolute inset-y-3 left-0 hidden w-0.5 origin-top rounded-full bg-pink-500 dark:bg-pink-300 lg:block"
+                          />
+                        </>
+                      )}
+
+                      {/* Profile image */}
+                      <span
+                        className={`h-11 w-11 shrink-0 overflow-hidden rounded-full bg-slate-200 transition duration-300 dark:bg-white/10 ${
                           isActive
-                            ? 'ring-2 ring-violet-500 ring-offset-2 ring-offset-slate-50 dark:ring-violet-300 dark:ring-offset-[#12141F]'
-                            : 'opacity-60 grayscale [@media(hover:hover)]:hover:opacity-100 [@media(hover:hover)]:hover:grayscale-0'
+                            ? ''
+                            : 'opacity-60 grayscale [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:grayscale-0'
                         }`}
                       >
-                        <Portrait key={`${person.id}-${person.portrait}`} person={person} />
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+                        <Portrait person={person} />
+                      </span>
+
+                      {/* Profile information */}
+                      <span className="flex-1 min-w-0">
+                        <span
+                          className={`block truncate text-sm font-semibold leading-5 ${
+                            isActive
+                              ? 'text-slate-900 dark:text-white'
+                              : 'text-slate-600 dark:text-white/70'
+                          }`}
+                        >
+                          {person.name}
+                        </span>
+
+                        {meta && (
+                          <span className="block mt-1 text-xs leading-5 truncate text-slate-500 dark:text-white/50">
+                            {meta}
+                          </span>
+                        )}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
         ) : (
-          <div className="max-w-xl rounded-3xl border border-slate-900/10 bg-white px-6 py-8 dark:border-white/10 dark:bg-white/[0.04] sm:px-10">
-            <p className="text-base text-slate-800 dark:text-white/80 sm:text-lg">Client testimonials are coming soon.</p>
-            {/* Developer hint only shows during development, never to visitors. */}
+          /* Empty state */
+          <div className="max-w-xl mt-14">
+            <p className="text-base text-slate-800 dark:text-white/80 sm:text-lg">
+              Client testimonials are coming soon.
+            </p>
+
             {import.meta.env?.DEV && (
               <p className="mt-2 text-sm text-slate-500 dark:text-white/50">
-                Add quotes and portraits in <code className="text-slate-700 dark:text-white/70">src/data/content.js</code> to enable the slider.
+                Add quotes and portraits in{' '}
+                <code className="text-slate-700 dark:text-white/70">
+                  src/data/content.js
+                </code>{' '}
+                to enable the slider.
               </p>
             )}
+
             <a
               href="/contact"
               data-app-route=""
-              className="mt-5 inline-flex h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 dark:bg-white dark:text-[#0D0F17] dark:focus-visible:ring-violet-300 dark:focus-visible:ring-offset-[#12141F]"
+              className="mt-5 inline-flex h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-white dark:text-[#12152A] dark:focus-visible:ring-pink-300 dark:focus-visible:ring-offset-[#12152A]"
             >
-              Start a conversation <Icon name="arrow-right" />
+              Start a conversation
+              <Icon name="arrow-right" />
             </a>
           </div>
         )}

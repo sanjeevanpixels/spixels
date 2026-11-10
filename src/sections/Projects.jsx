@@ -103,28 +103,28 @@ export default function Projects() {
                         </span>
 
                         {/* Clickable CTA */}
-                        <a
-                          href={`/projects/${p.slug}`}
-                          data-app-route=""
-                          aria-label={`${ctaLabel}: ${p.name}`}
-                          className="inline-flex items-center gap-2 text-sm font-semibold transition-colors min-h-11 text-neutral-900 hover:text-pink-600 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-600 dark:text-white dark:hover:text-indigo-400 motion-reduce:transition-none"
-                        >
+                       <a
+  href={p.behanceUrl || '#'}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`${ctaLabel}: ${p.name} (opens in a new tab)`}
+  className="inline-flex items-center gap-2 text-sm font-semibold transition-colors min-h-11 text-neutral-900 hover:text-pink-600 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-600 dark:text-white dark:hover:text-indigo-400 motion-reduce:transition-none"
+>
+  <span>{ctaLabel}</span>
 
-                          <span>{ctaLabel}</span>
-
-                          <svg
-                            viewBox="0 0 24 24"
-                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path d="M5 12h14M13 6l6 6-6 6" />
-                          </svg>
-                        </a>
+  <svg
+    viewBox="0 0 24 24"
+    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M5 12h14M13 6l6 6-6 6" />
+  </svg>
+</a>
                       </div>
                     </div>
                   </div>
