@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from 'motion/react';
-import Icon from '../components/ui/Icon';
 import { RippleButton, RippleButtonRipples } from '@animate-ui/react/primitives/buttons/ripple';
 import Rise from '../components/ui/Rise';
 import { ROLES } from '../data/content';
@@ -11,6 +10,41 @@ import useToast from '../hooks/useToast';
 // Shared keyboard focus ring (works in light + dark, matches the page background for the offset).
 const FOCUS =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0D0F17] focus-visible:ring-offset-2 dark:focus-visible:ring-white dark:focus-visible:ring-offset-[#0D0F17]';
+
+// Full-bleed smiley: fills the whole circle, uses the button's own background as the face color.
+const FACE = '#0D0F17';
+
+function Smiley({ variant = 0 }) {
+  return (
+    <svg viewBox="0 0 100 100" className="size-full" aria-hidden="true" fill="none">
+      {variant === 0 && (
+        <>
+          {/* classic smile */}
+          <circle cx="34" cy="38" r="7" fill={FACE} />
+          <circle cx="66" cy="38" r="7" fill={FACE} />
+          <path d="M26 58 Q50 84 74 58" stroke={FACE} strokeWidth="7" strokeLinecap="round" />
+        </>
+      )}
+      {variant === 1 && (
+        <>
+          {/* big open grin */}
+          <circle cx="34" cy="36" r="7" fill={FACE} />
+          <circle cx="66" cy="36" r="7" fill={FACE} />
+          <path d="M22 56 H78 C78 76 66 88 50 88 C34 88 22 76 22 56 Z" fill={FACE} />
+          <path d="M36 80 Q50 70 64 80 Q50 88 36 80 Z" fill="#FF6B81" />
+        </>
+      )}
+      {variant === 2 && (
+        <>
+          {/* wink */}
+          <circle cx="34" cy="38" r="7" fill={FACE} />
+          <path d="M58 40 Q66 30 74 40" stroke={FACE} strokeWidth="7" strokeLinecap="round" />
+          <path d="M26 58 Q50 84 74 58" stroke={FACE} strokeWidth="7" strokeLinecap="round" />
+        </>
+      )}
+    </svg>
+  );
+}
 
 // Eyes follow the pointer, re-aim on scroll, and blink on click / keyboard activation.
 function Eyes() {
@@ -209,11 +243,11 @@ export default function Hero() {
                 whileHover={!reduceMotion ? { y: -2 } : undefined}
                 whileTap={!reduceMotion ? { scale: 0.94 } : undefined}
                 transition={{ type: 'spring', stiffness: 360, damping: 28 }}
-                className={`relative flex size-12 flex-none items-center justify-center rounded-full transition-[box-shadow,opacity] duration-300 sm:size-14 ${FOCUS} ${r.bg} ${
+                className={`relative flex size-12 flex-none items-center justify-center overflow-hidden rounded-full transition-[box-shadow,opacity] duration-300 sm:size-14 ${FOCUS} ${r.bg} ${
                   active ? 'opacity-100 ring-2 ring-[#0D0F17] ring-offset-2 dark:ring-white dark:ring-offset-[#0D0F17]' : 'opacity-60 hover:opacity-100 focus-visible:opacity-100'
                 }`}
               >
-                <Icon name={r.icon} className="w-5 h-5 sm:h-6 sm:w-6" />
+                <Smiley variant={i} />
               </motion.button>
             );
           })}

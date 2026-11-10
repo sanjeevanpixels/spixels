@@ -2,11 +2,6 @@ import SectionHeading from '../components/ui/SectionHeading';
 import Button from '../components/ui/Button';
 import { PROJECTS } from '../data/content';
 
-const STATUS_STYLES = {
-  'In development': 'bg-[#FFF1A6] text-neutral-900',
-  'Case Study': 'bg-zinc-900 text-white dark:bg-white dark:text-neutral-900',
-};
-
 const MAX_TAGS = 3;
 
 export default function Projects() {
@@ -59,15 +54,6 @@ export default function Projects() {
                         {p.category}
                       </p>
 
-                      <span
-                        className={`shrink-0 rounded-full px-3 py-3 text-[10px] font-bold uppercase tracking-wider sm:text-[11px] ${
-                          STATUS_STYLES[p.status] ||
-                          'bg-neutral-100 text-neutral-800'
-                        }`}
-                      >
-                        {p.status}
-                      </span>
-
                     </div>
 
                     {/* Project Title */}
@@ -103,28 +89,13 @@ export default function Projects() {
                         </span>
 
                         {/* Clickable CTA */}
-                       <a
-  href={p.behanceUrl || '#'}
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label={`${ctaLabel}: ${p.name} (opens in a new tab)`}
-  className="inline-flex items-center gap-2 text-sm font-semibold transition-colors min-h-11 text-neutral-900 hover:text-[#FF2056] focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF2056] dark:text-white dark:hover:text-indigo-400 motion-reduce:transition-none"
->
-  <span>{ctaLabel}</span>
-
-  <svg
-    viewBox="0 0 24 24"
-    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M5 12h14M13 6l6 6-6 6" />
-  </svg>
-</a>
+                        <a href={p.behanceUrl || '#'} target="_blank" rel="noopener noreferrer" aria-label={`${ctaLabel}: ${p.name} (opens in a new tab)`} className="inline-flex items-center gap-2 text-sm font-semibold transition-colors min-h-11 text-neutral-900 hover:text-[#FF2056] focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF2056] dark:text-white dark:hover:text-indigo-400 motion-reduce:transition-none">
+                          <span>{ctaLabel}</span>
+                          
+                          <svg viewBox="0 0 24 24" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" >
+                            <path d="M5 12h14M13 6l6 6-6 6" />
+                          </svg>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -137,19 +108,11 @@ export default function Projects() {
         {/* View All Projects */}
         {PROJECTS.length > 4 && (
           <div className="flex justify-center mt-7 sm:mt-8">
-
-            <Button
-              as="a"
-              variant="soft"
-              href="/projectsdetails"
-              data-app-route=""
-              className="border border-[#E6E6E6] dark:border-neutral-800"
-            >
+            <Button as="a" variant="soft" href="/projectsdetails" data-app-route="" className="border border-[#E6E6E6] dark:border-neutral-800">
               View More Projects
             </Button>
           </div>
         )}
-
       </div>
     </section>
   );

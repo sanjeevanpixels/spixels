@@ -225,7 +225,7 @@ html.dark *::-webkit-scrollbar-thumb {
   cursor: help;
   border: 1px solid #eee9ff;
   border-radius: 999px;
-  background: #f6f3ff;
+  background: #FBFBFB;
   padding: 0.45rem 0.75rem;
   color: #29223f;
   font-size: 0.875rem;

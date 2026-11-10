@@ -148,14 +148,11 @@ export default function Tools() {
           className="mx-auto mt-6 w-full max-w-[1600px] rounded-2xl border border-violet-100/80 bg-white p-4 dark:border-white/10 dark:bg-[#151826] dark:shadow-none sm:mt-8 sm:rounded-[28px] sm:p-6 lg:p-8"
         >
           <div className="mb-5 sm:mb-6">
-            <p className="mb-1 text-sm font-semibold text-[#FF2056] dark:text-pink-400">
+            <p className="mb-1 text-sm font-semibold text-[#F70063] dark:text-[#F70063]">
               Skills &amp; Approach
             </p>
 
-            <h3
-              id="soft-skills-heading"
-              className="text-2xl font-bold tracking-tight font-bricolage sm:text-3xl"
-            >
+            <h3 id="soft-skills-heading" className="text-2xl font-bold tracking-tight font-bricolage sm:text-3xl">
               Beyond the Design
             </h3>
           </div>
@@ -167,7 +164,7 @@ export default function Tools() {
                   {group}
                 </h4>
 
-                <ul className="flex flex-wrap gap-2">
+                <ul className="flex flex-wrap gap-2 ">
                   {skills.map(([skill, detail]) => (
                     <li key={skill}>
                       <SkillChip skill={skill} detail={detail} />
@@ -178,7 +175,6 @@ export default function Tools() {
             ))}
           </div>
         </section>
-
       </div>
     </section>
   );
@@ -195,10 +191,7 @@ function ToolCard({ group }) {
     >
       <header className="flex items-center gap-3 mb-5">
         <div className="min-w-0">
-          <h3
-            id={headingId}
-            className="text-base font-semibold leading-tight sm:text-lg"
-          >
+          <h3 id={headingId} className="text-base font-semibold leading-tight sm:text-lg">
             {group.title}
           </h3>
 

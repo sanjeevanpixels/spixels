@@ -76,7 +76,7 @@ export default function About() {
 
         <div className="wrap">
           {/* Section label */}
-          <p className="mb-8 text-xs font-semibold uppercase tracking-[0.2em] text-[violet]-200/75 sm:mb-10">
+          <p className="mb-8 text-xs font-semibold uppercase tracking-[0.2em] text-[#F5F000] sm:mb-10">
             About Me
           </p>
 

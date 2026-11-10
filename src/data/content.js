@@ -140,8 +140,8 @@ export const SOFT_SKILLS = [
   ]],
 
   ['UI/UX Design', [
-    ['User Experience Design', 'Create intuitive and seamless end-to-end user experiences.'],
-    ['User Interface Design', 'Build clear, consistent, and visually engaging interfaces.'],
+    ['UX Design', 'Create intuitive and seamless end-to-end user experiences.'],
+    ['UI Design', 'Build clear, consistent, and visually engaging interfaces.'],
     ['Interaction Design', 'Design meaningful interactions and intuitive interface behaviors.'],
     ['Wireframing & Prototyping', 'Translate ideas into structured interface layouts and interactive prototypes.'],
     ['Responsive Design', 'Create adaptable experiences across different screen sizes.'],

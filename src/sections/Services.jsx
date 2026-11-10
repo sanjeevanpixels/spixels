@@ -23,7 +23,7 @@ export default function Services() {
                   </div>
                 </div>
 
-                <h3 className="mt-5 text-xl font-medium sm:text-[22px] sm:leading-snug">
+                <h3 className="mt-5 text-xl font-semibold sm:text-[22px] sm:leading-snug">
                   {title}
                 </h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-[#666] dark:text-[#A3A3A3]">
