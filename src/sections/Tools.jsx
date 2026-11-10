@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SectionHeading from '../components/ui/SectionHeading';
 import { SOFT_SKILLS } from '../data/content';
 
-/* Tool categories                                                     */
+/* Tool categories */
 const GROUPS = [
   {
     id: 'design',
@@ -71,8 +71,7 @@ const GROUPS = [
   },
 ];
 
-/* Local SVG icon mapping                                              */
-
+/* Local SVG icon mapping */
 const TOOL_ICONS = {
   Figma: '/icons/figma.svg',
   FigJam: '/icons/figjam.svg',
@@ -85,7 +84,7 @@ const TOOL_ICONS = {
   HTML5: '/icons/html5.svg',
   'Google Antigravity': '/icons/google-antigravity.svg',
   'Google Chat': '/icons/google-chat.svg',
-  'Google Keep':  '/icons/google-chat.svg',
+  'Google Keep': '/icons/google-chat.svg',
   CSS3: '/icons/css3.svg',
   Sass: '/icons/sass.svg',
   JavaScript: '/icons/javascript.svg',
@@ -117,43 +116,53 @@ const TOOL_ICONS = {
   Penpot: '/icons/penpot.svg',
 };
 
-/* Section                                                             */
+/* Main section */
 export default function Tools() {
   return (
-    <section id="tools" className="sec overflow-hidden !py-12 sm:!py-16 bg-[#FBFBFB] dark:bg-[#0D0F17]">
+    <section
+      id="tools"
+      className="sec overflow-hidden !py-10 bg-[#FBFBFB] dark:bg-[#0D0F17] sm:!py-14 lg:!py-16"
+    >
       <div className="wrap">
 
         {/* Section heading */}
-
-        <div className="mx-auto mb-8 text-center sm:mb-10">
-          <SectionHeading title="Tools & Capabilities" subtitle="A mix of tools I use to generate ideas, research, create, design, and build faster." className="mb-0" subClassName="mx-auto max-w-md"/>
+        <div className="mx-auto text-center mb-7 sm:mb-10">
+          <SectionHeading
+            title="Tools & Capabilities"
+            subtitle="A mix of tools I use to generate ideas, research, create, design, and build faster."
+            className="mb-0"
+            subClassName="mx-auto max-w-md"
+          />
         </div>
 
         {/* Tool categories */}
-
-        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2">
+        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
           {GROUPS.map((group) => (
             <ToolCard key={group.id} group={group} />
           ))}
         </div>
 
         {/* Soft skills section */}
-
         <section
           aria-labelledby="soft-skills-heading"
-          className="mx-auto mt-8 w-full max-w-[1600px] rounded-[28px] border border-violet-100/80 bg-white p-5 dark:border-white/10 dark:bg-[#151826] dark:shadow-none sm:mt-10 sm:p-8"
+          className="mx-auto mt-6 w-full max-w-[1600px] rounded-2xl border border-violet-100/80 bg-white p-4 dark:border-white/10 dark:bg-[#151826] dark:shadow-none sm:mt-8 sm:rounded-[28px] sm:p-6 lg:p-8"
         >
-          <div className="mb-6">
-            <p className="mb-1 text-sm font-semibold text-pink-600 dark:text-pink-400">Skills &amp; Approach</p>
+          <div className="mb-5 sm:mb-6">
+            <p className="mb-1 text-sm font-semibold text-pink-600 dark:text-pink-400">
+              Skills &amp; Approach
+            </p>
 
-            <h3 id="soft-skills-heading" className="text-2xl font-bold tracking-tight font-bricolage sm:text-3xl">
+            <h3
+              id="soft-skills-heading"
+              className="text-2xl font-bold tracking-tight font-bricolage sm:text-3xl"
+            >
               Beyond the Design
             </h3>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {SOFT_SKILLS.map(([group, skills]) => (
-              <div key={group}>
+              <div key={group} className="min-w-0">
                 <h4 className="mb-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
                   {group}
                 </h4>
@@ -169,37 +178,39 @@ export default function Tools() {
             ))}
           </div>
         </section>
+
       </div>
     </section>
   );
 }
 
-/* Category card                                                       */
-/* ------------------------------------------------------------------ */
-
+/* Category card */
 function ToolCard({ group }) {
   const headingId = `tools-${group.id}`;
 
   return (
     <article
       aria-labelledby={headingId}
-      className="flex h-full flex-col rounded-3xl border border-slate-200/70 bg-white p-5 dark:border-white/10 dark:bg-[#151826] sm:p-6"
+      className="flex h-full flex-col rounded-2xl border border-slate-200/70 bg-white p-4 dark:border-white/10 dark:bg-[#151826] sm:rounded-3xl sm:p-6"
     >
       <header className="flex items-center gap-3 mb-5">
         <div className="min-w-0">
-          <h3 id={headingId} className="text-base font-semibold leading-tight sm:text-lg">
+          <h3
+            id={headingId}
+            className="text-base font-semibold leading-tight sm:text-lg"
+          >
             {group.title}
           </h3>
 
-          <p className="mt-0.5 text-sm leading-snug text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
             {group.blurb}
           </p>
         </div>
       </header>
 
-      <ul className="grid grid-cols-4 mt-auto gap-x-2 gap-y-4 md:grid-cols-8 lg:grid-cols-4 xl:grid-cols-8">
+      <ul className="grid grid-cols-4 mt-auto gap-x-2 gap-y-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
         {group.tools.map((name) => (
-          <li key={name}>
+          <li key={name} className="min-w-0">
             <ToolTile name={name} />
           </li>
         ))}
@@ -208,26 +219,22 @@ function ToolCard({ group }) {
   );
 }
 
-/* Tool tile                                                           */
-/* ------------------------------------------------------------------ */
-
+/* Tool tile */
 function ToolTile({ name }) {
   return (
-    <div className="flex flex-col items-center gap-2 text-center group">
-      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white ring-1 ring-slate-200 transition-transform motion-safe:group-hover:-translate-y-0.5 dark:ring-white/15 sm:h-14 sm:w-14">
+    <div className="flex flex-col items-center min-w-0 gap-2 text-center group">
+      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white ring-1 ring-slate-200 transition-transform motion-safe:group-hover:-translate-y-0.5 dark:ring-white/15 sm:h-14 sm:w-14 sm:rounded-2xl">
         <ToolIcon name={name} />
       </span>
 
-      <span className="text-[11px] font-medium leading-tight text-slate-600 dark:text-slate-300 sm:text-xs">
+      <span className="w-full break-words text-[10px] font-medium leading-tight text-slate-600 dark:text-slate-300 sm:text-xs">
         {name}
       </span>
     </div>
   );
 }
 
-/* Tool icon: local SVG + initials fallback                            */
-/* ------------------------------------------------------------------ */
-
+/* Tool icon */
 function ToolIcon({ name }) {
   const [failed, setFailed] = useState(false);
 
@@ -263,9 +270,7 @@ function ToolIcon({ name }) {
   );
 }
 
-/* Soft skill chip                                                     */
-/* ------------------------------------------------------------------ */
-
+/* Soft skill chip */
 function SkillChip({ skill, detail }) {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -315,7 +320,11 @@ function SkillChip({ skill, detail }) {
         {detail}
       </span>
 
-      <span role="tooltip" aria-hidden="true" className={`skill-tooltip ${open ? 'is-visible' : ''}`} >
+      <span
+        role="tooltip"
+        aria-hidden="true"
+        className={`skill-tooltip ${open ? 'is-visible' : ''}`}
+      >
         {detail}
       </span>
     </span>
