@@ -23,11 +23,6 @@ function CountUp({ value, suffix = '' }) {
   );
 
   useEffect(() => {
-    if (reduceMotion) {
-      setCount(value);
-      return;
-    }
-
     if (!inView) return;
 
     let frame;

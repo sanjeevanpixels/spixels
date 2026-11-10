@@ -128,18 +128,14 @@ export const EXP = [
 
 // Small, editable skill groups for the Tools section.
 export const SOFT_SKILLS = [
-  ['Product Strategy', [
-    ['SaaS Product Design', 'Design scalable and intuitive software experiences.'],
-    ['B2B Product Design', 'Simplify complex workflows for business users.'],
-  ]],
 
   ['UX Research & Strategy', [
     ['User Research', 'Understand user behaviors, needs, and pain points.'],
     ['User Interviews', 'Gather qualitative insights through direct user conversations.'],
     ['Usability Testing', 'Evaluate experiences and identify usability improvements.'],
+    ['User Flows', 'Map user journeys and simplify task completion.'],
     ['Competitive Analysis', 'Identify opportunities through competitor and market research.'],
     ['Information Architecture', 'Organize content and functionality into intuitive structures.'],
-    ['User Flows', 'Map user journeys and simplify task completion.'],
    
   ]],
 

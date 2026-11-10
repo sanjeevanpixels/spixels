@@ -1,6 +1,5 @@
 import Button from '../components/ui/Button';
 import { RippleButton, RippleButtonRipples } from '@animate-ui/react/primitives/buttons/ripple';
-import Icon from '../components/ui/Icon';
 import SocialIcon from '../components/ui/SocialIcon';
 import Lift from '../components/ui/Lift';
 import IronFilingsBackground from '../components/ui/IronFilingsBackground';
@@ -22,7 +21,7 @@ export default function Contact() {
             <div className="flex flex-wrap items-center justify-center gap-3 mt-9 sm:mt-14 sm:gap-5">
               
               <RippleButton asChild hoverScale={1.025} className="btn h-14 min-w-48 bg-white px-8 text-[#0D0F17] hover:bg-neutral-100">
-                <a href={CFG.booking} {...externalProps(CFG.booking)}>Scdule a Call <Icon name="arrow-up-right" />
+                <a href={CFG.booking} {...externalProps(CFG.booking)}>Schedule a Meeting
                   <RippleButtonRipples color="rgba(124,58,237,0.22)" />
                 </a> 
               </RippleButton>

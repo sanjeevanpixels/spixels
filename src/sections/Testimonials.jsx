@@ -94,11 +94,10 @@ const arrowClass =
 export default function Testimonials() {
   const count = PEOPLE.length;
 
-  const [{ index, dir }, setView] = useState(() => ({
-    index: Math.floor(count / 2),
-    dir: 1,
-  }));
-
+ const [{ index, dir }, setView] = useState(() => ({
+  index: 0,
+  dir: 1,
+}));
   const reduceMotion = useReducedMotion();
   const touch = useRef(null);
 

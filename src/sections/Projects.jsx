@@ -4,7 +4,7 @@ import { PROJECTS } from '../data/content';
 
 const STATUS_STYLES = {
   'In development': 'bg-[#FFF1A6] text-neutral-900',
-  'Case Study': 'bg-blue-900 text-white dark:bg-white dark:text-neutral-900',
+  'Case Study': 'bg-zinc-900 text-white dark:bg-white dark:text-neutral-900',
 };
 
 const MAX_TAGS = 3;
@@ -108,7 +108,7 @@ export default function Projects() {
   target="_blank"
   rel="noopener noreferrer"
   aria-label={`${ctaLabel}: ${p.name} (opens in a new tab)`}
-  className="inline-flex items-center gap-2 text-sm font-semibold transition-colors min-h-11 text-neutral-900 hover:text-pink-600 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-600 dark:text-white dark:hover:text-indigo-400 motion-reduce:transition-none"
+  className="inline-flex items-center gap-2 text-sm font-semibold transition-colors min-h-11 text-neutral-900 hover:text-[#FF2056] focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF2056] dark:text-white dark:hover:text-indigo-400 motion-reduce:transition-none"
 >
   <span>{ctaLabel}</span>
 
