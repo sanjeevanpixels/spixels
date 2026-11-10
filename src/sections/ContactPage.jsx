@@ -12,7 +12,7 @@ export default function ContactPage({ service, onServiceChange }) {
   return (
     <main
       id="contact-page"
-      className="min-h-[calc(100svh-76px)] bg-[#F7F7F7] py-5 dark:bg-[#0D0F17] sm:py-8 lg:py-10"
+      className="min-h-[calc(100svh-76px)] bg-[#FBFBFB] py-5 dark:bg-[#0D0F17] sm:py-8 lg:py-10"
     >
       <div className="w-full max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
 
@@ -28,7 +28,7 @@ export default function ContactPage({ service, onServiceChange }) {
 
         {/* Page Heading */}
         <header className="max-w-3xl mx-auto mt-6 text-center mb-7 sm:mb-9 sm:mt-7">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300 sm:text-sm">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-pink-600 dark:text-pink-300 sm:text-sm">
             Contact &amp; collaboration
           </p>
 
@@ -48,19 +48,9 @@ export default function ContactPage({ service, onServiceChange }) {
           {/* Left Information Panel */}
           <aside className="relative flex flex-col justify-between overflow-hidden bg-[#0D0F17] p-6 text-white sm:p-8 lg:p-9">
 
-            {/* Background Decoration */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-16 -right-5 select-none font-bricolage text-[220px] font-extrabold leading-none text-white/[0.035]"
-            >
-              S
-            </div>
-
             {/* Introduction */}
             <div className="relative z-10">
-              <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.07] text-indigo-300">
-                <Icon name="message-circle" />
-              </span>
+        
 
               <h2 className="max-w-xs text-2xl font-bold leading-tight font-bricolage sm:text-3xl">
                 Let’s start a conversation
@@ -74,14 +64,11 @@ export default function ContactPage({ service, onServiceChange }) {
 
             {/* Contact Details */}
             <div className="relative z-10 pt-6 mt-10 border-t border-white/15 sm:mt-12">
-
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
                 Email address
               </p>
 
-              <a
-                href={`mailto:${CFG.email}`}
-                className="inline-block mt-2 text-base font-medium underline break-all transition decoration-white/30 underline-offset-4 hover:decoration-white sm:text-lg"
+              <a href={`mailto:${CFG.email}`}className="inline-block mt-2 text-base font-medium underline break-all transition decoration-white/30 underline-offset-4 hover:decoration-white sm:text-lg"
               >
                 {CFG.email}
               </a>

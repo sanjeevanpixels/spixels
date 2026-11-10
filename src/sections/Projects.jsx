@@ -4,7 +4,7 @@ import { PROJECTS } from '../data/content';
 
 const STATUS_STYLES = {
   'In development': 'bg-[#FFF1A6] text-neutral-900',
-  'Case Study': 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900',
+  'Case Study': 'bg-blue-900 text-white dark:bg-white dark:text-neutral-900',
 };
 
 const MAX_TAGS = 3;

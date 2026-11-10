@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Icon from '../components/ui/Icon';
-import MeshGradient from '../components/ui/MeshGradient';
 import { TESTIMONIALS } from '../data/content';
 
 const EASE = [0.22, 1, 0.36, 1];
@@ -65,7 +64,7 @@ function QuoteContent({ person }) {
     <>
       <span
         aria-hidden="true"
-        className="mb-2 block h-9 select-none font-bricolage text-7xl leading-[0.9] text-violet-500 dark:text-violet-300"
+        className="mb-2 block h-9 select-none font-bricolage text-7xl leading-[0.9] text-zinc-500 dark:text-zinc-300"
       >
         &ldquo;
       </span>
@@ -222,7 +221,7 @@ export default function Testimonials() {
         onKeyDown={onKeyDown}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        className="mx-auto flex w-full max-w-[1680px] flex-col gap-8 rounded-[28px] bg-white p-4 text-slate-900 outline-none ring-1 ring-black/5 [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-violet-500/70 dark:bg-[#12141F] dark:text-white dark:shadow-none dark:ring-white/10 dark:focus-visible:ring-violet-300/70 sm:gap-10 sm:rounded-[40px] sm:p-8 lg:p-10"
+        className="mx-auto flex w-full max-w-[1680px] flex-col gap-8 rounded-[28px] bg-white p-4 text-slate-900 outline-none ring- ring-black/5 [touch-action:pan-y] focus-visible:ring-2 focus-visible:ring-violet-500/70 dark:bg-[#12141F] dark:text-white dark:shadow-none dark:ring-white/10 dark:focus-visible:ring-violet-300/70 sm:gap-10 sm:rounded-[40px] sm:p-8 lg:p-10"
       >
         {/* Header */}
         <div className="flex items-end justify-between gap-4 sm:gap-6">
@@ -269,43 +268,39 @@ export default function Testimonials() {
           <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
 
             {/* Portrait Stage */}
-            <div
-              aria-hidden="true"
-              className="relative isolate aspect-[4/3] overflow-hidden rounded-[22px] bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-400 sm:aspect-[16/10] sm:rounded-[28px] lg:aspect-auto lg:min-h-[30rem]"
-            >
-              <div className="absolute inset-0 overflow-hidden">
-                <MeshGradient />
-              </div>
-
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={active.id}
-                  initial={{
-                    opacity: 0,
-                    scale: reduceMotion ? 1 : 1.05,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    transition: {
-                      duration: reduceMotion ? 0.2 : 0.6,
-                      ease: EASE,
-                    },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    transition: { duration: 0.3 },
-                  }}
-                  className="absolute inset-[3px] overflow-hidden rounded-[18px] shadow-[0_20px_60px_rgba(10,11,20,0.35)] sm:inset-4 sm:rounded-[20px]"
-                >
-                  <Portrait
-                    key={`${active.id}-${active.portrait}`}
-                    person={active}
-                    initialsClass="text-5xl"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
+<div
+  aria-hidden="true"
+  className="relative isolate aspect-[4/3] overflow-hidden rounded-[22px] border-2 border-[#E9E5F0] bg-[#F8F7FA] sm:aspect-[16/10] sm:rounded-[20px] lg:aspect-auto lg:min-h-[30rem] dark:border-white/10 dark:bg-white/[0.03]"
+>
+  <AnimatePresence initial={false}>
+    <motion.div
+      key={active.id}
+      initial={{
+        opacity: 0,
+        scale: reduceMotion ? 1 : 1.03,
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+        transition: {
+          duration: reduceMotion ? 0.2 : 0.6,
+          ease: EASE,
+        },
+      }}
+      exit={{
+        opacity: 0,
+        transition: { duration: 0.3 },
+      }}
+      className="absolute inset-[2px] overflow-hidden rounded-[17px] sm:rounded-[17px]"
+    >
+      <Portrait
+        key={`${active.id}-${active.portrait}`}
+        person={active}
+        initialsClass="text-5xl"
+      />
+    </motion.div>
+  </AnimatePresence>
+</div>
 
             {/* Quote and Roster */}
             <div className="flex flex-col justify-between min-w-0 gap-10">
