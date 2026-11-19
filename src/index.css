@@ -6,7 +6,7 @@
   .sec {
     @apply w-full py-[72px] sm:py-[120px] scroll-mt-16;
   }
-
+  
   .wrap {
     @apply max-w-[1400px] mx-auto px-4 sm:px-8;
   }

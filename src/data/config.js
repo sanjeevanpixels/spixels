@@ -1,4 +1,3 @@
-// Site-wide settings. Edit these first.
 export const CFG = {
   email: 'ssjeevan201@gmail.com', 
   resume: '/pdf/Resume%20%5BUIUX%20Designer%5D.pdf',

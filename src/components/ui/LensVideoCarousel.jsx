@@ -14,18 +14,6 @@ import gsap from 'gsap'
  * @property {string} [href] clicking the card goes here
  */
 
-/**
- * Props (all optional except `items`):
- * items: LensVideoItem[]            title, highlight, kicker: string       children: ReactNode
- * cardHeight, cardRatio, radius, spacing, rowGap, bend, focus, grow, follow, slant: number
- * counterRows, reverse, playVideos, cursorLabel: boolean
- * bulgeX, bulgeY, speedWarp, blur, blurStart, blurRamp, shutter, fringe, edgeFade, grain: number
- * speed, hoverSlow, intro, dragPower, throwPower, settle, videoFps, maxDpr: number
- * accent, titleColor, kickerColor, background, placeholder: string (colours)
- * ring, hoverScale, titleSize, startIndex: number
- * onSelect: (item, index) => void    label, className: string
- */
-
 const VERTEX = `#version 300 es
 in vec2 aUv;
 uniform vec2 uView, uCentre, uAxis, uSize, uBulge;
@@ -144,7 +132,7 @@ export default function LensVideoCarousel({
   playVideos = true,
   videoFps = 24,
   maxDpr = 1.5,
-  accent = '#ff5a1f',
+  accent = '#FF5A1F',
   ring = 3,
   hoverScale = 1.03,
   cursorLabel = true,

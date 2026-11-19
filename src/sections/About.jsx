@@ -94,7 +94,7 @@ export default function About() {
                 <span className="block">Usually I'm designer.</span>
                 <span className="block">Don't make me a</span>
                 <span className="mt-2 block font-extrabold leading-[1.1] tracking-[0.015em] text-[#F5F000] sm:mt-4">
-                  CODING PUYAL !
+                  CODE NINJA!
                 </span>
               </Rise>
 
@@ -103,9 +103,7 @@ export default function About() {
                 i={1}
                 className="max-w-2xl mt-6 text-base leading-7 text-white/70 sm:mt-7 sm:text-lg sm:leading-8"
               >
-                Hi, I'm Sanjeevan. I bring product thinking and visual
-                craft together to make digital experiences clear,
-                useful, and memorable.
+               Hi, I'm Sanjeevan. I'm a UI/UX & Product Designer with a passion for crafting intuitive interfaces, thoughtful design systems, and meaningful digital experiences.
               </Rise>
 
               <Rise
@@ -113,8 +111,7 @@ export default function About() {
                 i={2}
                 className="max-w-2xl mt-3 text-base leading-7 text-white/70 sm:text-lg sm:leading-8"
               >
-                From shaping an interface to building it for the web,
-                I enjoy connecting every detail to a real user need.
+              I don't just design static screens. From shaping user-focused experiences to bringing ideas to life on the web, I combine product thinking and visual craft to turn concepts into functional digital products.
               </Rise>
 
               {/* Highlights */}

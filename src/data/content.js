@@ -76,8 +76,6 @@ export const PROJECTS = [
   },
 ];
 
-
-// [title, description, icon, gradient]
 export const PROCESS = [
   ['Understand the Need', 'Listen, ask the right questions, and understand what people really need.', 'from-indigo-600 to-slate-900', '/images/Idea.png'],
   ['Keep It Simple', 'Turn complicated ideas into simple, clear, and easy-to-use experiences.', 'from-sky-600 to-slate-900', '/images/Make.png'],
@@ -94,7 +92,6 @@ export const EXP = [
     front: 'Designed 23+ websites and SaaS products, creating responsive, user-centered experiences through consistent design systems, AI-powered workflows, user research, and client collaboration.',
     tags: ['Full-time', 'Remote']
   },
-
   {
     co: 'Misscode',
     logo: '/logos/misscode.png',
@@ -104,7 +101,6 @@ export const EXP = [
     front: 'Created 3 complete brand identity kits, developing cohesive visual identities through logo design, typography, color systems, marketing assets, and client collaboration.',
     tags: ['Freelance', 'Remote']
   },
-
   {
     co: 'Pineapple AI',
     logo: '/logos/pineappleai.jpg',
@@ -114,7 +110,6 @@ export const EXP = [
     front: 'Designed end-to-end UX solutions for 5 projects, creating user flows, wireframes, prototypes, and responsive interfaces while mentoring interns, improving design consistency, and collaborating with cross-functional teams.',
     tags: ['Full-time', 'Remote']
   },
-
   {
     co: 'Accron Revolutions',
     logo: '/logos/accron.ico',
@@ -206,7 +201,6 @@ export const SOFT_SKILLS = [
     ['Information Architecture', 'Organize content and functionality into intuitive structures.'],
    
   ]],
-
   ['UI/UX Design', [
     ['UX Design', 'Create intuitive and seamless end-to-end user experiences.'],
     ['UI Design', 'Build clear, consistent, and visually engaging interfaces.'],
@@ -214,7 +208,6 @@ export const SOFT_SKILLS = [
     ['Wireframing & Prototyping', 'Translate ideas into structured interface layouts and interactive prototypes.'],
     ['Responsive Design', 'Create adaptable experiences across different screen sizes.'],
   ]],
-
   ['Product & Design Practices', [
     ['Design Systems', 'Build reusable components and maintain design consistency.'],
     ['Design Thinking', 'Approach complex problems through structured, user-centered thinking.'],
@@ -223,7 +216,6 @@ export const SOFT_SKILLS = [
     ['Design Handoff', 'Communicate design specifications for smooth implementation.'],
     ['Agile / Scrum', 'Collaborate effectively within iterative product teams.'],
   ]],
-
   ['Core Strengths', [
     ['Problem Solving', 'Break complex challenges into practical solutions.'],
     ['Critical Thinking', 'Evaluate ideas and make informed design decisions.'],
@@ -232,8 +224,6 @@ export const SOFT_SKILLS = [
     ['Attention to Detail', 'Maintain consistency and quality across design work.'],
   ]],
 ];
-
-
 
 export const SERVICES = [
   [
@@ -268,7 +258,6 @@ export const SERVICES = [
   ],
 ];
 
-
 export const WORDS = [
   'Stay curious',
   'Create with purpose',
@@ -293,7 +282,6 @@ export const TESTIMONIALS = [
     quote: 'If you need top-quality design work, I highly recommend Sanjeevan. He made our logo redesign process effortless with his clear communication, cooperative nature, and timely delivery. The final design was spot-on!',
     portrait: '/images/Petties.png',
   },
-
   {
     id: 'sample-logikaa',
     name: 'K. Logika',
@@ -309,7 +297,6 @@ export const TESTIMONIALS = [
     quote: 'A careful eye for detail and a generous way of collaborating made the project better.',
     portrait: '/images/Chiliz.png'
   },
-
   {
     id: 'sample-ashini',
     name: 'Ashini', role: 'Project Manager',
@@ -317,7 +304,6 @@ export const TESTIMONIALS = [
     quote: 'Sanjeevan brought structure to an open-ended brief without losing the original creative idea.',
     portrait: '/images/SB Banking App.png'
   },
-
   {
     id: 'sample-mathumila',
     name: 'Mathumila',
