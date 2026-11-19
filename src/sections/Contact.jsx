@@ -27,7 +27,7 @@ export default function Contact() {
               </RippleButton>
               
               <Button onClick={copyEmail} className="border on-dark h-14 min-w-48 border-white/25 hover:border-white hover:bg-white/5">
-                Copy Email
+                Get My Email
               </Button>
             </div>
             <div className="mt-8 flex flex-wrap justify-center gap-2.5 sm:gap-3">

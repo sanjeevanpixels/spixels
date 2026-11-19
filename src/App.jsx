@@ -13,7 +13,7 @@ import WordMarquee from "./sections/WordMarquee";
 import Contact from "./sections/Contact";
 import Process from "./sections/Process";
 import Tools from "./sections/Tools";
-import Testimonials from "./sections/Testimonials";
+// import Testimonials from "./sections/Testimonials";
 import FAQ from "./sections/FAQ";
 import ProjectPage from "./sections/projectsdetails";
 import { PLACEHOLDER_MSG } from "./data/config";
@@ -149,7 +149,7 @@ export default function App() {
                 <Experience />
                 <Process />
                 <Tools />
-                <Testimonials />
+                {/* <Testimonials /> */}
                 <FAQ />
                 <Contact />
               </main>
