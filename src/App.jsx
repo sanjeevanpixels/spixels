@@ -29,6 +29,10 @@ import Process from "./sections/Process";
 import Tools from "./sections/Tools";
 
 import Testimonials from "./sections/Testimonials";
+import FAQ from "./sections/FAQ";
+import DesignPhilosophy from "./sections/DesignPhilosophy";
+import Achievements from "./sections/Achievements";
+import Education from "./sections/Education";
 
 import ProjectPage from "./sections/projectsdetails";
 
@@ -231,11 +235,19 @@ export default function App() {
 
                 <Experience />
 
+                <DesignPhilosophy />
+
+                <Achievements />
+
+                <Education />
+
                 <Process />
 
                 <Tools />
 
                 <Testimonials />
+
+                <FAQ />
 
                 <Contact />
 

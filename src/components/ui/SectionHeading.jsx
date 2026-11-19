@@ -4,6 +4,7 @@ import { cn } from '../../lib/utils';
 export default function SectionHeading({
   title,
   subtitle,
+  headingId,
   className,
   subClassName,
   ...props
@@ -17,6 +18,7 @@ export default function SectionHeading({
       {...props}
     >
       <h2
+        id={headingId}
         className={cn(
           'h2 text-balance leading-[1.1] tracking-tight'
         )}
