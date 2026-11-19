@@ -170,10 +170,8 @@ export default function App() {
               <motion.span key={index} aria-hidden="true" className="absolute h-1.5 w-1.5 rounded-full bg-[#FFD18A]" style={{ left, top }} animate={reduceMotion ? undefined : { opacity: [0.25, 1, 0.25], scale: [0.75, 1.2, 0.75] }} transition={{ duration: 2.4, delay, repeat: Infinity, ease: 'easeInOut' }} />
             ))}
             <div className="relative flex items-center justify-center w-48 h-48 mb-7 sm:mb-8 sm:h-56 sm:w-56">
-
               {!reduceMotion && <motion.svg aria-hidden="true" viewBox="0 0 100 100" className="absolute -right-2 top-0 h-12 w-12 text-[#E8D6FF] sm:-right-4 sm:h-14 sm:w-14" animate={{ y: [0, -8, 0], rotate: [8, 15, 8] }} transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}><path fill="currentColor" d="M50 4c-8 15-22 19-36 20 9 7 15 16 16 27 7-5 13-12 20-24 7 12 13 19 20 24 1-11 7-20 16-27C72 23 58 19 50 4Z" /></motion.svg>}
               <motion.svg aria-hidden="true" viewBox="0 0 180 190" className="h-full w-full drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)]" initial={reduceMotion ? false : { opacity: 0, y: 12, scale: 0.88 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: reduceMotion ? 0 : 0.55, type: 'spring', stiffness: 170, damping: 18 }}>
-
                 <path d="M85 30c-7-12-5-21 2-28 6 10 15 13 25 13-1 9-8 16-18 19" fill="#83A85A" />
                 <path d="M87 37C68 25 47 34 36 49 15 52 8 74 15 100c5 22 22 40 39 43 10 12 29 15 41 2 20-3 37-21 42-45 5-23-2-43-21-50-9-12-18-16-29-13Z" fill="#F47A32" />
                 <path d="M87 37c-12 7-17 23-16 47 1 26 7 46 17 60 10-13 16-34 17-60 1-23-5-40-18-47Z" fill="#FF9A43" />
@@ -181,33 +179,18 @@ export default function App() {
                 <path d="m49 78 15-10-2 20 13 9-18 1-8 16-4-18-15-7 18-3 1-8Zm48-1 12-8 1 17 14 7-15 4-6 16-5-16-13-5 13-6-1-9Z" fill="#24142E" />
                 <path d="M57 119c10 4 19 4 29 0 9 4 17 4 26 0-4 12-13 19-27 19-13 0-23-7-28-19Z" fill="#24142E" />
                 <path d="M63 121h42l-5 8H68l-5-8Z" fill="#FFF0C8" />
-
               </motion.svg>
-
               {!reduceMotion && <motion.span aria-hidden="true" className="absolute -bottom-1 left-1/2 h-2 w-28 -translate-x-1/2 rounded-full bg-[#F47A32]/35 blur-md" animate={{ scaleX: [0.8, 1.12, 0.8], opacity: [0.5, 0.85, 0.5] }} transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }} />}
-
             </div>
-
             <p className="font-bricolage text-2xl font-semibold tracking-tight sm:text-[28px]">Sanjeevan<span className="text-[#FF9A43]">.</span></p>
-
             <p className="mt-2 text-sm text-white/65 sm:text-base">A little magic is loading<span aria-hidden="true">…</span></p>
-
             <div aria-hidden="true" className="w-40 h-1 mt-6 overflow-hidden rounded-full bg-white/10">
-
               <motion.span className="block h-full origin-left rounded-full bg-gradient-to-r from-[#A879F5] via-[#F47A32] to-[#FFD18A]" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduceMotion ? 0 : 0.75, ease: 'easeInOut' }} />
-
             </div>
-
             <span className="sr-only">Preparing the portfolio</span>
-
           </motion.div>
-
         )}
-
       </AnimatePresence>
-
     </>
-
   );
-
 }

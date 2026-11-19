@@ -1,85 +1,61 @@
 import LensVideoCarousel from '../components/ui/LensVideoCarousel'
 import ScrollFlipText from '../components/ui/Scrollfliptext'
 import ArcPokeText from '../components/ui/Arcpoketext'
-import RopeCarousel from '../components/ui/RopeCarousel'
+import StringPluckText from '../components/ui/StringPluckText'
+import TitleFlipReveal from '../components/ui/TitleFlipReveal'
+import ScrollScribblePath from '../components/ui/ScrollScribblePath'
+import AsciiKrishnaFooter from '../components/ui/AsciiKrishnaFooter'
 
 const items = [
   {
-    video: '/clips/brand-reel.mp4',
     src: '/logos/devsha.jpeg',   // shows until the video has a frame
     alt: 'Brand reel for Northwind',
-    title: 'Northwind',               // label that follows the cursor
-    href: '/work/northwind',
+    title: 'Devsha',               // label that follows the cursor
   },
   {
-    video: '/clips/logo-motion.mp4',
     src: '/logos/k6tatto.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'K6 Tattoo',
   },
    {
-    video: '/clips/logo-motion.mp4',
     src: '/logos/misscode.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'Misscode',
   },
      {
-    video: '/clips/logo-motion.mp4',
     src: '/logos/petties.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'Petties',
   },
      {
-    video: '/clips/logo-motion.mp4',
     src: '/logos/veggies.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'Veggies',
   },
-     {
-    video: '/clips/logo-motion.mp4',
-    src: '/logos/sb.png',
-    alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
-  },
-     {
-    video: '/clips/logo-motion.mp4',
+  {
     src: '/logos/food-fashion.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'Food Fashion',
   },
-     {
-    video: '/clips/logo-motion.mp4',
+  {
     src: '/logos/readify.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'Readify',
   },
-     {
-    video: '/clips/logo-motion.mp4',
+  {
     src: '/logos/orderista.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'Orderista',
   },
-     {
-    video: '/clips/logo-motion.mp4',
+  {
     src: '/logos/chiliz.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'Chiliz',
   },
-     {
-    video: '/clips/logo-motion.mp4',
+  {
     src: '/logos/es.png',
     alt: 'Animated logo study',
-    title: 'Logo Motion',
-    href: '/work/logo-motion',
+    title: 'Eastern Spark',
   },
 ]
 
@@ -107,35 +83,8 @@ export default function Page() {
         background="#0d0d0f"
       />
 
-      <section className="bg-[#f7f4ef] px-6 py-16 text-[#0d0d0f] sm:py-20 md:px-12">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#e34723]">
-            Selected identities
-          </p>
-          <h2 className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-4xl">
-            Brands made to move.
-          </h2>
-        </div>
-        <div className="mx-auto mt-8 h-[300px] max-w-6xl overflow-hidden rounded-[28px] bg-[#11121a] sm:mt-10 sm:h-[360px] sm:rounded-[36px]">
-          <RopeCarousel
-            items={items.map(({ src, title, alt }) => ({
-              src,
-              title,
-              caption: alt,
-            }))}
-            cardWidth={184}
-            gap={32}
-            sag={42}
-            speed={16}
-            ropeColor="#756A88"
-            clipColor="#A78BFA"
-          />
-        </div>
-      </section>
-
       <section id="projects" className="flex min-h-[85vh] items-center bg-[#ffede4] px-6 py-20 text-[#15110f] sm:px-10 md:px-12">
         <div className="mx-auto w-full max-w-6xl">
-          <p className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-[#e34723]">Selected expression</p>
           <ArcPokeText
             lines={['DESIGN', 'WITH PULSE']}
             className="text-[clamp(68px,15vw,220px)] font-black uppercase tracking-[-0.055em]"
@@ -145,6 +94,71 @@ export default function Page() {
             poke
           />
         </div>
+      </section>
+
+      <section className="flex min-h-[70vh] items-center overflow-hidden bg-[#11121a] px-6 py-20 text-white sm:py-24 md:px-12">
+        <div className="mx-auto w-full max-w-6xl">
+          <p className="mb-8 text-sm font-bold uppercase tracking-[0.18em] text-[#ffb900]">
+            A little interaction
+          </p>
+          <StringPluckText
+            text="Ideas that resonate."
+            stringColor="#ffb900"
+            className="font-black tracking-[-0.06em]"
+          />
+          <p className="mx-auto mt-8 max-w-xl text-center text-base leading-relaxed text-white/65 sm:text-lg">
+            Pull the line and let the details find their own rhythm.
+          </p>
+        </div>
+      </section>
+
+      <section className="flex min-h-[75vh] items-center bg-[#e7e1ff] px-6 py-20 text-[#17151f] sm:py-24 md:px-12">
+        <div className="mx-auto w-full max-w-6xl">
+          <p className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-[#6d28d9]">
+            The next chapter
+          </p>
+          <TitleFlipReveal
+            lines={['Make it', 'clear.', 'Make it', 'matter.']}
+            altLines={['Shape the', 'feeling.', 'Build the', 'future.']}
+            flipOn="click"
+            className="text-5xl font-black leading-[0.98] tracking-[-0.055em] sm:text-7xl md:text-8xl"
+          />
+          <p className="mt-8 text-sm text-[#17151f]/55">Tap or click the headline to flip it.</p>
+        </div>
+      </section>
+
+      <ScrollScribblePath
+        colors={['#11121a', '#6d28d9', '#ff2056']}
+        backgrounds={['#f7f4ef', '#e7e1ff', '#ffede4']}
+        className="min-h-[150vh]"
+        loops={0.65}
+        seed={19}
+      >
+        <section className="relative z-10 flex min-h-[150vh] items-center px-6 py-24 text-[#11121a] sm:px-10 md:px-12">
+          <div className="mx-auto grid w-full max-w-6xl gap-24 sm:gap-32">
+            {[
+              ['01 / Discover', 'Start with the people, their needs, and the details that matter.'],
+              ['02 / Shape', 'Bring a clear idea to life through considered design and interaction.'],
+              ['03 / Deliver', 'Make the final experience feel effortless, useful, and unmistakably yours.'],
+            ].map(([label, copy]) => (
+              <article key={label} className="max-w-2xl rounded-[28px] border border-[#11121a]/10 bg-white/70 p-6 shadow-[0_20px_60px_rgba(17,18,26,0.08)] backdrop-blur-sm sm:p-10">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#6d28d9]">{label}</p>
+                <p className="mt-5 text-2xl font-semibold leading-tight tracking-[-0.035em] sm:text-4xl">{copy}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </ScrollScribblePath>
+
+      <section aria-label="Closing artwork">
+        <AsciiKrishnaFooter
+          colors={['#4a42bb', '#f3d9a1']}
+          accent="#ffb900"
+          background="#05060f"
+          cellSize={7}
+          brushRadius={3}
+          className="min-h-[560px]"
+        />
       </section>
     </main>
   )
