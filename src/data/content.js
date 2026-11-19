@@ -121,59 +121,11 @@ export const EXP = [
   },
 ];
 
-export const DESIGN_PRINCIPLES = [
-  {
-    title: 'People before pixels',
-    description: 'I start by understanding people, their needs, and the real problem before shaping the interface.',
-    icon: 'users',
-  },
-  {
-    title: 'Clarity is a kindness',
-    description: 'Simple, thoughtful experiences help people feel confident and make complex tasks easier.',
-    icon: 'lightbulb',
-  },
-  {
-    title: 'Always stay curious',
-    description: 'I explore, ask questions, welcome feedback, and keep refining until the details feel right.',
-    icon: 'compass',
-  },
-];
-
-export const ACHIEVEMENTS = [
-  {
-    value: '23+',
-    title: 'Websites & SaaS products',
-    description: 'Designed responsive digital experiences at Webtezza.',
-    icon: 'globe',
-  },
-  {
-    value: '3',
-    title: 'Brand identity kits',
-    description: 'Created cohesive visual identities with Misscode.',
-    icon: 'palette',
-  },
-  {
-    value: '5',
-    title: 'End-to-end UX projects',
-    description: 'Designed user flows, wireframes, prototypes, and responsive interfaces at Pineapple AI.',
-    icon: 'layers',
-  },
-];
-
-export const EDUCATION = [
-  {
-    title: 'Learning through practice',
-    focus: 'UI/UX design & web development',
-    period: 'Ongoing',
-    description: 'I continue to grow through hands-on projects, exploring new ideas, and collaborating with people across disciplines.',
-    icon: 'book-open',
-  },
-];
 
 export const FAQS = [
   {
-    question: 'What services do you offer?',
-    answer: 'I offer UI/UX design, website design, mobile app design, web development, and brand identity services.',
+    question: 'How can we start a project?',
+    answer: 'Simply reach out through my email. We can discuss your ideas, requirements, and project goals.',
   },
   {
     question: 'Do you work on freelance projects?',
@@ -184,10 +136,19 @@ export const FAQS = [
     answer: 'Yes. I can help improve existing interfaces, enhance usability, and refine digital product experiences.',
   },
   {
-    question: 'How can we start a project?',
-    answer: 'Simply reach out through my contact form or email. We can discuss your ideas, requirements, and project goals.',
+    question: 'Do you provide responsive website designs?',
+    answer: 'Yes! I design responsive interfaces that deliver a consistent experience across desktop, tablet, and mobile devices.',
+  },
+  {
+    question: 'Do you collaborate with developers?',
+    answer: 'Yes! I work closely with developers to ensure the final product matches the design vision and provides a smooth user experience.',
+  },
+  {
+    question: 'How long does a typical project take?',
+    answer: "Project timelines depend on the scope, complexity, and requirements. I'll provide a realistic timeline before we begin.",
   },
 ];
+
 
 // Small, editable skill groups for the Tools section.
 export const SOFT_SKILLS = [
