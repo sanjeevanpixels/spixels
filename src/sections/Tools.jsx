@@ -121,7 +121,7 @@ export default function Tools() {
   return (
     <section
       id="tools"
-      className="sec overflow-hidden !py-10 bg-[#FBFBFB] dark:bg-[#0D0F17] sm:!py-14 lg:!py-16"
+      className="sec overflow-hidden !py-10 bg-[#FBFBFB] sm:!py-14 lg:!py-16"
     >
       <div className="wrap">
 
@@ -145,10 +145,10 @@ export default function Tools() {
         {/* Soft skills section */}
         <section
           aria-labelledby="soft-skills-heading"
-          className="mx-auto mt-6 w-full max-w-[1600px] rounded-2xl border border-violet-100/80 bg-white p-4 dark:border-white/10 dark:bg-[#151826] dark:shadow-none sm:mt-8 sm:rounded-[28px] sm:p-6 lg:p-8"
+          className="mx-auto mt-6 w-full max-w-[1600px] rounded-2xl border border-violet-100/80 bg-white p-4 sm:mt-8 sm:rounded-[28px] sm:p-6 lg:p-8"
         >
           <div className="mb-5 sm:mb-6">
-            <p className="mb-1 text-sm font-semibold text-[#FF5A1F] dark:text-[#FF5A1F]">
+            <p className="mb-1 text-sm font-semibold text-[#FF5A1F]">
               Skills &amp; Approach
             </p>
 
@@ -160,7 +160,7 @@ export default function Tools() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {SOFT_SKILLS.map(([group, skills]) => (
               <div key={group} className="min-w-0">
-                <h4 className="mb-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
+                <h4 className="mb-3 text-sm font-semibold text-slate-500">
                   {group}
                 </h4>
 
@@ -187,7 +187,7 @@ function ToolCard({ group }) {
   return (
     <article
       aria-labelledby={headingId}
-      className="flex h-full flex-col rounded-2xl border border-slate-200/70 bg-white p-4 dark:border-white/10 dark:bg-[#151826] sm:rounded-3xl sm:p-6"
+      className="flex h-full flex-col rounded-2xl border border-slate-200/70 bg-white p-4 sm:rounded-3xl sm:p-6"
     >
       <header className="flex items-center gap-3 mb-5">
         <div className="min-w-0">
@@ -195,7 +195,7 @@ function ToolCard({ group }) {
             {group.title}
           </h3>
 
-          <p className="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm leading-relaxed text-slate-500">
             {group.blurb}
           </p>
         </div>
@@ -216,11 +216,11 @@ function ToolCard({ group }) {
 function ToolTile({ name }) {
   return (
     <div className="flex flex-col items-center min-w-0 gap-2 text-center group">
-      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white ring-1 ring-slate-200 transition-transform motion-safe:group-hover:-translate-y-0.5 dark:ring-white/15 sm:h-14 sm:w-14 sm:rounded-2xl">
+      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white ring-1 ring-slate-200 transition-transform motion-safe:group-hover:-translate-y-0.5 sm:h-14 sm:w-14 sm:rounded-2xl">
         <ToolIcon name={name} />
       </span>
 
-      <span className="w-full break-words text-[10px] font-medium leading-tight text-slate-600 dark:text-slate-300 sm:text-xs">
+      <span className="w-full break-words text-[10px] font-medium leading-tight text-slate-600 sm:text-xs">
         {name}
       </span>
     </div>

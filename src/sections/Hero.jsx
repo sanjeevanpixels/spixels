@@ -7,9 +7,8 @@ import { CFG } from '../data/config';
 import { externalProps } from '../lib/utils';
 import useToast from '../hooks/useToast';
 
-// Shared keyboard focus ring (works in light + dark, matches the page background for the offset).
 const FOCUS =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0D0F17] focus-visible:ring-offset-2 dark:focus-visible:ring-white dark:focus-visible:ring-offset-[#0D0F17]';
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0D0F17] focus-visible:ring-offset-2';
 
 // Full-bleed smiley: fills the whole circle, uses the button's own background as the face color.
 const FACE = '#0D0F17';
@@ -142,7 +141,7 @@ function Eyes() {
       {[0, 1].map((i) => (
         <span
           key={i}
-          className="eye-socket flex size-28 shrink-0 items-center justify-center overflow-hidden rounded-full border-[3px] border-[#0d1117] bg-white shadow-[inset_0_2px_8px_rgba(15,23,42,0.1)] dark:border-[#3a4150] sm:size-36"
+          className="eye-socket flex size-28 shrink-0 items-center justify-center overflow-hidden rounded-full border-[3px] border-[#0d1117] bg-white shadow-[inset_0_2px_8px_rgba(15,23,42,0.1)] sm:size-36"
           aria-hidden="true"
         >
           {/* Pupil is ~61% of the socket at both sizes so the proportions stay identical. */}
@@ -175,14 +174,14 @@ function RoleDescription({ role, text, reduceMotion }) {
         // Exit is faster than enter so swapping roles feels snappy, not sluggish.
         transition={{ duration: reduceMotion ? 0 : 0.22, ease: [0.22, 0.61, 0.36, 1] }}
       >
-        <p className="font-bricolage text-lg font-semibold text-[#0D0F17] dark:text-white sm:text-xl">{ROLES[role].label}</p>
-        <p className="mt-1 text-[15px] leading-6 text-[#666] dark:text-[#A3A3A3] sm:text-base sm:leading-7">
+        <p className="font-bricolage text-lg font-semibold text-[#0D0F17] sm:text-xl">{ROLES[role].label}</p>
+        <p className="mt-1 text-[15px] leading-6 text-[#666] sm:text-base sm:leading-7">
           {start < 0 ? (
             text
           ) : (
             <>
               {text.slice(0, start)}
-              <strong className="font-bold text-[#0D0F17] dark:text-white">{emphasis}</strong>
+              <strong className="font-bold text-[#0D0F17]">{emphasis}</strong>
               {text.slice(end)}
             </>
           )}
@@ -206,14 +205,14 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="flex flex-col items-center overflow-hidden bg-white pt-6 text-[#0D0F17] dark:bg-[#0D0F17] dark:text-white sm:pt-8 lg:min-h-[calc(100svh-4.5rem)] lg:justify-between"
+      className="flex flex-col items-center overflow-hidden bg-white pt-6 text-[#0D0F17] sm:pt-8 lg:min-h-[calc(100svh-4.5rem)] lg:justify-between"
     >
       <div className="my-auto max-w-[860px] px-4 text-center">
         <Rise as="button" type="button" i={0} onClick={() => toast('Hi there! 👋')} className={`group mb-3 inline-flex cursor-pointer items-center gap-2 rounded-full px-2 py-1 ${FOCUS}`}>
           <span className="inline-block origin-[75%_75%] text-xl group-hover:animate-wave motion-reduce:group-hover:animate-none" role="img" aria-label="Waving hand">
             👋
           </span>
-          <span className="font-bricolage text-[17px] text-[#666] transition-colors group-hover:text-black dark:text-[#A3A3A3] dark:group-hover:text-white">
+          <span className="font-bricolage text-[17px] text-[#666] transition-colors group-hover:text-black">
             Greetings, Everyone
           </span>
         </Rise>
@@ -244,7 +243,7 @@ export default function Hero() {
                 whileTap={!reduceMotion ? { scale: 0.94 } : undefined}
                 transition={{ type: 'spring', stiffness: 360, damping: 28 }}
                 className={`relative flex size-12 flex-none items-center justify-center overflow-hidden rounded-full transition-[box-shadow,opacity] duration-300 sm:size-14 ${FOCUS} ${r.bg} ${
-                  active ? 'opacity-100 ring-2 ring-[#0D0F17] ring-offset-2 dark:ring-white dark:ring-offset-[#0D0F17]' : 'opacity-60 hover:opacity-100 focus-visible:opacity-100'
+                  active ? 'opacity-100 ring-2 ring-[#0D0F17] ring-offset-2' : 'opacity-60 hover:opacity-100 focus-visible:opacity-100'
                 }`}
               >
                 <Smiley variant={i} />

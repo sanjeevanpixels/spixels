@@ -64,9 +64,9 @@ export default function About() {
    <section
   id="about"
   aria-labelledby="about-heading"
-  className="scroll-mt-20 bg-white py-0 dark:bg-[#0D0F17]"
+  className="scroll-mt-20 bg-white py-0"
 >
-  <div className="relative isolate w-full overflow-hidden bg-[#0D0F17] py-12 text-white ring-1 ring-black/5 dark:ring-white/10 sm:py-16 lg:py-20">
+  <div className="relative isolate w-full overflow-hidden bg-[#0D0F17] py-12 text-white ring-1 ring-black/5 sm:py-16 lg:py-20">
 
         {/* Background decoration */}
         <div

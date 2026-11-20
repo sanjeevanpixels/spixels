@@ -10,7 +10,7 @@ import { externalProps } from '../lib/utils';
 export default function Contact() {
   const copyEmail = useCopyEmail();
   return (
-    <section id="contact" className="scroll-mt-16 bg-white py-12 dark:bg-[#0D0F17] sm:py-16 lg:py-20">
+    <section id="contact" className="scroll-mt-16 bg-white py-12 sm:py-16 lg:py-20">
       
       <div className="mx-auto max-w-[1680px] px-4 sm:px-8">
         <div className="relative flex min-h-[520px] flex-col items-center justify-center overflow-hidden rounded-[30px] bg-[#0D0F17] px-5 py-14 text-center text-white shadow-2xl sm:min-h-[600px] sm:rounded-[52px] sm:px-10 sm:py-20">

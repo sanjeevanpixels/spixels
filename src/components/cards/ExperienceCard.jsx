@@ -7,7 +7,7 @@ function CompanyBadge({ name, logo }) {
 
   return (
     <div className="flex items-center min-w-0 gap-3">
-      <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white ring-1 ring-black/5 dark:bg-[#191D2A] dark:ring-white/10">
+      <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white ring-1 ring-black/5">
         {logo && !logoFailed ? (
           <img
             src={logo}
@@ -20,7 +20,7 @@ function CompanyBadge({ name, logo }) {
             className="object-contain size-9"
           />
         ) : (
-          <span className="font-bricolage text-sm font-bold text-[#0D0F17] dark:text-white">
+          <span className="font-bricolage text-sm font-bold text-[#0D0F17]">
             {name.trim().slice(0, 2).toUpperCase()}
           </span>
         )}
@@ -56,10 +56,10 @@ export default function ExperienceCard({
   logo,
   products = [],
 }) {
-  const muted = 'text-[#666] dark:text-[#A3A3A3]';
+  const muted = 'text-[#666]';
 
   return (
-    <article className="flex flex-col h-full min-w-0 card">
+    <article className="flex flex-col h-full min-w-0 card border border-black/5">
 
       {/* Company */}
       <CompanyBadge name={co} logo={logo} />
@@ -94,7 +94,7 @@ export default function ExperienceCard({
             {products.map((product) => (
               <li
                 key={product.name}
-                className="inline-flex h-8 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold dark:border-neutral-700 dark:bg-[#1A1D26]"
+                className="inline-flex h-8 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold"
               >
                 {product.logo && (
                   <img
@@ -120,7 +120,7 @@ export default function ExperienceCard({
           {tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-full bg-[#F1F1F3] px-2.5 py-1 text-xs text-[#555] dark:bg-[#242631] dark:text-neutral-300"
+              className="rounded-full bg-[#F1F1F3] px-2.5 py-1 text-xs text-[#555]"
             >
               {tag}
             </li>

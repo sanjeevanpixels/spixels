@@ -7,7 +7,7 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="sec bg-white !py-12 dark:bg-[#0D0F17] md:!py-16 lg:!py-20"
+      className="sec bg-white !py-12 md:!py-16 lg:!py-20"
     >
       <div className="wrap">
         <SectionHeading

@@ -13,7 +13,7 @@ export default function Marquee({ children, fade, fadeWidth = 'w-20 sm:w-40', cl
       )}
       <div className={cn('flex w-max animate-marquee', trackClassName)}>
         {children}
-        <div className="contents marquee-dup" aria-hidden="true" inert="">{children}</div>
+        <div className="contents marquee-dup" aria-hidden="true" inert>{children}</div>
       </div>
     </div>
   );

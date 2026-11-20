@@ -16,7 +16,7 @@ export default function FAQ() {
     <section
       id="faq"
       aria-labelledby="faq-heading"
-      className="sec bg-[#FBFBFB] !py-12 dark:bg-[#11131B] sm:!py-16 lg:!py-20"
+      className="sec bg-[#FBFBFB] !py-12 sm:!py-16 lg:!py-20"
     >
       <div className="wrap">
         <SectionHeading
@@ -31,7 +31,7 @@ export default function FAQ() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="mx-auto max-w-3xl divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white px-5 dark:divide-white/10 dark:border-white/10 dark:bg-[#15171E] sm:rounded-[28px] sm:px-8"
+          className="mx-auto max-w-3xl divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white px-5 sm:rounded-[28px] sm:px-8"
         >
           {FAQS.map(({ question, answer }, index) => {
             const isOpen = openIndex === index;
@@ -50,12 +50,12 @@ export default function FAQ() {
                     aria-expanded={isOpen}
                     aria-controls={answerId}
                     onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                    className="flex min-h-16 w-full items-center justify-between gap-5 py-4 text-left font-bricolage text-base font-semibold leading-snug text-[#0D0F17] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-violet-500 dark:text-white sm:text-lg"
+                    className="flex min-h-16 w-full items-center justify-between gap-5 py-4 text-left font-bricolage text-base font-semibold leading-snug text-[#0D0F17] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-violet-500 sm:text-lg"
                   >
                     {question}
                     <span
                       aria-hidden="true"
-                      className="relative grid size-8 shrink-0 place-items-center rounded-full bg-[#F1F1F3] text-xl font-normal leading-none text-[#0D0F17] dark:bg-white/10 dark:text-white"
+                      className="relative grid size-8 shrink-0 place-items-center rounded-full bg-[#F1F1F3] text-xl font-normal leading-none text-[#0D0F17]"
                     >
                       <motion.span
                         animate={{ rotate: isOpen ? 45 : 0 }}
@@ -85,7 +85,7 @@ export default function FAQ() {
                       }
                       className="overflow-hidden"
                     >
-                      <p className="max-w-2xl pb-5 pr-10 text-sm leading-relaxed text-[#666] dark:text-[#A3A3A3] sm:pb-6 sm:text-base">
+                      <p className="max-w-2xl pb-5 pr-10 text-sm leading-relaxed text-[#666] sm:pb-6 sm:text-base">
                         {answer}
                       </p>
                     </motion.div>

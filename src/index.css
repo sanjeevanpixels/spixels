@@ -348,6 +348,15 @@ html.dark *::-webkit-scrollbar-thumb {
     display: none;
   }
 
+  .testimonials-marquee {
+    overflow: visible;
+  }
+
+  .testimonials-marquee .animate-marquee {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
   .pupil {
     transition: none;
   }
