@@ -98,17 +98,11 @@ export default function Page() {
 
       <section className="flex min-h-[70vh] items-center overflow-hidden bg-[#11121a] px-6 py-20 text-white sm:py-24 md:px-12">
         <div className="mx-auto w-full max-w-6xl">
-          <p className="mb-8 text-sm font-bold uppercase tracking-[0.18em] text-[#ffb900]">
-            A little interaction
-          </p>
           <StringPluckText
             text="Ideas that resonate."
             stringColor="#ffb900"
             className="font-black tracking-[-0.06em]"
           />
-          <p className="mx-auto mt-8 max-w-xl text-center text-base leading-relaxed text-white/65 sm:text-lg">
-            Pull the line and let the details find their own rhythm.
-          </p>
         </div>
       </section>
 
