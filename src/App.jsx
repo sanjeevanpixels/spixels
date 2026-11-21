@@ -159,7 +159,7 @@ export default function App() {
       {loading && (
         <div role="status" aria-label="Loading Sanjeevan's portfolio" className="fixed inset-0 z-[200]">
           <PeacockTrainPreloader
-            preset="midnight"
+            preset="opal"
             durationMs={4200}
             height="100svh"
             hud
