@@ -4,7 +4,7 @@ export default function HeroSection03() {
     <section className="relative min-h-screen overflow-hidden bg-[#ffffff] text-[#11121a]">
       <div className="pointer-events-none absolute inset-0 z-0 opacity-15 [background-image:radial-gradient(circle,#11121a_1px,transparent_1px)] [background-size:20px_20px]" />
 
-      <main className="relative z-10 px-5 pb-32 pt-16 sm:px-8 sm:pt-20">
+      <div className="relative z-10 px-5 pb-32 pt-16 sm:px-8 sm:pt-20">
         <div className="flex w-full flex-col items-start justify-center gap-2 md:items-center">
           <div className="items-center md:flex md:gap-6">
             <p className="mb-3 max-w-[220px] text-xs leading-5 text-[#11121a]/55 md:max-w-[180px] md:text-right md:text-sm">
@@ -34,7 +34,7 @@ export default function HeroSection03() {
             </h1>
           </div>
         </div>
-      </main>
+      </div>
     </section>
   );
 }

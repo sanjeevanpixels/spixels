@@ -5,28 +5,35 @@ import ScrollProgress from "./components/layout/ScrollProgress";
 import BackToTop from "./components/layout/BackToTop";
 import ResumeViewer from "./components/layout/ResumeViewer";
 import Hero from "./sections/Hero";
-import About from "./sections/About";
-import Experience from "./sections/Experience";
-import Projects from "./sections/Projects";
-import Services from "./sections/Services";
-import WordMarquee from "./sections/WordMarquee";
-import Contact from "./sections/Contact";
-import Process from "./sections/Process";
-import Tools from "./sections/Tools";
-import Testimonials from "./sections/Testimonials";
-import FAQ from "./sections/FAQ";
 import { PLACEHOLDER_MSG } from "./data/config";
 import useToast from "./hooks/useToast";
 import { navigateToPage } from "./lib/pageNavigation";
-import PeacockTrainPreloader from "./components/ui/PeacockTrainPreloader";
 
 const ProjectPage = lazy(() => import("./sections/projectsdetails"));
+const PeacockTrainPreloader = lazy(() => import("./components/ui/PeacockTrainPreloader"));
+const About = lazy(() => import("./sections/About"));
+const Experience = lazy(() => import("./sections/Experience"));
+const Projects = lazy(() => import("./sections/Projects"));
+const Services = lazy(() => import("./sections/Services"));
+const WordMarquee = lazy(() => import("./sections/WordMarquee"));
+const Contact = lazy(() => import("./sections/Contact"));
+const Process = lazy(() => import("./sections/Process"));
+const Tools = lazy(() => import("./sections/Tools"));
+const Testimonials = lazy(() => import("./sections/Testimonials"));
+const FAQ = lazy(() => import("./sections/FAQ"));
 
 export default function App() {
   const toast = useToast();
   const [resumeOpen, setResumeOpen] = useState(false);
   const [pathname, setPathname] = useState(window.location.pathname);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    try {
+      return window.sessionStorage.getItem('spixels:preloader') !== 'shown';
+    } catch {
+      return true;
+    }
+  });
   const reduceMotion = useReducedMotion();
   const openResume = useCallback(() => setResumeOpen(true), []);
   const closeResume = useCallback(() => setResumeOpen(false), []);
@@ -153,19 +160,21 @@ export default function App() {
             </Suspense>
           ) : (
             <>
-              <main id="main" tabIndex={-1} className="outline-none">
-                <Hero />
-                <WordMarquee />
-                <Projects />
-                <Services />
-                <About />
-                <Experience />
-                <Process />
-                <Tools />
-                <Testimonials />
-                <FAQ />
-                <Contact />
-              </main>
+              <Suspense fallback={null}>
+                <main id="main" tabIndex={-1} className="outline-none">
+                  <Hero />
+                  <WordMarquee />
+                  <Projects />
+                  <Services />
+                  <About />
+                  <Experience />
+                  <Process />
+                  <Tools />
+                  <Testimonials />
+                  <FAQ />
+                  <Contact />
+                </main>
+              </Suspense>
               <BackToTop />
             </>
           )}
@@ -175,13 +184,22 @@ export default function App() {
       </div>
       {loading && (
         <div className="fixed inset-0 z-[200] overflow-hidden">
-          <PeacockTrainPreloader
-            preset="emerald"
-            durationMs={4200}
-            height="100svh"
-            hud
-            onComplete={() => setLoading(false)}
-          />
+          <Suspense fallback={null}>
+            <PeacockTrainPreloader
+              preset="emerald"
+              durationMs={900}
+              height="100svh"
+              hud
+              onComplete={() => {
+                try {
+                  window.sessionStorage.setItem('spixels:preloader', 'shown');
+                } catch {
+                  // Session storage may be unavailable in privacy-restricted contexts.
+                }
+                setLoading(false);
+              }}
+            />
+          </Suspense>
         </div>
       )}
     </>

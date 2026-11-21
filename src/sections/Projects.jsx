@@ -1,4 +1,5 @@
 import SectionHeading from '../components/ui/SectionHeading';
+import Button from '../components/ui/Button';
 import { PROJECTS } from '../data/content';
 
 const MAX_TAGS = 3;
@@ -88,7 +89,16 @@ export default function Projects() {
             );
           })}
         </ul>
-
+        <div className="mt-8 flex justify-center sm:mt-10">
+          <Button
+            as="a"
+            href="#"
+            data-app-route
+            className="gap-3"
+          >
+            <span>View All Projects</span>
+          </Button>
+        </div>
       </div>
     </section>
   );

@@ -6,55 +6,60 @@ import TitleFlipReveal from '../components/ui/TitleFlipReveal'
 import ScrollScribblePath from '../components/ui/ScrollScribblePath'
 import AsciiKrishnaFooter from '../components/ui/AsciiKrishnaFooter'
 import HeroSection03 from '../components/ui/HeroSection03'
+import ProjectDetailsNav from '../components/ui/ProjectDetailsNav'
+import UXCaseStudiesSection from '../components/ui/UXCaseStudiesSection'
+import VisualImageGallery from '../components/ui/VisualImageGallery'
+import ProjectDetailsCTA from '../components/ui/ProjectDetailsCTA'
+import ProjectDetailsFooter from '../components/ui/ProjectDetailsFooter'
 
  const items = [
   {
-    src: '/logos/devsha.jpeg',   // shows until the video has a frame
+    src: '/logos/devsha.webp',   // shows until the video has a frame
      alt: 'Brand reel for Northwind',
      title: 'Devsha',               // label that follows the cursor
    },
    {
-     src: '/logos/k6tatto.png',
+     src: '/logos/k6tatto.webp',
      alt: 'Animated logo study',
      title: 'K6 Tattoo',
    },
     {
-     src: '/logos/misscode.png',
+     src: '/logos/misscode.webp',
      alt: 'Animated logo study',
      title: 'Misscode',
    },
       {
-     src: '/logos/petties.png',
+     src: '/logos/petties.webp',
      alt: 'Animated logo study',
      title: 'Petties',
    },
       {
-     src: '/logos/veggies.png',
+     src: '/logos/veggies.webp',
      alt: 'Animated logo study',
      title: 'Veggies',
    },
    {
-     src: '/logos/food-fashion.png',
+     src: '/logos/food-fashion.webp',
      alt: 'Animated logo study',
      title: 'Food Fashion',
    },
    {
-     src: '/logos/readify.png',
+     src: '/logos/readify.webp',
      alt: 'Animated logo study',
      title: 'Readify',
    },
    {
-     src: '/logos/orderista.png',
+     src: '/logos/orderista.webp',
      alt: 'Animated logo study',
      title: 'Orderista',
    },
    {
-     src: '/logos/chiliz.png',
+     src: '/logos/chiliz.webp',
      alt: 'Animated logo study',
      title: 'Chiliz',
    },
    {
-     src: '/logos/es.png',
+     src: '/logos/es.webp',
     alt: 'Animated logo study',
     title: 'Eastern Spark',
    },
@@ -62,8 +67,15 @@ import HeroSection03 from '../components/ui/HeroSection03'
 
 export default function Page() {
   return (
-    <main>
+    <main id="top" className="min-h-screen bg-white text-neutral-900 font-sans selection:bg-neutral-900 selection:text-white">
+      {/* Floating Top Navigation */}
+      <ProjectDetailsNav />
+
+      {/* Hero Section */}
       <HeroSection03 />
+
+      {/* UX Case Studies Section (Next to Hero) */}
+      <UXCaseStudiesSection />
     
       <ScrollFlipText
         className="border-t border-white/10"
@@ -86,7 +98,7 @@ export default function Page() {
         />
       </section> 
       
-<ScrollScribblePath
+      <ScrollScribblePath
         colors={['#11121a', '#6d28d9', '#ff2056']}
         backgrounds={['#f7f4ef', '#e7e1ff', '#ffede4']}
         className="min-h-[150vh]"
@@ -119,7 +131,10 @@ export default function Page() {
         </div>
       </section>
 
-   <section aria-label="Closing artwork">
+      {/* Visual Image Gallery Section (Next to String Pluck Text) */}
+      <VisualImageGallery />
+
+      <section aria-label="Closing artwork">
         <AsciiKrishnaFooter
           colors={['#4a42bb', '#f3d9a1']}
           accent="#ffb900"
@@ -130,7 +145,7 @@ export default function Page() {
         />
       </section> 
 
-       <section className="flex min-h-[75vh] items-center bg-[#e7e1ff] px-6 py-20 text-[#17151f] sm:py-24 md:px-12">
+      <section className="flex min-h-[75vh] items-center bg-[#e7e1ff] px-6 py-20 text-[#17151f] sm:py-24 md:px-12">
         <div className="mx-auto w-full max-w-6xl">
           <p className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-[#6d28d9]">
             The next chapter
@@ -145,7 +160,7 @@ export default function Page() {
         </div>
       </section> 
       
-       <section id="projects" className="flex min-h-[85vh] items-center bg-[#ffede4] px-6 py-20 text-[#15110f] sm:px-10 md:px-12">
+      <section id="projects" className="flex min-h-[85vh] items-center bg-[#ffede4] px-6 py-20 text-[#15110f] sm:px-10 md:px-12">
         <div className="mx-auto w-full max-w-6xl">
           <ArcPokeText
             lines={['DESIGN', 'WITH PULSE']}
@@ -156,15 +171,13 @@ export default function Page() {
             poke
           />
         </div>
-      </section> 
+      </section>
 
+      {/* Call to Action Section (At Last) */}
+      <ProjectDetailsCTA />
 
-
-
-
-      
-
-    
+      {/* Footer Section (At Last) */}
+      <ProjectDetailsFooter />
     </main>
   )
 }

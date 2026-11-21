@@ -36,7 +36,7 @@ const PRESETS = {
   },
 
   emerald: {
-    paper: "#F2F7F2",
+    paper: "#ffffff",
     ink: "#19312B",
     core: "#D9BD53",
     body: "#16845D",
@@ -856,7 +856,6 @@ function paintBird(c, px, noise, rng, dark) {
 // ---- styles ----------------------------------------------------------------
 
 const PPL_CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 .ppl-root, .ppl-root * { box-sizing: border-box; }
 .ppl-root { position: relative; width: 100%; max-width: 100%; overflow: hidden; overflow-y: hidden; scrollbar-width: none; background: var(--ppl-paper); color: var(--ppl-ink); font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; isolation: isolate; }
 .ppl-root::-webkit-scrollbar { display: none; width: 0; height: 0; }
@@ -873,14 +872,14 @@ const PPL_CSS = `
 /* Loading readout: one centred row at the foot of the screen. */
 .ppl-hud {
   position: absolute; left: 50%; bottom: clamp(20px, 4vh, 40px); transform: translateX(-50%);
-  z-index: 1; display: flex; align-items: center; gap: 14px; white-space: nowrap;
+  z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; white-space: nowrap;
   font-family: var(--ppl-mono); font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase;
   opacity: 0; transition: opacity 600ms ease;
 }
 .ppl-rule { display: block; width: clamp(90px, 18vw, 180px); height: 1px; position: relative; overflow: hidden; }
 .ppl-rule::before { content: ""; position: absolute; inset: 0; background: currentColor; opacity: .25; }
 .ppl-rule i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: currentColor; transform-origin: left; transform: scaleX(var(--ppl-p, 0)); transition: transform 200ms linear; }
-.ppl-count { min-width: 4ch; text-align: left; font-size: 12px; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
+.ppl-count { min-width: 4ch; text-align: center; font-size: 12px; letter-spacing: .12em; font-variant-numeric: tabular-nums; line-height: 1; }
 .ppl-count small { font-size: 9px; opacity: .55; margin-left: 2px; letter-spacing: .1em; }
 .ppl-veil[data-ready="true"] .ppl-hud { opacity: .8; }
 
@@ -1398,7 +1397,7 @@ export default function PeacockTrainPreloader({
   }
 
   const done = phase === "done"
-  const count = (pct < 10 ? "00" : pct < 100 ? "0" : "") + pct
+  const count = String(pct)
 
   return (
     <div
@@ -1439,7 +1438,6 @@ export default function PeacockTrainPreloader({
           <canvas ref={canvasRef} aria-hidden="true" />
           {hud ? (
             <div className="ppl-hud" aria-hidden="true">
-              <span>{label}</span>
               <span className="ppl-rule">
                 <i ref={ruleRef} />
               </span>

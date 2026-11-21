@@ -28,7 +28,7 @@ export const PROJECTS = [
     year: '2026',
     description: 'A country explorer app that makes discovering countries simple and engaging through essential information about geography, culture, population, languages, and currencies.',
     tags: ['Figma', 'Mobile App', 'Travel & Exploration'],
-    image: '/images/projects/flyra.png',
+    image: '/images/projects/flyra.webp',
     alt: 'Flyra country explorer app interface showcasing country details',
     behanceUrl: 'https://www.behance.net/gallery/257581893/Flyra',
   },
@@ -40,7 +40,7 @@ export const PROJECTS = [
     year: '2023',
     description: 'A women’s safety mobile application that provides emergency assistance, real-time location sharing, and quick access to essential safety features.',
     tags: ['Figma', 'Mobile App', 'Safety Tech'],
-    image: '/images/projects/guardian.png',
+    image: '/images/projects/guardian.webp',
     alt: 'Guardian women’s safety app interface showcasing emergency assistance and safety features',
     behanceUrl: 'https://www.behance.net/gallery/184801135/Guardian-Women-Safety-App',
     },
@@ -52,7 +52,7 @@ export const PROJECTS = [
     year: '2021',
     description: 'A teacher performance management mobile application that streamlines attendance tracking, lesson delivery, and teaching activities to improve accountability and consistency in education.',
     tags: ['Figma', 'Mobile App', 'Education'],
-    image: '/images/projects/tic.png',
+    image: '/images/projects/tic.webp',
     alt: 'TIC teacher performance management app interface showcasing attendance and teaching activity tracking',
   },
   {
@@ -63,21 +63,21 @@ export const PROJECTS = [
     year: '2026',
     description: 'A mobile healthcare experience designed to make essential medical information, services, and appointments clear and easy to access.',
     tags: ['Figma', 'Mobile App', 'Healthcare'],
-    image: '/images/projects/medora.png',
+    image: '/images/projects/medora.webp',
     alt: 'Medora healthcare app interface showcasing medical services and appointment information',
   },
 ];
 
 export const PROCESS = [
-  ['Understand the Need', 'Listen, ask the right questions, and understand what people really need.', 'from-indigo-600 to-slate-900', '/images/Idea.png'],
-  ['Keep It Simple', 'Turn complicated ideas into simple, clear, and easy-to-use experiences.', 'from-sky-600 to-slate-900', '/images/Make.png'],
-  ['Create & Refine', 'Bring ideas to life, explore what works, and keep improving every detail.', 'from-emerald-600 to-slate-900', '/images/Refine.png'],
+  ['Understand the Need', 'Listen, ask the right questions, and understand what people really need.', 'from-indigo-600 to-slate-900', '/images/Idea.webp'],
+  ['Keep It Simple', 'Turn complicated ideas into simple, clear, and easy-to-use experiences.', 'from-sky-600 to-slate-900', '/images/Make.webp'],
+  ['Create & Refine', 'Bring ideas to life, explore what works, and keep improving every detail.', 'from-emerald-600 to-slate-900', '/images/Refine.webp'],
 ];
 
 export const EXP = [
   {
     co: 'Webtezza',
-    logo: '/logos/webtezza.png',
+    logo: '/logos/webtezza.webp',
     role: 'Associate UI/UX Designer',
     loc: 'Kurunegala, Sri Lanka',
     when: 'Oct 2025 – Oct 2026 ',
@@ -86,7 +86,7 @@ export const EXP = [
   },
   {
     co: 'Misscode',
-    logo: '/logos/misscode.png',
+    logo: '/logos/misscode.webp',
     role: 'Logo & Brand Designer',
     loc: 'Jaffna, Sri Lanka',
     when: 'May 2026 – July 2026',
@@ -95,7 +95,7 @@ export const EXP = [
   },
   {
     co: 'Pineapple AI',
-    logo: '/logos/pineappleai.jpg',
+    logo: '/logos/pineappleai.webp',
     role: 'Associate UI/UX Designer',
     loc: 'Jaffna, Sri Lanka',
     when: 'Apr 2025 – Aug 2025',

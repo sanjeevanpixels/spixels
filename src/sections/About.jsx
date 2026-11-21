@@ -139,7 +139,7 @@ export default function About() {
               className="relative z-0 mx-auto -mb-12 w-full max-w-[520px] sm:-mb-16 lg:-mb-20 lg:ml-auto lg:mr-0 lg:self-end"
             >
               <img
-                src="/images/avatar.png"
+                src="/images/avatar.webp"
                 alt="Sanjeevan, UI/UX designer and software developer"
                 loading="lazy"
                 decoding="async"
