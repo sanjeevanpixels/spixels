@@ -50,7 +50,8 @@ const PRESETS = {
   },
 }
 
-const SANS_STACK = '"Instrument Sans", "Helvetica Neue", Arial, sans-serif'
+const SERIF_STACK = '"Bodoni Moda", "Didot", "Bodoni 72", "Playfair Display", "Libre Bodoni", Georgia, "Times New Roman", serif'
+const MONO_STACK = '"JetBrains Mono", "SF Mono", "Fira Code", Menlo, Consolas, monospace'
 
 const HOLD_MS = 1500
 const GATE_MS = 1500
@@ -829,12 +830,13 @@ function paintBird(c, px, noise, rng, dark) {
 
 const PPL_CSS = `
 .ppl-root, .ppl-root * { box-sizing: border-box; }
-.ppl-root { position: relative; width: 100%; max-width: 100%; background: var(--ppl-paper); color: var(--ppl-ink); isolation: isolate; }
+.ppl-root { position: relative; width: 100%; max-width: 100%; margin: 0; background: var(--ppl-paper); color: var(--ppl-ink); isolation: isolate; }
 .ppl-root[data-done="false"] { overflow: hidden; }
 .ppl-veil {
   position: absolute; inset: 0; z-index: 2; overflow: hidden; outline: none; background: var(--ppl-paper);
   transition: opacity 650ms cubic-bezier(.65,0,.35,1);
   -webkit-font-smoothing: antialiased; cursor: pointer;
+  touch-action: none; overscroll-behavior: none;
 }
 .ppl-veil:focus-visible .ppl-count { text-decoration: underline; text-underline-offset: 4px; }
 .ppl-veil[data-phase="after"], .ppl-veil[data-phase="done"] { opacity: 0; pointer-events: none; }
@@ -844,8 +846,8 @@ const PPL_CSS = `
   font-family: var(--ppl-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
   transition: opacity 500ms ease;
 }
-.ppl-tl { left: clamp(18px, 3vw, 40px); top: clamp(18px, 3vw, 34px); opacity: .62; }
-.ppl-tr { right: clamp(18px, 3vw, 40px); top: clamp(18px, 3vw, 34px); text-align: right; align-items: flex-end; }
+.ppl-tl { left: calc(clamp(18px, 3vw, 40px) + env(safe-area-inset-left, 0px)); top: calc(clamp(18px, 3vw, 34px) + env(safe-area-inset-top, 0px)); opacity: .62; }
+.ppl-tr { right: calc(clamp(18px, 3vw, 40px) + env(safe-area-inset-right, 0px)); top: calc(clamp(18px, 3vw, 34px) + env(safe-area-inset-top, 0px)); text-align: right; align-items: flex-end; }
 .ppl-count { font-size: 12px; letter-spacing: .14em; font-variant-numeric: tabular-nums; }
 .ppl-count small { font-size: 9px; opacity: .55; margin-left: 2px; letter-spacing: .1em; }
 .ppl-rule { display: block; width: 64px; height: 1px; position: relative; overflow: hidden; }
@@ -857,7 +859,7 @@ const PPL_CSS = `
   transition: opacity 450ms ease, transform 700ms cubic-bezier(.2,.7,.1,1);
 }
 .ppl-meta { margin: 0 0 12px; font-family: var(--ppl-mono); font-size: 9px; letter-spacing: .06em; line-height: 1.75; opacity: 0; transform: translateY(6px); transition: opacity 900ms ease 200ms, transform 900ms cubic-bezier(.2,.7,.1,1) 200ms; }
-.ppl-title { max-width: calc(100vw - 32px); margin: 0; font-family: var(--ppl-serif); font-weight: 700; font-size: clamp(28px, 4.6vw, 58px); line-height: 1; letter-spacing: .015em; text-transform: uppercase; white-space: nowrap; }
+.ppl-title { max-width: calc(100vw - 32px); margin: 0; font-family: var(--ppl-serif); font-weight: 700; font-size: clamp(22px, 4.6vw, 58px); line-height: 1; letter-spacing: .015em; text-transform: uppercase; white-space: nowrap; }
 .ppl-title span { display: inline-block; opacity: 0; transform: translateY(.42em); transition: opacity 700ms ease, transform 900ms cubic-bezier(.2,.75,.1,1); transition-delay: calc(380ms + var(--i) * 55ms); }
 .ppl-sub { margin: 8px 0 0; font-family: var(--ppl-mono); font-size: 10px; letter-spacing: .55em; text-indent: .55em; opacity: 0; transition: opacity 900ms ease 820ms; }
 .ppl-sign { margin: clamp(14px, 3.4vh, 34px) 0 0; font-family: var(--ppl-mono); font-size: clamp(15px, 1.7vw, 21px); letter-spacing: .02em; opacity: 0; transition: opacity 900ms ease 1000ms; }
@@ -905,14 +907,15 @@ export default function PeacockTrainPreloader({
   message = ".",
   hud = false,
   label = "Loading",
-  serifFamily = SANS_STACK,
-  monoFamily = SANS_STACK,
-  height = "100svh",
+  serifFamily = SERIF_STACK,
+  monoFamily = MONO_STACK,
+  height = "100dvh",
   onComplete,
   className = "",
 }) {
   const colors = { ...(PRESETS[preset] || PRESETS.ivory), ...(palette || {}) }
   const ornate = ornament === undefined ? preset === "opal" : ornament
+  const hasText = !!(title || subtitle || signature || (meta && meta.length))
   const rootRef = React.useRef(null)
   const veilRef = React.useRef(null)
   const canvasRef = React.useRef(null)
@@ -947,6 +950,27 @@ export default function PeacockTrainPreloader({
   React.useEffect(() => {
     optsRef.current = { colors, density, spread, seed, durationMs, loop, ornate }
   })
+
+  // Lock page scroll while the preloader covers the screen.
+  const locked = !loop && phase !== "done"
+  React.useEffect(() => {
+    if (!locked) return
+    const html = document.documentElement
+    const body = document.body
+    const prev = {
+      ho: html.style.overflow,
+      bo: body.style.overflow,
+      hob: html.style.overscrollBehavior,
+    }
+    html.style.overflow = "hidden"
+    body.style.overflow = "hidden"
+    html.style.overscrollBehavior = "none"
+    return () => {
+      html.style.overflow = prev.ho
+      body.style.overflow = prev.bo
+      html.style.overscrollBehavior = prev.hob
+    }
+  }, [locked])
 
   React.useEffect(() => {
     const root = rootRef.current
@@ -1087,19 +1111,37 @@ export default function PeacockTrainPreloader({
       rowCache = []
       canvas.width = Math.round(w * dpr)
       canvas.height = Math.round(h * dpr)
-      // The type takes the foot of the screen; the train fills what is left above it.
-      const textH = Math.min(240, h * 0.28)
-      const top = Math.max(10, h * 0.02)
-      const avail = Math.max(120, h - textH - top)
+
+      // Safe-area insets (notch / home indicator), measured via a probe.
+      const probe = document.createElement("div")
+      probe.style.cssText =
+        "position:absolute;visibility:hidden;pointer-events:none;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)"
+      root.appendChild(probe)
+      const pcs = getComputedStyle(probe)
+      const insetTop = parseFloat(pcs.paddingTop) || 0
+      const insetBottom = parseFloat(pcs.paddingBottom) || 0
+      probe.remove()
+
+      // Measure the real text block instead of guessing.
+      const poster = veil.querySelector(".ppl-poster")
+      const gap = Math.max(14, h * 0.025)
+      const posterBottom = poster ? Math.max(18, Math.min(48, h * 0.045)) + insetBottom : 0
+      const textH = poster ? Math.min(h * 0.4, poster.offsetHeight + gap) : 0
+
+      const top = Math.max(16, h * 0.03) + insetTop
+      const bottomPad = poster ? posterBottom + textH : Math.max(16, h * 0.03) + insetBottom
+      const avail = Math.max(120, h - top - bottomPad)
+
       const R = Math.min(avail / 1.62, (w / 2) * 1.02)
       r0 = R / PPL_REACH
       cx = w / 2
-      cy = top + R + Math.max(0, (avail - R * 1.62) * 0.62)
-      const posterBottom = Math.max(18, Math.min(48, h * 0.045))
+      // Centre the train in the free space.
+      cy = top + R + (avail - R * 1.62) / 2
+
       root.style.setProperty("--ppl-poster-bottom", posterBottom + "px")
       textCy = h - posterBottom - textH * 0.5
-      textRx = Math.min(w * 0.42, 420)
-      textRy = textH * 0.62
+      textRx = poster ? Math.min(w * 0.42, 420) : 0
+      textRy = poster ? textH * 0.62 : 0
 
       // Paper: the base colour, the clean circle of light, a soft vignette, grain.
       paper = document.createElement("canvas")
@@ -1370,7 +1412,7 @@ export default function PeacockTrainPreloader({
       root.removeEventListener("pointermove", onMove)
       root.removeEventListener("pointerleave", onLeave)
     }
-  }, [run, colorKey, density, spread, seed, ornate])
+  }, [run, colorKey, density, spread, seed, ornate, hasText])
 
   function replay() {
     rushRef.current = false
@@ -1449,7 +1491,7 @@ export default function PeacockTrainPreloader({
               </div>
             </>
           ) : null}
-          {title || subtitle || signature || (meta && meta.length) ? (
+          {hasText ? (
             <div className="ppl-poster" aria-hidden="true">
               {meta && meta.length ? (
                 <p className="ppl-meta">
