@@ -1,69 +1,69 @@
-// import LensVideoCarousel from '../components/ui/LensVideoCarousel'
-// import ScrollFlipText from '../components/ui/Scrollfliptext'
-// import ArcPokeText from '../components/ui/Arcpoketext'
+import LensVideoCarousel from '../components/ui/LensVideoCarousel'
+import ScrollFlipText from '../components/ui/Scrollfliptext'
+import ArcPokeText from '../components/ui/Arcpoketext'
 import StringPluckText from '../components/ui/StringPluckText'
-// import TitleFlipReveal from '../components/ui/TitleFlipReveal'
-// import ScrollScribblePath from '../components/ui/ScrollScribblePath'
-// import AsciiKrishnaFooter from '../components/ui/AsciiKrishnaFooter'
-// import HeroSection03 from '../components/ui/HeroSection03'
+import TitleFlipReveal from '../components/ui/TitleFlipReveal'
+import ScrollScribblePath from '../components/ui/ScrollScribblePath'
+import AsciiKrishnaFooter from '../components/ui/AsciiKrishnaFooter'
+import HeroSection03 from '../components/ui/HeroSection03'
 
-// const items = [
-//   {
-//     src: '/logos/devsha.jpeg',   // shows until the video has a frame
-//     alt: 'Brand reel for Northwind',
-//     title: 'Devsha',               // label that follows the cursor
-//   },
-//   {
-//     src: '/logos/k6tatto.png',
-//     alt: 'Animated logo study',
-//     title: 'K6 Tattoo',
-//   },
-//    {
-//     src: '/logos/misscode.png',
-//     alt: 'Animated logo study',
-//     title: 'Misscode',
-//   },
-//      {
-//     src: '/logos/petties.png',
-//     alt: 'Animated logo study',
-//     title: 'Petties',
-//   },
-//      {
-//     src: '/logos/veggies.png',
-//     alt: 'Animated logo study',
-//     title: 'Veggies',
-//   },
-//   {
-//     src: '/logos/food-fashion.png',
-//     alt: 'Animated logo study',
-//     title: 'Food Fashion',
-//   },
-//   {
-//     src: '/logos/readify.png',
-//     alt: 'Animated logo study',
-//     title: 'Readify',
-//   },
-//   {
-//     src: '/logos/orderista.png',
-//     alt: 'Animated logo study',
-//     title: 'Orderista',
-//   },
-//   {
-//     src: '/logos/chiliz.png',
-//     alt: 'Animated logo study',
-//     title: 'Chiliz',
-//   },
-//   {
-//     src: '/logos/es.png',
-//     alt: 'Animated logo study',
-//     title: 'Eastern Spark',
-//   },
-// ]
+ const items = [
+  {
+    src: '/logos/devsha.jpeg',   // shows until the video has a frame
+     alt: 'Brand reel for Northwind',
+     title: 'Devsha',               // label that follows the cursor
+   },
+   {
+     src: '/logos/k6tatto.png',
+     alt: 'Animated logo study',
+     title: 'K6 Tattoo',
+   },
+    {
+     src: '/logos/misscode.png',
+     alt: 'Animated logo study',
+     title: 'Misscode',
+   },
+      {
+     src: '/logos/petties.png',
+     alt: 'Animated logo study',
+     title: 'Petties',
+   },
+      {
+     src: '/logos/veggies.png',
+     alt: 'Animated logo study',
+     title: 'Veggies',
+   },
+   {
+     src: '/logos/food-fashion.png',
+     alt: 'Animated logo study',
+     title: 'Food Fashion',
+   },
+   {
+     src: '/logos/readify.png',
+     alt: 'Animated logo study',
+     title: 'Readify',
+   },
+   {
+     src: '/logos/orderista.png',
+     alt: 'Animated logo study',
+     title: 'Orderista',
+   },
+   {
+     src: '/logos/chiliz.png',
+     alt: 'Animated logo study',
+     title: 'Chiliz',
+   },
+   {
+     src: '/logos/es.png',
+    alt: 'Animated logo study',
+    title: 'Eastern Spark',
+   },
+ ]
 
 export default function Page() {
   return (
     <main>
-      {/* <HeroSection03 />
+      <HeroSection03 />
     
       <ScrollFlipText
         className="border-t border-white/10"
@@ -84,9 +84,9 @@ export default function Page() {
           title="Selected Home"
           highlight="Home"
         />
-      </section> */}
+      </section> */
 
-{/* <ScrollScribblePath
+<ScrollScribblePath
         colors={['#11121a', '#6d28d9', '#ff2056']}
         backgrounds={['#f7f4ef', '#e7e1ff', '#ffede4']}
         className="min-h-[150vh]"
@@ -96,9 +96,9 @@ export default function Page() {
         <section className="relative z-10 flex min-h-[150vh] items-center px-6 py-24 text-[#11121a] sm:px-10 md:px-12">
           <div className="mx-auto grid w-full max-w-6xl gap-24 sm:gap-32">
             {[
-              ['01 / Discover', 'Start with the people, their needs, and the details that matter.'],
-              ['02 / Shape', 'Bring a clear idea to life through considered design and interaction.'],
-              ['03 / Deliver', 'Make the final experience feel effortless, useful, and unmistakably yours.'],
+              ['Discover', 'Start with the people, their needs, and the details that matter.'],
+              ['Shape', 'Bring a clear idea to life through considered design and interaction.'],
+              ['Deliver', 'Make the final experience feel effortless, useful, and unmistakably yours.'],
             ].map(([label, copy]) => (
               <article key={label} className="max-w-2xl rounded-[28px] border border-[#11121a]/10 bg-white/70 p-6 shadow-[0_20px_60px_rgba(17,18,26,0.08)] backdrop-blur-sm sm:p-10">
                 <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#6d28d9]">{label}</p>
@@ -107,7 +107,7 @@ export default function Page() {
             ))}
           </div>
         </section>
-      </ScrollScribblePath> */}
+      </ScrollScribblePath> */
 
       <section className="flex min-h-[70vh] items-center overflow-hidden bg-[#21143D] px-6 py-20 text-white sm:py-24 md:px-12">
         <div className="mx-auto w-full max-w-6xl">
@@ -119,7 +119,7 @@ export default function Page() {
         </div>
       </section>
 
-  {/* <section aria-label="Closing artwork">
+   <section aria-label="Closing artwork">
         <AsciiKrishnaFooter
           colors={['#4a42bb', '#f3d9a1']}
           accent="#ffb900"
@@ -128,9 +128,9 @@ export default function Page() {
           brushRadius={3}
           className="min-h-[560px]"
         />
-      </section> */}
+      </section> 
 
-      {/* <section className="flex min-h-[75vh] items-center bg-[#e7e1ff] px-6 py-20 text-[#17151f] sm:py-24 md:px-12">
+       <section className="flex min-h-[75vh] items-center bg-[#e7e1ff] px-6 py-20 text-[#17151f] sm:py-24 md:px-12">
         <div className="mx-auto w-full max-w-6xl">
           <p className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-[#6d28d9]">
             The next chapter
@@ -143,9 +143,9 @@ export default function Page() {
           />
           <p className="mt-8 text-sm text-[#17151f]/55">Tap or click the headline to flip it.</p>
         </div>
-      </section> */}
+      </section> 
       
-      {/* <section id="projects" className="flex min-h-[85vh] items-center bg-[#ffede4] px-6 py-20 text-[#15110f] sm:px-10 md:px-12">
+       <section id="projects" className="flex min-h-[85vh] items-center bg-[#ffede4] px-6 py-20 text-[#15110f] sm:px-10 md:px-12">
         <div className="mx-auto w-full max-w-6xl">
           <ArcPokeText
             lines={['DESIGN', 'WITH PULSE']}
@@ -156,7 +156,7 @@ export default function Page() {
             poke
           />
         </div>
-      </section> */}
+      </section> 
 
 
 

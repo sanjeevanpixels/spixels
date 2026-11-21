@@ -1,27 +1,33 @@
-import { useState } from 'react';
+
+import { useEffect, useRef, useState } from 'react';
 import SectionHeading from '../components/ui/SectionHeading';
 import { TESTIMONIALS } from '../data/content';
 
-const seenIds = new Set();
+function getValidPeople(data) {
+  const seenIds = new Set();
 
-const PEOPLE = TESTIMONIALS.filter((person) => {
-  const valid =
-    person &&
-    typeof person.id === 'string' &&
-    person.id.trim() &&
-    typeof person.name === 'string' &&
-    person.name.trim() &&
-    typeof person.quote === 'string' &&
-    person.quote.trim();
+  return data.filter((person) => {
+    const valid =
+      person &&
+      typeof person.id === 'string' &&
+      person.id.trim() &&
+      typeof person.name === 'string' &&
+      person.name.trim() &&
+      typeof person.quote === 'string' &&
+      person.quote.trim();
 
-  if (!valid || seenIds.has(person.id)) return false;
+    if (!valid || seenIds.has(person.id)) return false;
 
-  seenIds.add(person.id);
-  return true;
-});
+    seenIds.add(person.id);
+    return true;
+  });
+}
+
+const PEOPLE = getValidPeople(TESTIMONIALS);
 
 function initialsOf(name) {
   return name
+    .trim()
     .split(/\s+/)
     .map((part) => part[0])
     .slice(0, 2)
@@ -29,54 +35,93 @@ function initialsOf(name) {
     .toUpperCase();
 }
 
+function useReveal() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    // Fallback for browsers without IntersectionObserver.
+    if (!('IntersectionObserver' in window)) {
+      const frameId = window.requestAnimationFrame(() => setVisible(true));
+      return () => window.cancelAnimationFrame(frameId);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, visible };
+}
+
 function Portrait({ person }) {
   const [failed, setFailed] = useState(false);
 
-  return person.portrait && !failed ? (
-    <img
-      src={person.portrait}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      onError={() => setFailed(true)}
-      className="size-11 shrink-0 rounded-full object-cover"
-    />
-  ) : (
-    <span
-      aria-hidden="true"
-      className="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-sm font-semibold text-white"
-    >
+  if (person.portrait && !failed) {
+    return (
+      <img
+        src={person.portrait}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        onError={() => setFailed(true)}
+        className="testimonial-avatar"
+      />
+    );
+  }
+
+  return (
+    <span className="testimonial-avatar testimonial-avatar-fallback" aria-hidden="true">
       {initialsOf(person.name)}
     </span>
   );
 }
 
-function ReviewCard({ person }) {
-  const meta = [person.role, person.company].filter(Boolean).join(', ');
+function ReviewCard({ person, index }) {
+  const { ref, visible } = useReveal();
+  const meta = [person.role, person.company].filter(Boolean).join(' · ');
 
   return (
     <figure
-      className="
-        flex w-[85%] shrink-0 snap-center flex-col justify-between gap-6
-        rounded-2xl border border-black/5 bg-white p-5 text-[#0D0F17] shadow-sm
-        transition-colors duration-300 hover:border-black/20
-        sm:w-[60%] sm:p-6
-        md:w-auto md:shrink
-      "
+      ref={ref}
+      className={`testimonial-card ${visible ? 'is-visible' : ''}`}
+      style={{ '--card-index': index }}
     >
-      <blockquote className="text-sm leading-relaxed [text-wrap:pretty] sm:text-base">
-        <p>&ldquo;{person.quote.trim()}&rdquo;</p>
+      <div className="testimonial-card-top" aria-hidden="true">
+        <span className="testimonial-quote-mark">“</span>
+        <span className="testimonial-accent" />
+      </div>
+
+      <blockquote className="testimonial-quote">
+        <p>{person.quote.trim()}</p>
       </blockquote>
 
-      <figcaption className="flex min-w-0 items-center gap-3">
+      <figcaption className="testimonial-author">
         <Portrait person={person} />
 
-        <div className="min-w-0 text-sm">
-          <div className="truncate font-semibold">{person.name}</div>
+        <div className="testimonial-author-info">
+          <span className="testimonial-author-name">{person.name}</span>
+
           {meta && (
-            <div className="truncate text-xs text-[#666] sm:text-sm">
+            <span className="testimonial-author-meta">
               {meta}
-            </div>
+            </span>
           )}
         </div>
       </figcaption>
@@ -85,39 +130,46 @@ function ReviewCard({ person }) {
 }
 
 export default function Testimonials() {
-  if (PEOPLE.length === 0) return null;
+  if (!PEOPLE.length) return null;
 
   return (
     <section
       id="testimonials"
       aria-labelledby="testimonials-title"
-      className="sec overflow-hidden bg-[#FBFBFB] !py-10 sm:!py-14 lg:!py-20"
+      className="sec testimonials-section"
     >
       <div className="wrap">
         <SectionHeading
           headingId="testimonials-title"
           title="Words from the people I work with."
           subtitle="A few kind words from people I've had the pleasure of working with."
-          className="mb-7 sm:mb-10 lg:mb-12"
+          className="testimonials-heading"
         />
 
         <div
+          className="testimonials-track"
           role="region"
           aria-label="Client testimonials"
+          aria-describedby="testimonials-instructions"
           tabIndex={0}
-          className="
-            -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2
-            [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500
-            sm:-mx-6 sm:px-6
-            md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-5 md:overflow-visible md:p-0
-            lg:grid-cols-3
-          "
         >
-          {PEOPLE.map((person) => (
-            <ReviewCard key={person.id} person={person} />
+          <p id="testimonials-instructions" className="sr-only">
+            Scroll horizontally to read more testimonials. On desktop, all testimonials
+            are displayed in a grid.
+          </p>
+
+          {PEOPLE.map((person, index) => (
+            <ReviewCard
+              key={person.id}
+              person={person}
+              index={index}
+            />
           ))}
         </div>
+
+        <p className="testimonials-scroll-hint" aria-hidden="true">
+          Swipe to explore <span>→</span>
+        </p>
       </div>
     </section>
   );
