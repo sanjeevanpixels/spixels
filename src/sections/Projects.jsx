@@ -93,7 +93,7 @@ export default function Projects() {
         {/* View All Projects */}
         {PROJECTS.length > 4 && (
           <div className="flex justify-center mt-7 sm:mt-8">
-            <Button as="a" variant="dark" href="/projectsdetails" data-app-route="" className="border border-[#E6E6E6]">
+            <Button as="a" variant="dark" href="#" data-app-route="" className="border border-[#E6E6E6]">
               View More Projects
             </Button>
           </div>

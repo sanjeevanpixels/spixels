@@ -85,6 +85,7 @@ export default function Page() {
           highlight="Home"
         />
       </section> 
+      
 <ScrollScribblePath
         colors={['#11121a', '#6d28d9', '#ff2056']}
         backgrounds={['#f7f4ef', '#e7e1ff', '#ffede4']}

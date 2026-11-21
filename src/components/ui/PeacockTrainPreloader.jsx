@@ -4,7 +4,7 @@ import * as React from "react"
 
 const PRESETS = {
   ivory: {
-    paper: "#F7F5EF",
+    paper: "#ffffff",
     ink: "#202638",
     core: "#E3D968",
     body: "#4C9B70",
@@ -36,7 +36,7 @@ const PRESETS = {
   },
 
   opal: {
-    paper: "#F4F4F7",
+    paper: "#ffffff",
     ink: "#303244",
     core: "#F1DDA0",
     body: "#70BDB2",
@@ -50,8 +50,9 @@ const PRESETS = {
     accent: "#D48E7E",
     glow: "#FFFFFF",
   },
-  
-};
+}
+
+const INSTRUMENT_SANS_STACK = '"Instrument Sans", "Helvetica Neue", Arial, sans-serif'
 
 const HOLD_MS = 1500
 const GATE_MS = 1500
@@ -829,8 +830,10 @@ function paintBird(c, px, noise, rng, dark) {
 // ---- styles ----------------------------------------------------------------
 
 const PPL_CSS = `
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 .ppl-root, .ppl-root * { box-sizing: border-box; }
-.ppl-root { position: relative; width: 100%; max-width: 100%; background: var(--ppl-paper); color: var(--ppl-ink); isolation: isolate; }
+.ppl-root { position: relative; width: 100%; max-width: 100%; overflow: hidden; overflow-y: hidden; scrollbar-width: none; background: var(--ppl-paper); color: var(--ppl-ink); font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; isolation: isolate; }
+.ppl-root::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .ppl-root[data-done="false"] { overflow: hidden; }
 .ppl-veil {
   position: absolute; inset: 0; z-index: 2; overflow: hidden; outline: none; background: var(--ppl-paper);
@@ -840,49 +843,25 @@ const PPL_CSS = `
 .ppl-veil:focus-visible .ppl-count { text-decoration: underline; text-underline-offset: 4px; }
 .ppl-veil[data-phase="after"], .ppl-veil[data-phase="done"] { opacity: 0; pointer-events: none; }
 .ppl-veil canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; max-width: none; }
-.ppl-corner {
-  position: absolute; z-index: 1; display: flex; flex-direction: column; gap: 7px;
-  font-family: var(--ppl-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase;
-  transition: opacity 500ms ease;
+
+/* Loading readout: one centred row at the foot of the screen. */
+.ppl-hud {
+  position: absolute; left: 50%; bottom: clamp(20px, 4vh, 40px); transform: translateX(-50%);
+  z-index: 1; display: flex; align-items: center; gap: 14px; white-space: nowrap;
+  font-family: var(--ppl-mono); font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase;
+  opacity: 0; transition: opacity 600ms ease;
 }
-.ppl-tl { left: clamp(20px, 3vw, 40px); top: clamp(24px, 3vw, 40px); opacity: .62; }
-.ppl-tr { right: clamp(20px, 3vw, 40px); top: clamp(24px, 3vw, 40px); text-align: right; align-items: flex-end; }
-.ppl-count { font-size: 12px; letter-spacing: .14em; font-variant-numeric: tabular-nums; }
-.ppl-count small { font-size: 9px; opacity: .55; margin-left: 2px; letter-spacing: .1em; }
-.ppl-rule { display: block; width: 64px; height: 1px; position: relative; overflow: hidden; }
+.ppl-rule { display: block; width: clamp(90px, 18vw, 180px); height: 1px; position: relative; overflow: hidden; }
 .ppl-rule::before { content: ""; position: absolute; inset: 0; background: currentColor; opacity: .25; }
 .ppl-rule i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: currentColor; transform-origin: left; transform: scaleX(var(--ppl-p, 0)); transition: transform 200ms linear; }
-.ppl-poster {
-  position: absolute; left: 0; right: 0; bottom: var(--ppl-poster-bottom, 28px); z-index: 1; text-align: center;
-  display: flex; flex-direction: column; align-items: center; pointer-events: none;
-  transition: opacity 450ms ease, transform 700ms cubic-bezier(.2,.7,.1,1);
-}
-.ppl-meta { margin: 0 0 12px; font-family: var(--ppl-mono); font-size: 9px; letter-spacing: .06em; line-height: 1.75; opacity: 0; transform: translateY(6px); transition: opacity 900ms ease 200ms, transform 900ms cubic-bezier(.2,.7,.1,1) 200ms; }
-.ppl-title { max-width: calc(100vw - 32px); margin: 0; font-family: var(--ppl-serif); font-weight: 700; font-size: clamp(28px, 4.6vw, 58px); line-height: 1; letter-spacing: .015em; text-transform: uppercase; white-space: nowrap; }
-.ppl-title span { display: inline-block; opacity: 0; transform: translateY(.42em); transition: opacity 700ms ease, transform 900ms cubic-bezier(.2,.75,.1,1); transition-delay: calc(380ms + var(--i) * 55ms); }
-.ppl-sub { margin: 8px 0 0; font-family: var(--ppl-mono); font-size: 10px; letter-spacing: .55em; text-indent: .55em; opacity: 0; transition: opacity 900ms ease 820ms; }
-.ppl-sign { margin: clamp(14px, 3.4vh, 34px) 0 0; font-family: var(--ppl-mono); font-size: clamp(15px, 1.7vw, 21px); letter-spacing: .02em; opacity: 0; transition: opacity 900ms ease 1000ms; }
-.ppl-veil[data-ready="true"] .ppl-meta { opacity: .78; transform: none; }
-.ppl-veil[data-ready="true"] .ppl-title span { opacity: 1; transform: none; }
-.ppl-veil[data-ready="true"] .ppl-sub { opacity: .8; }
-.ppl-veil[data-ready="true"] .ppl-sign { opacity: .9; }
-.ppl-veil[data-phase="gate"] .ppl-corner, .ppl-veil[data-phase="gate"] .ppl-poster { opacity: 0; }
-.ppl-veil[data-phase="gate"] .ppl-poster { transform: translateY(14px); }
-.ppl-after {
-  position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
-  text-align: center; opacity: 0; transform: translateY(10px); pointer-events: none; cursor: pointer;
-  transition: opacity 800ms ease 150ms, transform 1000ms cubic-bezier(.2,.7,.1,1) 150ms;
-}
-.ppl-root[data-phase="after"] .ppl-after { opacity: 1; transform: none; pointer-events: auto; }
-.ppl-after svg { display: block; width: 22px; height: 34px; }
-.ppl-message { margin: 0; font-family: var(--ppl-serif); font-style: italic; font-weight: 400; font-size: clamp(28px, 4.6vw, 54px); line-height: 1; letter-spacing: .01em; }
-.ppl-replay { font-family: var(--ppl-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; opacity: .5; }
+.ppl-count { min-width: 4ch; text-align: left; font-size: 12px; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
+.ppl-count small { font-size: 9px; opacity: .55; margin-left: 2px; letter-spacing: .1em; }
+.ppl-veil[data-ready="true"] .ppl-hud { opacity: .8; }
+
+.ppl-veil[data-phase="gate"] .ppl-hud { opacity: 0; }
 .ppl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) {
-  .ppl-veil, .ppl-corner, .ppl-poster, .ppl-after, .ppl-rule i, .ppl-meta, .ppl-title span, .ppl-sub, .ppl-sign { transition-duration: 1ms; transition-delay: 0ms; }
-  .ppl-veil[data-phase="gate"] .ppl-poster { opacity: 1; transform: none; }
-  .ppl-veil[data-phase="gate"] .ppl-tr { opacity: 1; }
-  .ppl-veil[data-phase="gate"] .ppl-tl { opacity: .62; }
+  .ppl-veil, .ppl-hud, .ppl-rule i { transition-duration: 1ms; transition-delay: 0ms; }
 }
 `
 
@@ -899,12 +878,8 @@ export default function PeacockTrainPreloader({
   density = "full",
   spread = 300,
   seed = 3,
-  title = "",
-  subtitle = "",
-  meta = [],
-  signature = "",
-  message = ".",
   hud = false,
+  topOffset = 0, // push the peacock lower (px). Try 20–60.
   label = "Loading",
   height = "100svh",
   onComplete,
@@ -925,7 +900,7 @@ export default function PeacockTrainPreloader({
   const progressRef = React.useRef(progress)
   const onCompleteRef = React.useRef(onComplete)
   const rushRef = React.useRef(false)
-  const optsRef = React.useRef({ colors, density, spread, seed, durationMs, loop, ornate })
+  const optsRef = React.useRef({ colors, density, spread, seed, durationMs, loop, ornate, hud, topOffset })
   const colorKey = Object.keys(colors)
     .sort()
     .map((k) => colors[k])
@@ -944,7 +919,7 @@ export default function PeacockTrainPreloader({
   }, [onComplete])
 
   React.useEffect(() => {
-    optsRef.current = { colors, density, spread, seed, durationMs, loop, ornate }
+    optsRef.current = { colors, density, spread, seed, durationMs, loop, ornate, hud, topOffset }
   })
 
   React.useEffect(() => {
@@ -1086,19 +1061,23 @@ export default function PeacockTrainPreloader({
       rowCache = []
       canvas.width = Math.round(w * dpr)
       canvas.height = Math.round(h * dpr)
-      // The type takes the foot of the screen; the train fills what is left above it.
-      const textH = Math.min(240, h * 0.28)
-      const top = Math.max(10, h * 0.02)
-      const avail = Math.max(120, h - textH - top)
-      const R = Math.min(avail / 1.62, (w / 2) * 1.02)
+
+      // Bottom band holds the loading readout; top band is breathing room.
+      const hasText = o.hud
+      const bandBottom = hasText ? Math.min(120, h * 0.16) : h * 0.04
+      const bandTop = Math.max(24, h * 0.04) + o.topOffset
+      const availH = Math.max(120, h - bandTop - bandBottom)
+
+      // The train is ~R above the hub and ~0.9R below it, so ~1.9R tall in total.
+      const R = Math.min(availH / 1.9, (w / 2) * 0.98)
       r0 = R / PPL_REACH
       cx = w / 2
-      cy = top + R + Math.max(0, (avail - R * 1.62) * 0.62)
-      const posterBottom = Math.max(18, Math.min(48, h * 0.045))
-      root.style.setProperty("--ppl-poster-bottom", posterBottom + "px")
-      textCy = h - posterBottom - textH * 0.5
+      cy = bandTop + (availH - R * 1.9) / 2 + R // centred in the free band
+
+
+      textCy = h - bandBottom * 0.5
       textRx = Math.min(w * 0.42, 420)
-      textRy = textH * 0.62
+      textRy = hasText ? bandBottom * 0.62 : 0
 
       // Paper: the base colour, the clean circle of light, a soft vignette, grain.
       paper = document.createElement("canvas")
@@ -1109,7 +1088,7 @@ export default function PeacockTrainPreloader({
         p.setTransform(dpr, 0, 0, dpr, 0, 0)
         p.fillStyle = c.paper
         p.fillRect(0, 0, w, h)
-        const sun = p.createRadialGradient(cx, cy, r0 * 0.6, cx, cy, r0 * 1.5)
+        const sun = p.createRadialGradient(cx, cy, r0 * 0.6, cx, cy, r0 * 2.2)
         sun.addColorStop(0, pplRgba(c.glow, dark ? 0.16 : 1))
         sun.addColorStop(0.55, pplRgba(c.glow, dark ? 0.08 : 0.7))
         sun.addColorStop(1, pplRgba(c.glow, 0))
@@ -1369,7 +1348,7 @@ export default function PeacockTrainPreloader({
       root.removeEventListener("pointermove", onMove)
       root.removeEventListener("pointerleave", onLeave)
     }
-  }, [run, colorKey, density, spread, seed, ornate])
+  }, [run, colorKey, density, spread, seed, ornate, topOffset, hud])
 
   function replay() {
     rushRef.current = false
@@ -1405,6 +1384,8 @@ export default function PeacockTrainPreloader({
         height: done ? undefined : height,
         "--ppl-paper": colors.paper,
         "--ppl-ink": colors.ink,
+        "--ppl-serif": INSTRUMENT_SANS_STACK,
+        "--ppl-mono": INSTRUMENT_SANS_STACK,
       }}
     >
       <style>{PPL_CSS}</style>
@@ -1431,63 +1412,21 @@ export default function PeacockTrainPreloader({
         >
           <canvas ref={canvasRef} aria-hidden="true" />
           {hud ? (
-            <>
-              <div className="ppl-corner ppl-tl" aria-hidden="true">
-                <span>{label}</span>
-                <span className="ppl-rule">
-                  <i ref={ruleRef} />
-                </span>
-              </div>
-              <div className="ppl-corner ppl-tr" aria-hidden="true">
-                <span className="ppl-count">
-                  {count}
-                  <small>%</small>
-                </span>
-              </div>
-            </>
-          ) : null}
-          {title || subtitle || signature || (meta && meta.length) ? (
-            <div className="ppl-poster" aria-hidden="true">
-              {meta && meta.length ? (
-                <p className="ppl-meta">
-                  {meta.map((line, i) => (
-                    <React.Fragment key={i}>
-                      {i ? <br /> : null}
-                      {line}
-                    </React.Fragment>
-                  ))}
-                </p>
-              ) : null}
-              {title ? (
-                <h1 className="ppl-title">
-                  {Array.from(title).map((ch, i) => (
-                    <span key={i} style={{ "--i": i }}>
-                      {ch === " " ? "\u00a0" : ch}
-                    </span>
-                  ))}
-                </h1>
-              ) : null}
-              {subtitle ? <p className="ppl-sub">{subtitle}</p> : null}
-              {signature ? <p className="ppl-sign">{signature}</p> : null}
+            <div className="ppl-hud" aria-hidden="true">
+              <span>{label}</span>
+              <span className="ppl-rule">
+                <i ref={ruleRef} />
+              </span>
+              <span className="ppl-count">
+                {count}
+                <small>%</small>
+              </span>
             </div>
           ) : null}
         </div>
       ) : null}
-      {loop && message ? (
-        <div className="ppl-after" onClick={onActivate} aria-hidden={phase !== "after"}>
-          <svg viewBox="0 0 22 34" aria-hidden="true">
-            <path d="M11 33 C11 26 11 20 11 15" stroke={colors.edge} strokeWidth="1" strokeLinecap="round" fill="none" opacity="0.6" />
-            <path d="M11 1 C17 7 19 13 19 16 C19 21 15 24 11 24 C7 24 3 21 3 16 C3 13 5 7 11 1 Z" fill={colors.body} opacity="0.75" />
-            <path d="M11 5 C15.5 9.5 16.6 13.5 16.6 16 C16.6 19.6 14 21.8 11 21.8 C8 21.8 5.4 19.6 5.4 16 C5.4 13.5 6.5 9.5 11 5 Z" fill={colors.glitter} opacity="0.85" />
-            <path d="M11 8.5 C14 11.6 14.6 14.4 14.6 16 C14.6 18.4 13 19.8 11 19.8 C9 19.8 7.4 18.4 7.4 16 C7.4 14.4 8 11.6 11 8.5 Z" fill={colors.edge} />
-            <path d="M11 12 C12.6 13.8 12.9 15.2 12.9 16 C12.9 17.3 12 18 11 18 C10 18 9.1 17.3 9.1 16 C9.1 15.2 9.4 13.8 11 12 Z" fill={colors.tip} />
-          </svg>
-          <p className="ppl-message">{message}</p>
-          <span className="ppl-replay">Click to replay</span>
-        </div>
-      ) : null}
       <span className="ppl-sr" aria-live="polite">
-        {phase === "load" || phase === "hold" ? "" : phase === "after" ? message : "Loaded"}
+        {phase === "done" || phase === "after" ? "Loaded" : ""}
       </span>
     </div>
   )

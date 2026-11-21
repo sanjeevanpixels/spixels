@@ -33,6 +33,20 @@ export default function App() {
  const isProjectPage = pathname.replace(/\/+$/, '') === '/projectsdetails';
 
   useEffect(() => {
+    if (!loading) return undefined;
+
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+    };
+  }, [loading]);
+
+  useEffect(() => {
     const metadata = isProjectPage
       ? {
           title: "Selected Projects | Sanjeevan",
@@ -157,9 +171,10 @@ export default function App() {
       <ResumeViewer open={resumeOpen} onClose={closeResume} />
       </div>
       {loading && (
-        <div role="status" aria-label="Loading Sanjeevan's portfolio" className="fixed inset-0 z-[200]">
+        <div className="fixed inset-0 z-[200] overflow-hidden">
           <PeacockTrainPreloader
-            preset="opal"
+            label="Loading"
+            preset="ivory"
             durationMs={4200}
             height="100svh"
             hud
