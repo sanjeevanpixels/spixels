@@ -1,6 +1,4 @@
-
 import { useState } from 'react';
-import Marquee from '../components/ui/Marquee';
 import SectionHeading from '../components/ui/SectionHeading';
 import { TESTIMONIALS } from '../data/content';
 
@@ -22,13 +20,6 @@ const PEOPLE = TESTIMONIALS.filter((person) => {
   return true;
 });
 
-const splitAt = Math.ceil(PEOPLE.length / 2);
-
-const ROWS = [
-  PEOPLE.slice(0, splitAt),
-  PEOPLE.slice(splitAt),
-].filter((row) => row.length > 0);
-
 function initialsOf(name) {
   return name
     .split(/\s+/)
@@ -48,12 +39,12 @@ function Portrait({ person }) {
       loading="lazy"
       decoding="async"
       onError={() => setFailed(true)}
-      className="size-10 shrink-0 rounded-full object-cover sm:size-12"
+      className="size-11 shrink-0 rounded-full object-cover"
     />
   ) : (
     <span
       aria-hidden="true"
-      className="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-xs font-semibold text-white sm:size-12 sm:text-sm"
+      className="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-sm font-semibold text-white"
     >
       {initialsOf(person.name)}
     </span>
@@ -61,21 +52,18 @@ function Portrait({ person }) {
 }
 
 function ReviewCard({ person }) {
-  const meta = [person.role, person.company]
-    .filter(Boolean)
-    .join(', ');
+  const meta = [person.role, person.company].filter(Boolean).join(', ');
 
   return (
-    <figure className="
-      flex min-h-52 w-[min(82vw,340px)] shrink-0
-      flex-col justify-between gap-5
-      rounded-2xl border border-black/5
-      bg-white p-5 text-[#0D0F17] shadow-sm
-      transition-colors duration-300
-      hover:border-black/20
-      sm:min-h-56 sm:w-80 sm:gap-6 sm:p-6
-      lg:w-96
-    ">
+    <figure
+      className="
+        flex w-[85%] shrink-0 snap-center flex-col justify-between gap-6
+        rounded-2xl border border-black/5 bg-white p-5 text-[#0D0F17] shadow-sm
+        transition-colors duration-300 hover:border-black/20
+        sm:w-[60%] sm:p-6
+        md:w-auto md:shrink
+      "
+    >
       <blockquote className="text-sm leading-relaxed [text-wrap:pretty] sm:text-base">
         <p>&ldquo;{person.quote.trim()}&rdquo;</p>
       </blockquote>
@@ -84,10 +72,7 @@ function ReviewCard({ person }) {
         <Portrait person={person} />
 
         <div className="min-w-0 text-sm">
-          <div className="truncate font-semibold">
-            {person.name}
-          </div>
-
+          <div className="truncate font-semibold">{person.name}</div>
           {meta && (
             <div className="truncate text-xs text-[#666] sm:text-sm">
               {meta}
@@ -99,31 +84,6 @@ function ReviewCard({ person }) {
   );
 }
 
-function ReviewRow({ reviews, reverse = false, rowNumber }) {
-  return (
-    <Marquee
-      label={`Client testimonials, row ${rowNumber}`}
-      tabIndex={0}
-      className="
-        testimonials-marquee py-1
-        touch-pan-x
-        focus-visible:outline-none
-        focus-visible:ring-2
-        focus-visible:ring-violet-500
-      "
-      trackClassName={
-        reverse
-          ? 'gap-3 [animation-duration:70s] [animation-direction:reverse] sm:gap-5'
-          : 'gap-3 [animation-duration:60s] sm:gap-5'
-      }
-    >
-      {reviews.map((person) => (
-        <ReviewCard key={person.id} person={person} />
-      ))}
-    </Marquee>
-  );
-}
-
 export default function Testimonials() {
   if (PEOPLE.length === 0) return null;
 
@@ -131,12 +91,7 @@ export default function Testimonials() {
     <section
       id="testimonials"
       aria-labelledby="testimonials-title"
-      className="
-        sec overflow-hidden bg-[#FBFBFB]
-        !py-10
-        sm:!py-14
-        lg:!py-20
-      "
+      className="sec overflow-hidden bg-[#FBFBFB] !py-10 sm:!py-14 lg:!py-20"
     >
       <div className="wrap">
         <SectionHeading
@@ -146,14 +101,21 @@ export default function Testimonials() {
           className="mb-7 sm:mb-10 lg:mb-12"
         />
 
-        <div className="flex flex-col gap-3 sm:gap-5">
-          {ROWS.map((reviews, index) => (
-            <ReviewRow
-              key={index}
-              reviews={reviews}
-              reverse={index === 1}
-              rowNumber={index + 1}
-            />
+        <div
+          role="region"
+          aria-label="Client testimonials"
+          tabIndex={0}
+          className="
+            -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2
+            [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500
+            sm:-mx-6 sm:px-6
+            md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-5 md:overflow-visible md:p-0
+            lg:grid-cols-3
+          "
+        >
+          {PEOPLE.map((person) => (
+            <ReviewCard key={person.id} person={person} />
           ))}
         </div>
       </div>

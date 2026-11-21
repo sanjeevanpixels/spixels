@@ -82,7 +82,7 @@ export default function Header({ onResume, minimal = false }) {
       onFocusCapture={() => setHidden(false)} // keyboard focus always reveals the header
       className="sticky top-0 z-50"
     >
-      <header className="flex items-center justify-between border-b border-slate-100 bg-white/95 px-4 py-2.5 pt-[calc(0.625rem+env(safe-area-inset-top))] backdrop-blur sm:px-8 sm:py-3 sm:pt-[calc(0.75rem+env(safe-area-inset-top))] lg:px-12 dark:border-neutral-800 dark:bg-[#0D0F17]/95">
+      <header className="flex items-center justify-between border-b border-slate-100 bg-[white]/95 px-4 py-2.5 pt-[calc(0.625rem+env(safe-area-inset-top))] backdrop-blur sm:px-8 sm:py-3 sm:pt-[calc(0.75rem+env(safe-area-inset-top))] lg:px-12">
         <a
           href={minimal ? '/' : '#home'}
           data-app-route={minimal ? '' : undefined}
@@ -100,7 +100,7 @@ export default function Header({ onResume, minimal = false }) {
 
         {!minimal && (
           <nav
-            className="relative hidden items-center gap-1 rounded-full bg-[#f4f4f6] p-1.5 shadow-inner xl:flex dark:bg-neutral-800"
+            className="relative hidden items-center gap-1 rounded-full bg-[#f4f4f6] p-1.5 shadow-inner xl:flex"
             aria-label="Main"
           >
             <NavLinks active={active} />
@@ -111,7 +111,7 @@ export default function Header({ onResume, minimal = false }) {
           <RippleButton
             hoverScale={1.025}
             onClick={onResume}
-            className={`hidden h-11 items-center gap-2 rounded-full bg-[#f4f4f6] px-5 text-[15px] font-semibold text-[#0D0F17] sm:flex dark:bg-neutral-800 dark:text-white ${FOCUS_RING}`}
+            className={`hidden h-11 items-center gap-2 rounded-full bg-[#f4f4f6] px-5 text-[15px] font-semibold text-[#0D0F17] sm:flex ${FOCUS_RING}`}
           >
             <Icon name="file-text" className="ico !h-4 !w-4" />
             Resume
@@ -123,7 +123,7 @@ export default function Header({ onResume, minimal = false }) {
               ref={toggleRef}
               type="button"
               onClick={() => setOpen((o) => !o)}
-              className={`iconbtn grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#f4f4f6] motion-safe:transition-transform motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 xl:hidden dark:bg-neutral-800 ${FOCUS_RING}`}
+              className={`iconbtn grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#f4f4f6] motion-safe:transition-transform motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-95 xl:hidden ${FOCUS_RING}`}
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls={open ? 'mobileMenu' : undefined}
@@ -144,12 +144,12 @@ export default function Header({ onResume, minimal = false }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={reduceMotion ? { duration: 0 } : SPRING}
-            className="absolute left-4 right-4 top-full mt-2 flex max-h-[calc(100dvh-5rem)] flex-col gap-1 overflow-y-auto rounded-2xl border border-white/60 bg-[#f4f4f6] p-3 shadow-lg sm:left-auto sm:right-8 sm:w-80 lg:right-12 xl:hidden dark:border-neutral-800 dark:bg-neutral-900"
+            className="absolute left-4 right-4 top-full mt-2 flex max-h-[calc(100dvh-5rem)] flex-col gap-1 overflow-y-auto rounded-2xl border border-white/60 bg-[#f4f4f6] p-3 shadow-lg sm:left-auto sm:right-8 sm:w-80 lg:right-12 xl:hidden"
           >
             <NavLinks active={active} variant="mobile" onNavigate={() => setOpen(false)} />
             <RippleButton
               hoverScale={1.01}
-              className={`navlink relative min-h-11 w-full justify-start rounded-xl bg-white px-3 sm:hidden dark:bg-neutral-800 ${FOCUS_RING}`}
+              className={`navlink relative min-h-11 w-full justify-start rounded-xl bg-[white] px-3 sm:hidden ${FOCUS_RING}`}
               onClick={() => { setOpen(false); onResume(); }}
             >
               <Icon name="file-text" className="ico !h-4 !w-4" />

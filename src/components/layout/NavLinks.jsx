@@ -13,13 +13,13 @@ export default function NavLinks({ active, variant = 'desktop', onNavigate }) {
         href={`#${id}`}
         onClick={onNavigate}
         aria-current={on ? 'location' : undefined}
-        className={cn('navlink', on && 'on', mobile && '[&.on]:bg-white dark:[&.on]:bg-neutral-800')}
+        className={cn('navlink', on && 'on', mobile && '[&.on]:bg-[white]')}
       >
         {!mobile && on && (
           <motion.span
             layoutId="nav-pill"
             aria-hidden="true"
-            className="absolute inset-0 bg-white rounded-full shadow-sm -z-10 dark:bg-neutral-700"
+            className="absolute inset-0 bg-white rounded-full shadow-sm -z-10 "
             transition={{ type: 'spring', stiffness: 420, damping: 34 }}
           />
         )}

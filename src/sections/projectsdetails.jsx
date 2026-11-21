@@ -1,76 +1,70 @@
-import LensVideoCarousel from '../components/ui/LensVideoCarousel'
-import ScrollFlipText from '../components/ui/Scrollfliptext'
-import ArcPokeText from '../components/ui/Arcpoketext'
+// import LensVideoCarousel from '../components/ui/LensVideoCarousel'
+// import ScrollFlipText from '../components/ui/Scrollfliptext'
+// import ArcPokeText from '../components/ui/Arcpoketext'
 import StringPluckText from '../components/ui/StringPluckText'
-import TitleFlipReveal from '../components/ui/TitleFlipReveal'
-import ScrollScribblePath from '../components/ui/ScrollScribblePath'
-import AsciiKrishnaFooter from '../components/ui/AsciiKrishnaFooter'
+// import TitleFlipReveal from '../components/ui/TitleFlipReveal'
+// import ScrollScribblePath from '../components/ui/ScrollScribblePath'
+// import AsciiKrishnaFooter from '../components/ui/AsciiKrishnaFooter'
+// import HeroSection03 from '../components/ui/HeroSection03'
 
-const items = [
-  {
-    src: '/logos/devsha.jpeg',   // shows until the video has a frame
-    alt: 'Brand reel for Northwind',
-    title: 'Devsha',               // label that follows the cursor
-  },
-  {
-    src: '/logos/k6tatto.png',
-    alt: 'Animated logo study',
-    title: 'K6 Tattoo',
-  },
-   {
-    src: '/logos/misscode.png',
-    alt: 'Animated logo study',
-    title: 'Misscode',
-  },
-     {
-    src: '/logos/petties.png',
-    alt: 'Animated logo study',
-    title: 'Petties',
-  },
-     {
-    src: '/logos/veggies.png',
-    alt: 'Animated logo study',
-    title: 'Veggies',
-  },
-  {
-    src: '/logos/food-fashion.png',
-    alt: 'Animated logo study',
-    title: 'Food Fashion',
-  },
-  {
-    src: '/logos/readify.png',
-    alt: 'Animated logo study',
-    title: 'Readify',
-  },
-  {
-    src: '/logos/orderista.png',
-    alt: 'Animated logo study',
-    title: 'Orderista',
-  },
-  {
-    src: '/logos/chiliz.png',
-    alt: 'Animated logo study',
-    title: 'Chiliz',
-  },
-  {
-    src: '/logos/es.png',
-    alt: 'Animated logo study',
-    title: 'Eastern Spark',
-  },
-]
+// const items = [
+//   {
+//     src: '/logos/devsha.jpeg',   // shows until the video has a frame
+//     alt: 'Brand reel for Northwind',
+//     title: 'Devsha',               // label that follows the cursor
+//   },
+//   {
+//     src: '/logos/k6tatto.png',
+//     alt: 'Animated logo study',
+//     title: 'K6 Tattoo',
+//   },
+//    {
+//     src: '/logos/misscode.png',
+//     alt: 'Animated logo study',
+//     title: 'Misscode',
+//   },
+//      {
+//     src: '/logos/petties.png',
+//     alt: 'Animated logo study',
+//     title: 'Petties',
+//   },
+//      {
+//     src: '/logos/veggies.png',
+//     alt: 'Animated logo study',
+//     title: 'Veggies',
+//   },
+//   {
+//     src: '/logos/food-fashion.png',
+//     alt: 'Animated logo study',
+//     title: 'Food Fashion',
+//   },
+//   {
+//     src: '/logos/readify.png',
+//     alt: 'Animated logo study',
+//     title: 'Readify',
+//   },
+//   {
+//     src: '/logos/orderista.png',
+//     alt: 'Animated logo study',
+//     title: 'Orderista',
+//   },
+//   {
+//     src: '/logos/chiliz.png',
+//     alt: 'Animated logo study',
+//     title: 'Chiliz',
+//   },
+//   {
+//     src: '/logos/es.png',
+//     alt: 'Animated logo study',
+//     title: 'Eastern Spark',
+//   },
+// ]
 
 export default function Page() {
   return (
     <main>
-      <section className="h-screen">
-        <LensVideoCarousel
-          items={items}
-          kicker="Portfolio 2026"
-          title="Selected Home"
-          highlight="Home"
-        />
-      </section>
-
+      {/* <HeroSection03 />
+    
       <ScrollFlipText
         className="border-t border-white/10"
         statements={[
@@ -80,48 +74,19 @@ export default function Page() {
         ]}
         ink="#f7f4ef"
         accent="#ff2056"
-        background="#0d0d0f"
+        background="#12131E"
       />
 
-      <section id="projects" className="flex min-h-[85vh] items-center bg-[#ffede4] px-6 py-20 text-[#15110f] sm:px-10 md:px-12">
-        <div className="mx-auto w-full max-w-6xl">
-          <ArcPokeText
-            lines={['DESIGN', 'WITH PULSE']}
-            className="text-[clamp(68px,15vw,220px)] font-black uppercase tracking-[-0.055em]"
-            style={{ color: '#15110f' }}
-            arcDrop={0.065}
-            arcTilt={8}
-            poke
-          />
-        </div>
-      </section>
+      <section className="h-screen">
+        <LensVideoCarousel
+          items={items}
+          kicker="Portfolio 2026"
+          title="Selected Home"
+          highlight="Home"
+        />
+      </section> */}
 
-      <section className="flex min-h-[70vh] items-center overflow-hidden bg-[#11121a] px-6 py-20 text-white sm:py-24 md:px-12">
-        <div className="mx-auto w-full max-w-6xl">
-          <StringPluckText
-            text="Ideas that resonate."
-            stringColor="#ffb900"
-            className="font-black tracking-[-0.06em]"
-          />
-        </div>
-      </section>
-
-      <section className="flex min-h-[75vh] items-center bg-[#e7e1ff] px-6 py-20 text-[#17151f] sm:py-24 md:px-12">
-        <div className="mx-auto w-full max-w-6xl">
-          <p className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-[#6d28d9]">
-            The next chapter
-          </p>
-          <TitleFlipReveal
-            lines={['Make it', 'clear.', 'Make it', 'matter.']}
-            altLines={['Shape the', 'feeling.', 'Build the', 'future.']}
-            flipOn="click"
-            className="text-5xl font-black leading-[0.98] tracking-[-0.055em] sm:text-7xl md:text-8xl"
-          />
-          <p className="mt-8 text-sm text-[#17151f]/55">Tap or click the headline to flip it.</p>
-        </div>
-      </section>
-
-      <ScrollScribblePath
+{/* <ScrollScribblePath
         colors={['#11121a', '#6d28d9', '#ff2056']}
         backgrounds={['#f7f4ef', '#e7e1ff', '#ffede4']}
         className="min-h-[150vh]"
@@ -142,9 +107,19 @@ export default function Page() {
             ))}
           </div>
         </section>
-      </ScrollScribblePath>
+      </ScrollScribblePath> */}
 
-      <section aria-label="Closing artwork">
+      <section className="flex min-h-[70vh] items-center overflow-hidden bg-[#21143D] px-6 py-20 text-white sm:py-24 md:px-12">
+        <div className="mx-auto w-full max-w-6xl">
+          <StringPluckText
+            text="Ideas that resonate."
+            stringColor="#ffb900"
+            className="font-black tracking-[-0.06em]"
+          />
+        </div>
+      </section>
+
+  {/* <section aria-label="Closing artwork">
         <AsciiKrishnaFooter
           colors={['#4a42bb', '#f3d9a1']}
           accent="#ffb900"
@@ -153,7 +128,43 @@ export default function Page() {
           brushRadius={3}
           className="min-h-[560px]"
         />
-      </section>
+      </section> */}
+
+      {/* <section className="flex min-h-[75vh] items-center bg-[#e7e1ff] px-6 py-20 text-[#17151f] sm:py-24 md:px-12">
+        <div className="mx-auto w-full max-w-6xl">
+          <p className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-[#6d28d9]">
+            The next chapter
+          </p>
+          <TitleFlipReveal
+            lines={['Make it', 'clear.', 'Make it', 'matter.']}
+            altLines={['Shape the', 'feeling.', 'Build the', 'future.']}
+            flipOn="click"
+            className="text-5xl font-black leading-[0.98] tracking-[-0.055em] sm:text-7xl md:text-8xl"
+          />
+          <p className="mt-8 text-sm text-[#17151f]/55">Tap or click the headline to flip it.</p>
+        </div>
+      </section> */}
+      
+      {/* <section id="projects" className="flex min-h-[85vh] items-center bg-[#ffede4] px-6 py-20 text-[#15110f] sm:px-10 md:px-12">
+        <div className="mx-auto w-full max-w-6xl">
+          <ArcPokeText
+            lines={['DESIGN', 'WITH PULSE']}
+            className="text-[clamp(68px,15vw,220px)] font-black uppercase tracking-[-0.055em]"
+            style={{ color: '#15110f' }}
+            arcDrop={0.065}
+            arcTilt={8}
+            poke
+          />
+        </div>
+      </section> */}
+
+
+
+
+
+      
+
+    
     </main>
   )
 }
