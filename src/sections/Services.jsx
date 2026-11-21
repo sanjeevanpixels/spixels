@@ -1,38 +1,38 @@
-import SectionHeading from '../components/ui/SectionHeading';
-import { Stagger, StaggerItem } from '../components/ui/Stagger';
-import Lift from '../components/ui/Lift';
-import Icon from '../components/ui/Icon';
 import { SERVICES } from '../data/content';
 
 export default function Services() {
   return (
     <section id="services" className="sec !py-12 sm:!py-16 lg:!py-20">
       <div className="wrap">
-        <SectionHeading
-          title="Ways to Work Together"
-          subtitle="From first sketch to shipped product, here's how I can help."
-        />
+        <header className="mx-auto max-w-3xl text-center">
+          <h2 className="h2 mb-0 max-w-2xl mx-auto text-center">
+            Ways to Work Together
+          </h2>
+          <p className="sub mt-4 mx-auto max-w-2xl text-center">
+            From first sketch to shipped product, here's how I can help.
+          </p>
+        </header>
 
-        <Stagger className="grid grid-cols-1 gap-4 mt-8 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-          {SERVICES.map(([title, desc, icon]) => (
-            <StaggerItem key={title} className="h-full">
-              <Lift className="card flex h-full flex-col rounded-2xl border border-black/5 bg-[#FBFBFB] p-6 text-left sm:p-7">
-                <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0D0F17]">
-                    <Icon name={icon} className="w-6 h-6 text-white" />
-                  </div>
+        <ul className="mt-10 divide-y border-y border-black/10 sm:mt-14 dark:border-white/10">
+          {SERVICES.map(([title, description]) => (
+            <li key={title}>
+              <a
+                href="#contact"
+                className="group grid grid-cols-1 gap-4 py-8 transition-colors sm:grid-cols-[1fr_auto] sm:gap-6 lg:grid-cols-[1fr_1.5fr_auto] lg:gap-10"
+              >
+                <div>
+                  <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                    {title}
+                  </h3>
                 </div>
 
-                <h3 className="mt-5 text-xl font-semibold sm:text-[22px] sm:leading-snug">
-                  {title}
-                </h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-[#666]">
-                  {desc}
+                <p className="text-sm leading-6 text-[#666] dark:text-neutral-400">
+                  {description}
                 </p>
-              </Lift>
-            </StaggerItem>
+              </a>
+            </li>
           ))}
-        </Stagger>
+        </ul>
       </div>
     </section>
   );

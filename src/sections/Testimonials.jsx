@@ -127,7 +127,11 @@ export default function Testimonials() {
   if (!PEOPLE.length) return null;
 
   return (
-    <section id="testimonials" aria-labelledby="testimonials-title" className="sec testimonials-section bg-white">
+    <section
+      id="testimonials" 
+      aria-labelledby="testimonials-title" 
+      className="sec testimonials-section"
+    >
       <div className="wrap">
         <SectionHeading
           headingId="testimonials-title"
