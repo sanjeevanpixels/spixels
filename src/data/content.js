@@ -241,7 +241,6 @@ export const TESTIMONIALS = [
     role: 'Founder',
     company: 'Misscode',
     quote: 'If you need top-quality design work, I highly recommend Sanjeevan. He made our logo redesign process effortless with his clear communication, cooperative nature, and timely delivery. The final design was spot-on!',
-    portrait: '/images/Petties.png',
   },
   {
     id: 'sample-logikaa',
@@ -249,21 +248,6 @@ export const TESTIMONIALS = [
     role: 'Founder',
     company: 'Logi Luxe',
     quote: 'He brought thoughtful questions to every review and turned feedback into a stronger design.',
-    portrait: '/images/Veggies.png'
-  },
-  {
-    id: 'sample-vaishnavi',
-    name: 'Vaishnavi', role: 'Creative Director',
-    company: 'Common Ground (sample)',
-    quote: 'A careful eye for detail and a generous way of collaborating made the project better.',
-    portrait: '/images/Chiliz.png'
-  },
-  {
-    id: 'sample-ashini',
-    name: 'Ashini', role: 'Project Manager',
-    company: 'Webtezza',
-    quote: 'Sanjeevan brought structure to an open-ended brief without losing the original creative idea.',
-    portrait: '/images/SB Banking App.png'
   },
   {
     id: 'sample-mathumila',
@@ -271,6 +255,5 @@ export const TESTIMONIALS = [
     role: 'Software Developer',
     company: 'Lumina',
     quote: 'Great experience working with you. The design was creative, professional, and delivered on time. I’m very satisfied with the final result.',
-    portrait: '/images/Readify.png'
   },
 ];

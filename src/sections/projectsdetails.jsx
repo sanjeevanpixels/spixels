@@ -84,8 +84,7 @@ export default function Page() {
           title="Selected Home"
           highlight="Home"
         />
-      </section> */
-
+      </section> 
 <ScrollScribblePath
         colors={['#11121a', '#6d28d9', '#ff2056']}
         backgrounds={['#f7f4ef', '#e7e1ff', '#ffede4']}
@@ -107,9 +106,9 @@ export default function Page() {
             ))}
           </div>
         </section>
-      </ScrollScribblePath> */
+      </ScrollScribblePath> 
 
-      <section className="flex min-h-[70vh] items-center overflow-hidden bg-[#21143D] px-6 py-20 text-white sm:py-24 md:px-12">
+      <section className="flex min-h-[70vh] items-center overflow-hidden bg-[#12131E] px-6 py-20 text-white sm:py-24 md:px-12">
         <div className="mx-auto w-full max-w-6xl">
           <StringPluckText
             text="Ideas that resonate."

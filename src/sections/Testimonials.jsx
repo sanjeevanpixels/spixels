@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import SectionHeading from '../components/ui/SectionHeading';
 import { TESTIMONIALS } from '../data/content';
@@ -103,11 +102,6 @@ function ReviewCard({ person, index }) {
       className={`testimonial-card ${visible ? 'is-visible' : ''}`}
       style={{ '--card-index': index }}
     >
-      <div className="testimonial-card-top" aria-hidden="true">
-        <span className="testimonial-quote-mark">“</span>
-        <span className="testimonial-accent" />
-      </div>
-
       <blockquote className="testimonial-quote">
         <p>{person.quote.trim()}</p>
       </blockquote>
@@ -133,11 +127,7 @@ export default function Testimonials() {
   if (!PEOPLE.length) return null;
 
   return (
-    <section
-      id="testimonials"
-      aria-labelledby="testimonials-title"
-      className="sec testimonials-section"
-    >
+    <section id="testimonials" aria-labelledby="testimonials-title" className="sec testimonials-section bg-white">
       <div className="wrap">
         <SectionHeading
           headingId="testimonials-title"
@@ -153,23 +143,11 @@ export default function Testimonials() {
           aria-describedby="testimonials-instructions"
           tabIndex={0}
         >
-          <p id="testimonials-instructions" className="sr-only">
-            Scroll horizontally to read more testimonials. On desktop, all testimonials
-            are displayed in a grid.
-          </p>
 
           {PEOPLE.map((person, index) => (
-            <ReviewCard
-              key={person.id}
-              person={person}
-              index={index}
-            />
+            <ReviewCard key={person.id} person={person} index={index} />
           ))}
         </div>
-
-        <p className="testimonials-scroll-hint" aria-hidden="true">
-          Swipe to explore <span>→</span>
-        </p>
       </div>
     </section>
   );

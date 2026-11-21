@@ -139,7 +139,7 @@ export default function LensVideoCarousel({
   titleSize = 0.14,
   titleColor = '#f5f1ea',
   kickerColor = 'rgba(245, 241, 234, 0.66)',
-  background = '#0b0b0c',
+  background = '#12131E',
   placeholder = '#1c1c1f',
   startIndex = 0,
   onSelect,
