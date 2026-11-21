@@ -1,5 +1,4 @@
 import SectionHeading from '../components/ui/SectionHeading';
-import Button from '../components/ui/Button';
 import { PROJECTS } from '../data/content';
 
 const MAX_TAGS = 3;
@@ -11,11 +10,11 @@ export default function Projects() {
     <section id="projects" aria-labelledby="projects-heading" className="scroll-mt-24 bg-[#FBFBFB] py-8 sm:py-10 lg:py-12">
       <div className="wrap">
         {/* Section Heading */}
-        <SectionHeading id="projects-heading" title="Recent Projects" subtitle="A collection of ideas shaped into meaningful work."/>
+        <SectionHeading headingId="projects-heading" title="Recent Projects" subtitle="A collection of ideas shaped into meaningful work."/>
         {/* Projects Grid */}
         <ul role="list" className="grid grid-cols-1 gap-4 mt-7 sm:mt-8 md:grid-cols-2 md:gap-5 lg:gap-6">
           {featured.map((p) => {
-            const isCaseStudy = p.status === 'Case study';
+            const isCaseStudy = p.status?.toLowerCase() === 'case study';
 
             const ctaLabel = isCaseStudy
               ? 'View case study'
@@ -44,7 +43,7 @@ export default function Projects() {
                     {/* Category & Status */}
                     <div className="flex items-center justify-between gap-3">
                       <p className="min-w-0 text-xs font-medium tracking-wide truncate text-neutral-500 sm:text-sm">
-                        {p.category}
+                        {p.category || p.tags?.[1] || p.status}
                       </p>
                     </div>
 
@@ -90,14 +89,6 @@ export default function Projects() {
           })}
         </ul>
 
-        {/* View All Projects */}
-        {PROJECTS.length > 4 && (
-          <div className="flex justify-center mt-7 sm:mt-8">
-            <Button as="a" variant="dark" href="#" data-app-route="" className="border border-[#E6E6E6]">
-              View More Projects
-            </Button>
-          </div>
-        )}
       </div>
     </section>
   );

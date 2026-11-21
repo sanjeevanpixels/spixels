@@ -1,4 +1,5 @@
 export const CFG = {
+  url: 'https://sanjeevanpixels.github.io/spixels/',
   email: 'ssjeevan201@gmail.com', 
   resume: '/pdf/Resume%20%5BUIUX%20Designer%5D.pdf',
   booking: 'https://calendar.app.google/352aRCezmuvNg4X37', 

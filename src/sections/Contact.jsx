@@ -39,7 +39,7 @@ export default function Contact() {
               ))}
             </div>
             <div className="flex flex-wrap justify-center mt-12 text-xs gap-x-10 gap-y-2 text-white/70 sm:mt-14 sm:text-sm">
-              <span>© {new Date().getFullYear()} Sanjeevan. All rights reserved.</span>
+              <span>© {new Date().getFullYear()} Spixles. All rights reserved.</span>
             </div>
           </div>
         </div>

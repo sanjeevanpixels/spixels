@@ -5,6 +5,7 @@ export default function SectionHeading({
   title,
   subtitle,
   headingId,
+  id,
   className,
   subClassName,
   ...props
@@ -15,6 +16,7 @@ export default function SectionHeading({
         'mx-auto mb-12 w-full max-w-3xl px-4 text-center sm:mb-14 lg:mb-16',
         className
       )}
+      id={id}
       {...props}
     >
       <h2

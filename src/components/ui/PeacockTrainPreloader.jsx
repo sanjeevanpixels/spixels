@@ -4,55 +4,87 @@ import * as React from "react"
 
 const PRESETS = {
   ivory: {
-    paper: "#ffffff",
-    ink: "#202638",
-    core: "#E3D968",
-    body: "#4C9B70",
-    rim: "#58B5C9",
-    edge: "#3568C9",
-    tip: "#233F8F",
-    halo: "#EEE9CF",
-    haloRim: "#92C4E0",
-    glitter: "#D5AE48",
-    bird: "#315CB5",
-    accent: "#489BB8",
+    paper: "#FAF8F2",
+    ink: "#25283A",
+    core: "#E5C65A",
+    body: "#237A59",
+    rim: "#42A9B7",
+    edge: "#4569C9",
+    tip: "#273E83",
+    halo: "#E9E2D2",
+    haloRim: "#8DBED6",
+    glitter: "#CBA54B",
+    bird: "#315CA9",
+    accent: "#4095A9",
     glow: "#FFFFFF",
   },
 
   midnight: {
-    paper: "#101827",
-    ink: "#E9EDF5",
-    core: "#D8E68B",
-    body: "#46B99A",
-    rim: "#55C5DC",
-    edge: "#6287E8",
-    tip: "#A5B9F5",
-    halo: "#C8D7EB",
-    haloRim: "#82B2ED",
-    glitter: "#EBCB7A",
-    bird: "#6893E8",
-    accent: "#B49AE9",
+    paper: "#101522",
+    ink: "#F0F2F7",
+    core: "#E6C46B",
+    body: "#168F79",
+    rim: "#35BCD0",
+    edge: "#6385EA",
+    tip: "#A8B8F4",
+    halo: "#C5D9EF",
+    haloRim: "#7EB9EA",
+    glitter: "#F2D394",
+    bird: "#79A0EA",
+    accent: "#B59CEB",
     glow: "#9ABCE8",
   },
 
-  opal: {
-    paper: "#ffffff",
-    ink: "#303244",
-    core: "#F1DDA0",
-    body: "#70BDB2",
-    rim: "#A49AE0",
-    edge: "#7668CB",
-    tip: "#433A91",
-    halo: "#E3EFF0",
-    haloRim: "#8FC8DF",
-    glitter: "#DDAE77",
-    bird: "#587BC1",
-    accent: "#D48E7E",
+  emerald: {
+    paper: "#F2F7F2",
+    ink: "#19312B",
+    core: "#D9BD53",
+    body: "#16845D",
+    rim: "#42BFA7",
+    edge: "#3474C8",
+    tip: "#24447F",
+    halo: "#DAE9D9",
+    haloRim: "#82C9D8",
+    glitter: "#D5AC49",
+    bird: "#3262AD",
+    accent: "#55A99D",
+    glow: "#FFFFFF",
+  },
+
+  ruby: {
+    paper: "#FFF7F2",
+    ink: "#321D27",
+    core: "#E5B957",
+    body: "#A93246",
+    rim: "#E26972",
+    edge: "#C44E64",
+    tip: "#7B203A",
+    halo: "#F1D7CB",
+    haloRim: "#E9A7B3",
+    glitter: "#D5A143",
+    bird: "#9D3753",
+    accent: "#E38B83",
+    glow: "#FFFFFF",
+  },
+
+  champagne: {
+    paper: "#FBF5E9",
+    ink: "#38332D",
+    core: "#D9B86C",
+    body: "#63967B",
+    rim: "#8DBCB7",
+    edge: "#788BB9",
+    tip: "#45587D",
+    halo: "#E8DCC6",
+    haloRim: "#B7D4D8",
+    glitter: "#C6A25D",
+    bird: "#657FAD",
+    accent: "#C49D87",
     glow: "#FFFFFF",
   },
 }
 
-const INSTRUMENT_SANS_STACK = '"Instrument Sans", "Helvetica Neue", Arial, sans-serif'
+const INSTRUMENT_SANS_STACK = '"Instrument Sans"'
 
 const HOLD_MS = 1500
 const GATE_MS = 1500
@@ -113,12 +145,6 @@ export function pplSimulated(t) {
   return 100
 }
 
-/**
- * The rows of the train, inside out, in units of the clean circle's radius:
- * where each row's quills sit, how long its feathers are, and what kind of
- * feather it carries. Two serrated collar rows, four scalloped rows, two rows
- * of pale halo feathers.
- */
 const ROWS = [
   { base: 0.9, len: 0.44, kind: "collar", aspect: 0.36 },
   { base: 1.06, len: 0.6, kind: "collar", aspect: 0.4 },

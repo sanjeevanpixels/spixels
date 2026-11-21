@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Header from "./components/layout/Header";
 import ScrollProgress from "./components/layout/ScrollProgress";
@@ -15,11 +15,12 @@ import Process from "./sections/Process";
 import Tools from "./sections/Tools";
 import Testimonials from "./sections/Testimonials";
 import FAQ from "./sections/FAQ";
-import ProjectPage from "./sections/projectsdetails";
 import { PLACEHOLDER_MSG } from "./data/config";
 import useToast from "./hooks/useToast";
 import { navigateToPage } from "./lib/pageNavigation";
 import PeacockTrainPreloader from "./components/ui/PeacockTrainPreloader";
+
+const ProjectPage = lazy(() => import("./sections/projectsdetails"));
 
 export default function App() {
   const toast = useToast();
@@ -147,7 +148,9 @@ export default function App() {
         >
 
           {isProjectPage ? (
-            <ProjectPage />
+            <Suspense fallback={null}>
+              <ProjectPage />
+            </Suspense>
           ) : (
             <>
               <main id="main" tabIndex={-1} className="outline-none">
@@ -173,8 +176,7 @@ export default function App() {
       {loading && (
         <div className="fixed inset-0 z-[200] overflow-hidden">
           <PeacockTrainPreloader
-            label="Loading"
-            preset="ivory"
+            preset="emerald"
             durationMs={4200}
             height="100svh"
             hud
